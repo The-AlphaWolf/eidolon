@@ -101,13 +101,18 @@ class TemplateLLM:
             for c in envelope.allowed_claims
         )
         if not segments:   # a claimless act still says something in character - no fact, only the tone the plan already chose
-            text = CLAIMLESS_LINES.get(envelope.delivery.tone, "I'd rather not say.")
+            text = claimless_line(envelope.delivery.tone)
             segments = (Segment(text=text, claim_ids=(), kind="question" if text.endswith("?") else "color"),)
         return Draft(segments=segments)
 
 
 # What a claimless reply sounds like, keyed by the plan's delivery tone (which already carries the act, F-4). No names, places,
 # times or facts - each line passes every check a model's colour segment must pass. Was "...", whatever the act.
+def claimless_line(tone: str) -> str:
+    """The one fallback voice for a plan with nothing to state (`TemplateLLM` and `validator._fallback_text` both use it)."""
+    return CLAIMLESS_LINES.get(tone, "I'd rather not say.")
+
+
 CLAIMLESS_LINES = {
     "apologetic": "I'm sorry. I honestly can't remember.",
     "puzzled": "I'm afraid I wouldn't know.",

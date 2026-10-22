@@ -192,3 +192,21 @@ def test_a_non_json_reply_says_so(monkeypatch):
     monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout: Resp())
     with pytest.raises(ProviderError, match="non-JSON reply .* b'OK'"):
         OpenAICompatTransport("https://x.test/v1", model="m", post=provider._http_post).complete(REQ)
+
+
+def test_the_verifier_is_told_that_words_about_the_speakers_own_memory_are_not_assertions():
+    """Review NR-I1: with "a non-assert segment must assert nothing", a model could never voice a claimless act ("I can't
+    remember") - every such turn cost three generations and the fallback, an act-correlated call pattern."""
+    from eidolon.llm.render import SYSTEM_VERIFY
+    assert "can't remember" in SYSTEM_VERIFY and "not assertions" in SYSTEM_VERIFY
+    assert SYSTEM_VERIFY.rstrip().endswith("Reply with the JSON object only.")
+
+
+def test_both_fallbacks_speak_the_same_line_for_a_plan_with_nothing_to_state():
+    """Review NR-N9: `validator._fallback_text` said "..." while the renderer's template spoke the tone's line."""
+    from eidolon.decision.llm import CLAIMLESS_LINES, claimless_line
+    from eidolon.decision.strategy import DeliveryDirective, ResponsePlan
+    from eidolon.decision.validator import _fallback_text
+    plan = ResponsePlan(act="DONT_RECALL", delivery=DeliveryDirective("apologetic"))
+    assert _fallback_text(plan, None) == claimless_line("apologetic") == CLAIMLESS_LINES["apologetic"]
+    assert claimless_line("no such tone") == "I'd rather not say."
