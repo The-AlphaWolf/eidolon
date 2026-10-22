@@ -50,6 +50,11 @@ MENACES = ("as an ai", "system prompt", "language model", "i killed him", "layer
 
 def make_renderer(**kw) -> LLMRenderer:
     """The renderer under test: a scripted faithful model on a PR; the real one, if (and only if) the nightly job asked."""
+    if LIVE and os.environ.get("EIDOLON_LIVE_PROVIDER"):        # ADR-31: a free-tier model, paced for its rate limit
+        from eidolon.llm.provider import Paced, free_transport
+        t = free_transport(os.environ["EIDOLON_LIVE_PROVIDER"], os.environ.get("EIDOLON_LIVE_MODEL") or None)
+        rpm = float(os.environ.get("EIDOLON_LIVE_RPM", "12"))
+        return LLMRenderer(ModelLLM(Paced(t, rpm) if rpm else t), min_latency_s=LATENCY_FLOOR_S, **kw)
     if LIVE:
         pytest.importorskip("anthropic")
         from eidolon.llm.render import AnthropicLLM

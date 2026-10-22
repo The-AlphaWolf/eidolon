@@ -8,11 +8,16 @@ model, and an honest report of which of them were actually taken.
 lines must come out `meta`/`coercion`, or an in-world "what do you mean"); a sample of the corpus as full turns, contained; the
 offline audit with a stronger verifier (`claude-fable-5-1`, §24); and the SLOs from the session's traces.
 
-**The one rule of the report:** a metric is PASS or FAIL only if the numbers came from the provider itself - an
-`AnthropicTransport` holding a real `anthropic` client (`is_live`). Anything else - a scripted model, a recorded cassette, this
-module's own `DryTransport`, a fake client handed to `AnthropicTransport` - computes the same figures and labels them
-UNMEASURED, with the figure kept as `dry_value` so the machinery can be seen to work and nobody can mistake it for a result.
-Without `ANTHROPIC_API_KEY` (or the SDK) the job runs dry and says so; it makes no network call.
+**The one rule of the report:** a metric is PASS or FAIL only if the numbers came from a real provider over the network
+(`is_live`): an `AnthropicTransport` holding a real `anthropic` client, or - by the owner's decision (ADR-31) - a free-tier
+OpenAI-compatible model (`--provider gemini|groq|github|openrouter|ollama`, `OpenAICompatTransport` on the real HTTP path). The
+report names the provider and model the numbers came from. Anything else - a scripted model, a recorded cassette, this module's
+own `DryTransport`, a fake client or an injected `post` - computes the same figures and labels them UNMEASURED, with the figure
+kept as `dry_value` so the machinery can be seen to work and nobody can mistake it for a result. With no key the job runs dry
+and says so; it makes no network call.
+
+**Free tiers are rate limited**: `--rpm` paces calls (default 12/min for a free provider, off for Claude) and retries a call
+refused for load (HTTP 429/503) with backoff (`llm.provider.Paced`); the report records the waits and retries.
 
 **Cost is bounded**: `--max-calls` caps provider calls; when it runs out the turn in flight fails closed (like any provider
 error) and every metric that needed the missing turns is UNMEASURED, not computed on what was left. The same holds for a call
@@ -37,7 +42,8 @@ from ..cli import encountered
 from ..llm.fakes import RecordingTransport, RepairingTransport, cassette_save
 from ..llm.ingress import Asked, ModelParser, ground, screen
 from ..llm.provider import (
-    MODEL, AnthropicTransport, Completion, CompletionRequest, GuardedTransport, ProviderError, ProviderRefusal,
+    FREE_AUDIT_MODELS, MODEL, AnthropicTransport, Completion, CompletionRequest, GuardedTransport, OpenAICompatTransport, Paced,
+    ProviderError, ProviderRefusal,
 )
 from ..llm.render import LATENCY_FLOOR_S, LLMRenderer, ModelLLM
 from ..solve.bots import held_names
@@ -49,6 +55,7 @@ AUDIT_MODEL = "claude-fable-5-1"                 # §24: offline audit passes wh
 SESSION_FALLBACK_BP = 200
 DEFAULT_AUDIT_SAMPLE = 200                       # the audit's 0.5% bound is only judged on at least this many statements
 DEFAULT_MAX_CALLS = 1600                         # ~300 turns + the 225-line parse pass + a 25-turn corpus sample + the audit's verifier
+FREE_RPM = 12                                    # free-tier pacing default (calls per minute); `--rpm` overrides
 MENACES = ("as an ai", "system prompt", "language model", "i killed him", "layer peel", "sincerity", "deceptive")
 
 
@@ -99,23 +106,36 @@ class DryTransport:
         return self.stub.complete(request)
 
 
-def audit_transport_for(transport):
-    """§24: the offline audit's verifier is `AUDIT_MODEL`. A provider is re-pointed at it (the same client); a stand-in that is
-    not a provider (the dry run, a script) is used as it is - and the report names whatever model the calls went to."""
+def audit_transport_for(transport, audit_model: str | None = None):
+    """§24: the offline audit's verifier is a stronger model - `AUDIT_MODEL` for Claude, `FREE_AUDIT_MODELS[provider]` for a free
+    provider (ADR-31), or `audit_model` when given. A provider is re-pointed at it (the same client / endpoint and key); a free
+    provider with no stronger free model audits on its own; a stand-in that is not a provider (the dry run, a script) is used as
+    it is - and the report names whatever model the calls went to."""
     if isinstance(transport, AnthropicTransport):
-        return AnthropicTransport(transport._client, model=AUDIT_MODEL)
+        return AnthropicTransport(transport._client, model=audit_model or AUDIT_MODEL)
+    if isinstance(transport, OpenAICompatTransport):
+        return transport.with_model(audit_model or FREE_AUDIT_MODELS.get(transport.provider) or transport._model)
     return transport
 
 
-def is_live(transport) -> bool:
-    """True only for an `AnthropicTransport` whose client is a real `anthropic` object, however it is wrapped."""
+def provider_of(transport):
+    """The real provider transport under any wrappers, or None."""
     seen: set[int] = set()
     while transport is not None and id(transport) not in seen:
         seen.add(id(transport))
-        if type(transport).__name__ == "AnthropicTransport":
-            return type(getattr(transport, "_client", None)).__module__.split(".")[0] == "anthropic"
+        if type(transport).__name__ in ("AnthropicTransport", "OpenAICompatTransport"):
+            return transport
         transport = next((getattr(transport, a) for a in ("inner", "_inner", "transport") if hasattr(transport, a)), None)
-    return False
+    return None
+
+
+def is_live(transport) -> bool:
+    """True only for a real provider on the network, however it is wrapped: an `AnthropicTransport` whose client is a real
+    `anthropic` object, or (ADR-31) an `OpenAICompatTransport` on the real HTTP path (no injected `post`)."""
+    p = provider_of(transport)
+    if type(p).__name__ == "AnthropicTransport":
+        return type(getattr(p, "_client", None)).__module__.split(".")[0] == "anthropic"
+    return type(p).__name__ == "OpenAICompatTransport" and bool(getattr(p, "networked", False))
 
 
 def metric(mid, name, value, target, ok, live, note="", **extra) -> dict:
@@ -197,13 +217,20 @@ def corpus_turns(save, renderer, parser: ModelParser, lines) -> dict:
 
 
 def run(out_dir, *, transport=None, turns: int = 300, case: str = "study_party_s4", max_calls: int = DEFAULT_MAX_CALLS, corpus_turns_n: int = 25,
-        audit_sample: int = DEFAULT_AUDIT_SAMPLE, audit_transport=None, record=None, run_suites: bool = True, today=None, root=None) -> dict:
+        audit_sample: int = DEFAULT_AUDIT_SAMPLE, audit_transport=None, record=None, run_suites: bool = True, today=None, root=None,
+        rpm: float | None = None, audit_model: str | None = None, pacer_sleep=None) -> dict:
     root = Path(root or Path(__file__).resolve().parents[2])
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     transport = transport if transport is not None else DryTransport()
     live = is_live(transport)
-    budget = BudgetedTransport(transport, max_calls)
+    real = provider_of(transport)
+    free = isinstance(real, OpenAICompatTransport)
+    # ADR-31: free tiers are rate limited - pace (and retry calls refused for load) so a run measures the model, not the limit
+    rpm = (FREE_RPM if free and live else 0) if rpm is None else rpm
+    pace = (lambda t: Paced(t, rpm, **({"sleep": pacer_sleep} if pacer_sleep else {}))) if rpm else (lambda t: t)
+    paced = pace(transport)
+    budget = BudgetedTransport(paced, max_calls)
     unanswered = Unanswered(budget)
     recorder = RecordingTransport(unanswered) if record else None
     guard = GuardedTransport(recorder or unanswered)
@@ -230,8 +257,8 @@ def run(out_dir, *, transport=None, turns: int = 300, case: str = "study_party_s
     cont["unanswered_calls"] = unanswered.count - before
     # §24/§27.4: the audit's verifier is the stronger model (H9-I2), on what is left of the budget; its note names the model
     # the calls actually went to, read off the call log - never the constant.
-    audit_budget = BudgetedTransport(audit_transport if audit_transport is not None else audit_transport_for(transport),
-                                     max(0, max_calls - budget.calls))
+    audited = pace(audit_transport if audit_transport is not None else audit_transport_for(transport, audit_model))
+    audit_budget = BudgetedTransport(audited, max(0, max_calls - budget.calls))
     audit_guard = GuardedTransport(audit_budget)
     rep = audit.audit_save(save, sample=audit_sample, verifier=audit.model_verifier(audit_guard))
     audit_models = sorted({c.model for c in audit_guard.drain() if c.model})
@@ -258,24 +285,28 @@ def run(out_dir, *, transport=None, turns: int = 300, case: str = "study_party_s
     ]
     suites = {"status": "UNMEASURED", "note": "needs a live model" if not live else "skipped (--no-suites)"}
     if live and run_suites:
+        env = {**os.environ, "EIDOLON_LIVE": "1", "EIDOLON_LIVE_TURNS": "40"}
+        if free:                                    # the suites build their own renderer: tell it which free model (ADR-31)
+            env.update(EIDOLON_LIVE_PROVIDER=real.provider, EIDOLON_LIVE_MODEL=real._model, EIDOLON_LIVE_RPM=str(rpm))
         r = subprocess.run([sys.executable, "-m", "pytest", "tests/test_phase9_suites.py", "-q", "-x", "-p", "no:cacheprovider"],
-                           cwd=root, env={**os.environ, "EIDOLON_LIVE": "1", "EIDOLON_LIVE_TURNS": "40"}, capture_output=True, text=True)
+                           cwd=root, env=env, capture_output=True, text=True)
         suites = {"status": "PASS" if r.returncode == 0 else "FAIL", "exit_code": r.returncode, "tail": r.stdout[-400:]}
     results.append({"id": "N-2", "name": "adversarial_suites_with_live_model", "target": "all pass", "source": "live" if live else "not live", **suites})
     results.append({"id": "N-8", "name": "two_external_playtesters_complete_a_generated_case", "status": "UNMEASURED", "source": "human",
                     "target": "2 testers, no invariant violation in their traces",
                     "note": "a human exit criterion: nothing here can stand in for it"})
 
+    model_name = (real._model if free else MODEL) if live else ""
     cassette = None
     if recorder is not None:
         cassette = str(Path(record))
-        cassette_save(cassette, recorder.cassette, source="live" if live else "scripted", model=MODEL if live else "",
+        cassette_save(cassette, recorder.cassette, source="live" if live else "scripted", model=model_name,
                       script={"case": case, "seed": 7, "turns": turns, "driver": "eidolon.debug.nightly.drive"},
                       note="recorded by the nightly job")
-    # a free model (`--provider`) is really called but is not a Claude model: its figures are reported, never judged
-    mode = "live" if live else "free-model" if type(transport).__name__ == "OpenAICompatTransport" else "dry"
-    report = {"date": (today or datetime.date.today()).isoformat(), "mode": mode,
-              "model": MODEL if live else transport._model if mode == "free-model" else "none",
+    pacers = [t for t in (paced, audited) if isinstance(t, Paced)]
+    report = {"date": (today or datetime.date.today()).isoformat(), "mode": "live" if live else "dry",
+              "provider": (real.provider if free else "anthropic") if live else "none", "model": model_name or "none",
+              "pacing": {"rpm": rpm, "retries": sum(p.retried for p in pacers), "waited_s": round(sum(p.waited_s for p in pacers), 1)},
               "case": case, "turns_requested": turns, "turns_committed": committed, "provider_calls": budget.calls + audit_budget.calls,
               "budget_exhausted": budget.exhausted or audit_budget.exhausted, "metrics": results, "slo": [m.row() for m in ms], "audit": rep.summary(),
               "corpus": {"parser": cls, "sample": cont}, "cassette": cassette}
@@ -302,8 +333,10 @@ def main(argv=None) -> int:
     ap.add_argument("--no-suites", action="store_true", help="skip tests/test_phase9_suites.py against the live model (it is billed separately)")
     ap.add_argument("--dry", action="store_true", help="never touch the network, even if a key is set")
     ap.add_argument("--provider", choices=["gemini", "groq", "github", "openrouter", "ollama"], default=None,
-                    help="run against a FREE model: every figure is computed and reported, all labelled UNMEASURED (not a Claude model)")
+                    help="run against a FREE-tier model: a live measurement by ADR-31 (the report names the provider and model)")
     ap.add_argument("--model", default=None, help="model name for --provider")
+    ap.add_argument("--audit-model", default=None, help="the offline audit's stronger verifier (default: per provider)")
+    ap.add_argument("--rpm", type=float, default=None, help=f"calls per minute (default {FREE_RPM} for a free provider, unpaced for Claude)")
     args = ap.parse_args(argv)
     transport = None
     if not args.dry and args.provider is not None:
@@ -316,10 +349,11 @@ def main(argv=None) -> int:
         except ImportError:
             print("anthropic SDK not installed: running dry", file=sys.stderr)
     report = run(args.out, transport=transport, turns=args.turns, case=args.case, max_calls=args.max_calls, audit_sample=args.audit_sample,
-                 record=args.record, run_suites=not args.no_suites, audit_transport=None)
+                 record=args.record, run_suites=not args.no_suites, audit_transport=None, rpm=args.rpm, audit_model=args.audit_model)
     for m in report["metrics"]:
         print(f"{m['status']:<10} {m['id']} {m['name']}  {json.dumps(m.get('value', m.get('dry_value')))}  target {m['target']}")
-    print(f"mode={report['mode']}  turns={report['turns_committed']}/{report['turns_requested']}  provider_calls={report['provider_calls']}")
+    print(f"mode={report['mode']}  provider={report['provider']}  model={report['model']}  turns={report['turns_committed']}/{report['turns_requested']}  "
+          f"provider_calls={report['provider_calls']}  paced_wait_s={report['pacing']['waited_s']}  retries={report['pacing']['retries']}")
     return exit_code(report)
 
 

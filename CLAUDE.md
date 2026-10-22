@@ -38,9 +38,10 @@ lines (`decision.llm.CLAIMLESS_LINES`), widened `_NON_ENTITY_WORDS`. Author's re
 
 `eidolon serve --provider gemini|groq|github|openrouter|ollama [--model M]`, `eidolon play --provider …` and `python -m eidolon.debug nightly
 --provider …` run the real parse/render/verify pipeline against a free OpenAI-compatible endpoint (`llm.provider.OpenAICompatTransport`,
-stdlib HTTP; keys only from `GEMINI_API_KEY` / `GROQ_API_KEY` / `OPENROUTER_API_KEY`; Ollama needs none). Same leak guard, strict parsing and fail-closed
-fallback. The nightly reports such a run as `mode: free-model` with every metric UNMEASURED: the Phase 9 live criteria are defined for
-the configured Claude models, so a free model can never close F-1. Guarded by `tests/llm/test_free_providers.py` (14).
+stdlib HTTP; keys only from `GEMINI_API_KEY` / `GROQ_API_KEY` / `GITHUB_MODELS_TOKEN` / `OPENROUTER_API_KEY`; Ollama needs none). Same leak guard, strict parsing and fail-closed
+fallback. **ADR-31 (owner decision, 2026-10-22): a free-tier model on the real network path is a live measurement** — the nightly
+judges PASS/FAIL, names the provider and model, audits on the provider's stronger free model and paces calls for the free tier
+(`--rpm`, `llm.provider.Paced`, measurement runs only). F-1 is closed by one such recorded run. Guarded by `tests/llm/test_free_providers.py` (23).
 
 ## Read these first
 

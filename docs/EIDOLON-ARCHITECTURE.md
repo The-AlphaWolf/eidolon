@@ -1783,6 +1783,7 @@ Chat pane, notebook (statements, evidence, contradictions, hypotheses), map/loca
 | Docker | hosted deployment |
 | Postgres | multi-user hosting (swap `store/`) |
 | `claude-fable-5-1` | offline audit passes over traces (§27.4) where maximum reasoning quality matters more than cost |
+| free tier (ADR-31) | a free-tier OpenAI-compatible model (Gemini, Groq, GitHub Models, OpenRouter, Ollama) may stand in for every role above in live measurement and play; the audit uses the provider's stronger free model (`llm.provider.FREE_AUDIT_MODELS`) |
 | Prompt-caching diagnostics beta | when tuning cache hit rate |
 
 **AVOID**
@@ -2493,7 +2494,7 @@ Tests: projection leak test (serialize every view; assert no engine-only field n
 Exit: a tester can play `vance_v03` start to finish in a browser without the CLI.
 
 **Phase 9 — Testing / hardening**
-Deliverables: full adversarial suites (§28.4) with live-model nightly; injection corpus ≥ 200; offline audit job; debug server views; SLO dashboards from `llm_calls`/traces; fallback ≤ 2%; documentation of prompts and constants.
+Deliverables: full adversarial suites (§28.4) with live-model nightly (a free-tier model qualifies — ADR-31); injection corpus ≥ 200; offline audit job; debug server views; SLO dashboards from `llm_calls`/traces; fallback ≤ 2%; documentation of prompts and constants.
 Dependencies: Phases 5–8.
 Tests: all suites green; audit discrepancies < 0.5% of statements; T-25, T-26.
 Exit: two external playtesters complete a generated case; no invariant violations in their traces; the long-session fallback rate is measured with a *repairing* LLM stub rather than `TemplateLLM`, which never repairs and therefore cannot surface late-session validator pressure.
@@ -2596,6 +2597,8 @@ Consequences: `Did.action`/`DidNot.action` narrow from `str` to a closed `Litera
 **ADR-29 Sealed case bundle and engine-faithful V-7 (v0.6, RB-1/RB-2/RB-3).** The persisted unit is `SealedCase {package, proof, report, bundle_seal}` read only by `load_sealed_case`; V-4's I-39 check runs the engine (`solve/fairness.py::engine_retrieval`, a real `Query` from a fresh `new_session`, from a really-peeled state for atoms held back by their speaker's own secret) and `finalize` climbs the boost ladder 6500 → 8000 → 10000 until it passes; V-7 runs the bots over `solve/queries.py`'s one expressible vocabulary (three shapes: `did_they(A,B)`, `did_they(self,B)` for one's own actions, `did_you(L,B)`; `who(L,B)` carries the same cues as `did_you(L,B)` and would only double each sweep against `N_MAX = N_CUE = 400`) at the architecture's full scale.
 
 **ADR-30 A lie answers only its own topic (v0.7, live play with a model, 2026-10-22).** Context: with topicality a footprint (ADR-26) and no notion of WHAT is asked, the murderer recited his one cover lie — a deed denial ("I never touched the decanter") — to "what did you hear?" and "where were you?": a non-sequitur every live player noticed. Chosen: `decision/footprint.py` maps the question's `predicate_hint` onto the same closed topic vocabulary memory retrieval already uses (ADR-27; one map, `TOPIC_OF_HINT`) and a LIE candidate additionally needs a deceptive covering claim of that topic's kinds (`at` → At/NotAt/Saw, `heard` → Heard, `did` → Did/DidNot). A question that names no topic, or an unknown hint (the bluff bot's `bluffN`), is unrestricted, so bluff parity and every hint-less fixture are unchanged. Off topic the speaker does not lie; I-54's `speakable` still withholds every protected truth, so the answer is a non-answer (DONT_RECALL, EVASION, …), never a leak. Not chosen: generating extra covering lies per topic (a cover-synthesis change, left for later). Consequence: V-7, the four goldens and a 2×50 seed study were re-run (`docs/EIDOLON-ADR-30-REPORT.md`).
+
+**ADR-31 Live measurement on free-tier models (owner decision, 2026-10-22).** Context: every Phase 9 live criterion (F-1) required a paid Claude key the owner will not buy, so it could never be measured. Chosen: a free-tier OpenAI-compatible model on the real network path counts as live (`debug.nightly.is_live`: an `OpenAICompatTransport` with no injected `post`, or a real `anthropic` client). The report names the provider and model; the offline audit's verifier is the provider's stronger free model (`FREE_AUDIT_MODELS`; the same model when the provider has none, and the note says so); free-tier rate limits are absorbed by pacing (`llm.provider.Paced`: `--rpm`, default 12/min, and bounded retries of HTTP 429/503) used ONLY by measurement runs — never in play, where a retry would make the clock act-dependent (I-42) — and the waits and retries are reported. Consequence: F-1's figures describe the free model that produced them, not Claude; a result on one provider says nothing about another. Not chosen: relaxing what is measured or the thresholds.
 
 ---
 

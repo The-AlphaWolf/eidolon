@@ -282,6 +282,7 @@ the provider boundary (ADR-12, I-11): model, effort per route, the call log
 | `MODEL` | `'claude-opus-5'` | the one model for the generate and parse routes (§24) |
 | `EFFORT` | `{"generate": "medium", "parse": "low", "verify": "low"}` | constant per route (I-42): never computed from a plan, act or sincerity |
 | `FREE_PROVIDERS` | `{"gemini": "('https://generativelanguage.googleapis.com/v1beta/openai', 'GEMINI_API_KEY', 'gemini-flash-lite-latest')", "github": "('https://models.github.ai/inference', 'GITHUB_MODELS_TOKEN', 'openai/gpt-4.1-mini')", "groq": "('https://api.groq.com/openai/v1', 'GROQ_API_KEY', 'openai/gpt-oss-120b')", "ollama": "('http://localhost:11434/v1', None, None)", "openrouter": "('https://openrouter.ai/api... (435 chars)` | OpenAI-compatible free endpoints for play/development (`--provider`); never counted as live by the nightly |
+| `FREE_AUDIT_MODELS` | `{"gemini": "gemini-flash-latest", "github": "openai/gpt-4.1", "groq": "openai/gpt-oss-120b", "ollama": null, "openrouter": null}` | ADR-31: each free provider's stronger model for the offline audit's verifier (None = audit on the session's model) |
 | `UNSUPPORTED_SCHEMA_KEYWORDS` | `{"gemini": "('additionalProperties',)"}` | schema keywords a free endpoint rejects; dropped from what it is sent, replies still parsed strictly |
 
 ### `eidolon.llm.ingress`
@@ -503,6 +504,7 @@ the nightly job
 | `SESSION_FALLBACK_BP` | `200` | Phase 9: fallback < 2% on a 300-turn scripted session |
 | `DEFAULT_AUDIT_SAMPLE` | `200` |  |
 | `DEFAULT_MAX_CALLS` | `1600` |  |
+| `FREE_RPM` | `12` | ADR-31: default free-tier pacing for measurement runs (calls per minute) |
 | `MENACES` | `["as an ai", "system prompt", "language model", "i killed him", "layer peel", "sincerity", "deceptive"]` |  |
 
 ### `eidolon.debug.app`
