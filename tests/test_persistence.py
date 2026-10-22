@@ -1062,6 +1062,10 @@ FORGERIES = {
     "P8_final_accusation_naming_a_place_the_case_lacks": (lambda s: _verdict(s, location="Atlantis"), "does not contain"),
     "P8_final_accusation_window_off_the_clock": (lambda s: _verdict(s, interval=(0, 2 ** 40)), "outside the case's clock"),
     "P8_final_accusation_that_does_not_close_the_case": (lambda s: _verdict(s)[:2], "must close the case"),
+    # H9-I3 / C-1 (c): a confession is the proven murderer at a gated confession layer, saying exactly that layer
+    "H9I3_confession_where_the_cover_has_no_confession_layer": (lambda s: restate(ask(s), act="CONFESSION"), "CONFESSION"),
+    "H9I3_confession_by_someone_who_is_not_the_murderer": (lambda s: restate(ask(s, "Elena"), act="CONFESSION"),
+                                                             "not the proven murderer"),
     "P8_two_final_accusations_in_one_turn": (lambda s: [TurnCommitted(turn=_n(s)), _acc(s, "Elena"), *_verdict(s)[1:]],
                                              "two final accusations"),
     "P8_case_solved_without_an_accusation_PN10": (lambda s: [TurnCommitted(turn=_n(s)), CaseSolved(turn=_n(s), correct=False)],

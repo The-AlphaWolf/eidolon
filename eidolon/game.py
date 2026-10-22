@@ -24,6 +24,7 @@ from typing import Callable, get_args
 from . import trace as _trace
 from .decision.hypotheses import Lied, Planted, evaluate_hypothesis
 from .decision.query import EntityRef, Query
+from .decision.solver import UniquenessResult
 from .decision.turn import (
     run_accusation_turn, run_ask_turn, run_goto_turn, run_hypothesis_turn, run_search_turn,
 )
@@ -185,6 +186,27 @@ def _commit(save: Save, action_id: str, expected_seq: int, run: Callable, *, chi
     return Outcome("ok", "", chip, say(res), turn=save.state.turn_counter)
 
 
+_CTX: dict[str, object] = {}          # solver context per sealed package (by seal): built once, it is static
+
+
+def _solver_ctx(pkg):
+    if pkg.seal not in _CTX:
+        _CTX[pkg.seal] = build_ctx(pkg)
+    return _CTX[pkg.seal]
+
+
+def confession_gate(st, pkg):
+    """I-21 (H9-I3): the murderer confesses only when the material put to them PROVES them the unique culprit - the solver,
+    run on what the player has presented (`credited_material(only=presented)`, the crediting rule V-7 and the evidence axis
+    use) at the case's fairness level. `decision.peel.confession_permitted` binds the verdict to identity (the survivor must
+    be the confrontee). The store re-checks the turn's shape (`store._check_confession`)."""
+    def check(actor, secret, presented, ctx):
+        v = evaluate(_solver_ctx(pkg), credited_material(st, only=frozenset(presented)), fairness=pkg.fairness_level,
+                     want_cores=False)
+        return UniquenessResult(unique=bool(v.unique), survivors=tuple(v.survivors))
+    return check
+
+
 def question(case, addressee: str, *, topic: str | None = None, about: str | None = None, place: str | None = None,
              bucket: int | None = None, presenting: bool = False) -> Query:
     """The structured question form -> the engine's `Query`. It speaks the V-7 vocabulary (`solve.queries`): exactly the
@@ -224,7 +246,7 @@ def ask(save: Save, action_id: str, expected_seq: int, addressee: str, query: Qu
         chip += " — and you accuse them"
     return _commit(save, action_id, expected_seq,
                    lambda st: run_ask_turn(st, addressee, query, presented_ref=present, provisional_accusation=accuse,
-                                           renderer=renderer),
+                                           confession_check=confession_gate(st, save.bundle.package), renderer=renderer),
                    chip=chip, say=lambda res: f"{name(case, addressee)}: {player_view(res).text}",
                    kind="say" if typed else "ask", character=addressee, observed=observed)
 
@@ -354,7 +376,7 @@ def establishes(save: Save, cited) -> bool:
     """§16.3's evidence axis: does the CITED set alone — under the same crediting rule the V-7 bots are held to (I-52) —
     make the proof's survivor the unique one at the case's fairness level (§19.5)?"""
     st, pkg = save.state, save.bundle.package
-    verdict = evaluate(build_ctx(pkg), credited_material(st, only=frozenset(cited)), fairness=pkg.fairness_level,
+    verdict = evaluate(_solver_ctx(pkg), credited_material(st, only=frozenset(cited)), fairness=pkg.fairness_level,
                        want_cores=False)
     return verdict.unique and list(verdict.survivors) == [st.murderer]
 

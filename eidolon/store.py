@@ -47,7 +47,7 @@ from .decision.exploration import (
     AccountHeardEvent, ItemTaken, LocationVisited, StatementHeardEvent, apply_exploration, apply_heard,
     check_heard_state, known_items, known_locations,
 )
-from .decision.peel import claims_voiced_on_peel, layer_index
+from .decision.peel import claims_voiced_on_peel, confession_gated, layer_index
 from .decision.turn import CANARY, GameState
 from .evidence.discovery import Discovery, apply_discovery, check_discovery_state
 from .minds import accounts as acct
@@ -401,6 +401,8 @@ def _fold_turn(state: GameState, events, action_id) -> GameState:
             _refuse(f"statement {made.id!r} is not heard exactly once with exactly its accounts", "fold")
     if peels:
         _check_peels_voiced(state, peels, made)
+    if made is not None and made.act == "CONFESSION":
+        _check_confession(state, decision, made, who)
     if retracts and not peels:
         _refuse("ClaimRetracted in a turn that peeled no layer", "fold")
     if accused and chars[who].detective_model.accusations[-1:] != ((turn, True, who),):
@@ -431,6 +433,21 @@ def _check_peels_voiced(state: GameState, peels, made) -> None:
         owed = claims_voiced_on_peel(state.secrets.get(ev.secret_id).cover.layers[ev.to_index])
         if any(said.get(c.id) is None or said[c.id].model_copy(update={"statement": c.statement}) != c for c in owed):
             _refuse(f"LayerPeel of {ev.secret_id!r} to layer {ev.to_index} is not voiced by the turn's statement", "fold")
+
+
+def _check_confession(state: GameState, decision: DecisionState, made, who) -> None:
+    """H9-I3 / C-1 (c): a CONFESSION is the proven murderer (`GameState.murderer`, PI-7) standing at a GATED confession terminal
+    of their own secret and saying exactly that layer's claims. Structural only (I-22): the uniqueness proof that opened the gate
+    is the runner's (`game.confession_gate`); the fold checks that the record could have come from it, so a re-chained forger can
+    no longer put a confession in anyone's mouth at any layer."""
+    if state.murderer is None or who != state.murderer:
+        _refuse("a CONFESSION by someone who is not the proven murderer", "fold")
+    bare = lambda claims: tuple(c.model_copy(update={"statement": None}) for c in claims)        # noqa: E731
+    for sec in state.secrets.for_owner(who):
+        layer = sec.cover.layers[layer_index(decision.layer_peels, who, sec.id)]
+        if layer.terminal == "confession" and confession_gated(sec, layer) and bare(made.claims) == bare(layer.claims):
+            return
+    _refuse("a CONFESSION that is not its speaker's gated confession layer, said exactly", "fold")
 
 
 def _check_character_row(state: GameState, chars, ev, who, turn: int, accused: bool) -> None:

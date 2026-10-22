@@ -168,6 +168,13 @@ MUTANTS = [
     M("F1-clock-excludes-its-last-tick", STORE, ("iv[1] <= horizon:", "iv[1] < horizon:"), "F1_the_clock_is_inclusive"),
     M("F1-moved-tick-excludes-the-last-tick", STORE, ("not 0 <= tick <= horizon:", "not 0 <= tick < horizon:"), "F1_the_clock_is_inclusive"),
     M("F1a-moved-tick-has-no-lower-bound", STORE, ("not 0 <= tick <= horizon:", "not tick <= horizon:"), "PI1", ["F1a_claim_moved_at_a_negative"]),
+    # ---- H9-I3: the confession gate is wired, and a forged confession is refused ----
+    M("H9I3-fold-accepts-any-confession", STORE, ('    if made is not None and made.act == "CONFESSION":\n        _check_confession(state, decision, made, who)\n', ''),
+      "PI1", ["H9I3_confession_where", "H9I3_confession_by"]),
+    M("H9I3-game-passes-no-gate", GAME, ("confession_check=confession_gate(st, save.bundle.package), ", ""),
+      "shipped_ask_control", ["shipped_ask_control"], tests="tests/test_confession_gate.py"),
+    M("H9I3-gate-ignores-what-was-presented", GAME, ("credited_material(st, only=frozenset(presented))", "credited_material(st)"),
+      "opens_only_on_material", ["opens_only_on_material"], tests="tests/test_confession_gate.py"),
     # ---- NR-B1: a save made by an earlier engine keeps loading (the derivation may not move) ----
     M("NRB1-derived-personality-moves", SESSION, ('voice=VoiceSpec(voice_register="plain"))', 'voice=VoiceSpec(voice_register="plain", tics=("hm.",)))'),
       "earlier_engine", ["a_save_made_by_an_earlier_engine"], tests="tests/test_committed_saves.py"),
