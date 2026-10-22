@@ -1,0 +1,518 @@
+{
+ "name": "vance_v03",
+ "skeleton": "vance_5x7",
+ "seed": 1,
+ "mode": [
+  "layer0_fixpoint",
+  "tick"
+ ],
+ "produced_by": "spike/run_spike.py (solver-selected; not hand-authored) \u2014 construct planner, seed 1",
+ "actors": {
+  "Harold": {
+   "role": "victim",
+   "attrs": {
+    "sex": "M"
+   }
+  },
+  "Elena": {
+   "role": "living",
+   "attrs": {
+    "sex": "F",
+    "role": "housekeeper"
+   }
+  },
+  "David": {
+   "role": "living",
+   "attrs": {
+    "sex": "M",
+    "role": "guest"
+   }
+  },
+  "Margaret": {
+   "role": "living",
+   "attrs": {
+    "sex": "F",
+    "role": "guest"
+   }
+  },
+  "Robert": {
+   "role": "living",
+   "attrs": {
+    "sex": "M",
+    "role": "guest"
+   }
+  }
+ },
+ "locations": {
+  "Hall": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "Study": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "Library": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "Kitchen": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "BackSteps": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "Gazebo": {
+   "entrances_visible": false,
+   "exterior": true
+  },
+  "Room": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "EXT": {
+   "entrances_visible": false,
+   "exterior": false
+  }
+ },
+ "travel": [
+  "BackSteps-Gazebo:3",
+  "BackSteps-Kitchen:1",
+  "EXT-Gazebo:2",
+  "Gazebo-Study:2",
+  "Hall-Kitchen:1",
+  "Hall-Library:1",
+  "Hall-Room:1",
+  "Hall-Study:1"
+ ],
+ "perception": [
+  [
+   "BackSteps",
+   "Study",
+   "sound",
+   0.7
+  ],
+  [
+   "Kitchen",
+   "Hall",
+   "sight",
+   0.5
+  ],
+  [
+   "Hall",
+   "Study",
+   "sound",
+   0.6
+  ]
+ ],
+ "murder": {
+  "murderer": "David",
+  "victim": "Harold",
+  "t_m": 76,
+  "time": "22:16",
+  "location": "Study"
+ },
+ "timeline": {
+  "Harold": [
+   "Hall 21:00-21:05",
+   "Study 21:05-23:00"
+  ],
+  "Elena": [
+   "Hall 21:00-21:05",
+   "Kitchen 21:05-21:09",
+   "Hall 21:09-21:10",
+   "Study 21:10-21:18",
+   "Hall 21:18-21:48",
+   "Kitchen 21:48-22:24",
+   "BackSteps 22:24-22:33",
+   "Kitchen 22:33-22:34",
+   "Hall 22:34-22:35",
+   "Room 22:35-23:00 (asleep)"
+  ],
+  "David": [
+   "Hall 21:00-21:05",
+   "Kitchen 21:05-21:34",
+   "BackSteps 21:34-21:35",
+   "Gazebo 21:37-21:59",
+   "BackSteps 22:01-22:12",
+   "Kitchen 22:12-22:13",
+   "Hall 22:13-22:14",
+   "Study 22:14-22:17",
+   "Hall 22:17-22:38",
+   "Room 22:38-23:00 (asleep)"
+  ],
+  "Margaret": [
+   "Hall 21:00-21:05",
+   "Library 21:05-21:23",
+   "Hall 21:23-21:24",
+   "Kitchen 21:24-21:25",
+   "BackSteps 21:25-21:51",
+   "Kitchen 21:51-21:52",
+   "Hall 21:52-21:53",
+   "Library 21:53-22:07",
+   "Hall 22:07-22:08",
+   "Kitchen 22:08-22:24",
+   "Hall 22:24-22:25",
+   "Room 22:25-22:52",
+   "Hall 22:52-23:00"
+  ],
+  "Robert": [
+   "Hall 21:00-21:05",
+   "Kitchen 21:05-21:06",
+   "BackSteps 21:06-21:07",
+   "Gazebo 21:09-21:15",
+   "BackSteps 21:17-21:18",
+   "Kitchen 21:18-21:19",
+   "Hall 21:19-21:20",
+   "Library 21:20-21:45",
+   "Hall 21:45-21:46",
+   "Kitchen 21:46-21:47",
+   "BackSteps 21:47-21:48",
+   "Gazebo 21:50-22:05",
+   "BackSteps 22:07-22:08",
+   "Kitchen 22:08-22:24",
+   "Hall 22:24-22:25",
+   "Room 22:25-22:55",
+   "Hall 22:55-22:56",
+   "Kitchen 22:56-22:57",
+   "BackSteps 22:57-23:00"
+  ]
+ },
+ "events": [
+  "Attack David @Study 22:16-22:17 ['Glass1']",
+  "Speak David @Study 22:14-22:16 []",
+  "Clean Elena @Study 21:12-21:13 ['Glass1']",
+  "Logged Elena @Study 21:10-21:18 ['device']",
+  "Logged Harold @Gazebo 21:08-23:00 ['gate']"
+ ],
+ "secrets": {
+  "Margaret": {
+   "kind": "solo",
+   "protected": [
+    "21:26",
+    "21:51"
+   ],
+   "shared_with": []
+  },
+  "David": {
+   "kind": "murder",
+   "protected": [
+    "22:13",
+    "22:17"
+   ],
+   "shared_with": []
+  }
+ },
+ "relationships": [
+  [
+   "Robert",
+   "David",
+   "lover"
+  ]
+ ],
+ "evidence": [
+  {
+   "id": "E_pin_clean_Elena",
+   "kind": "pin",
+   "at": "Study",
+   "implications": [
+    "(At Elena Study [10,18))"
+   ]
+  },
+  {
+   "id": "E_scene",
+   "kind": "scene",
+   "at": "Study",
+   "implications": []
+  },
+  {
+   "id": "E_watch",
+   "kind": "watch",
+   "at": "Study",
+   "implications": [
+    "(Died Harold Study [76,77))"
+   ]
+  },
+  {
+   "id": "E_trace",
+   "kind": "trace",
+   "at": "Study",
+   "implications": [
+    "(Did David Study [12,120) ('touch', 'Glass1')) requires ['clean@Elena']"
+   ]
+  },
+  {
+   "id": "E_gate_Gazebo",
+   "kind": "gatelog",
+   "at": "Gazebo",
+   "implications": [
+    "(NoStranger Gazebo [8,120))"
+   ]
+  }
+ ],
+ "verdict": {
+  "fairness": 2,
+  "window": [
+   76,
+   77
+  ],
+  "unique": true,
+  "survivors": [
+   "David"
+  ],
+  "time_bins": [
+   7
+  ],
+  "reasons": [],
+  "n_constraints": {
+   "3": 3,
+   "2": 69,
+   "1": 65
+  },
+  "candidates": {
+   "Elena": {
+    "excluded": true,
+    "times": [],
+    "core": [
+     {
+      "id": "S:K0265#L2.0",
+      "item": "S:K0265",
+      "prop": "(At Elena Kitchen [70,82))",
+      "level": 2,
+      "sources": [
+       "Robert",
+       "S:K0035",
+       "S:K0039",
+       "S:K0179",
+       "S:K0181"
+      ]
+     },
+     {
+      "id": "HYP",
+      "prop": "(Did Elena Study [76,77) ('attack', 'Harold'))",
+      "level": 3
+     }
+    ]
+   },
+   "David": {
+    "excluded": false,
+    "times": [
+     76
+    ],
+    "core": [],
+    "times_approx": false
+   },
+   "Margaret": {
+    "excluded": true,
+    "times": [],
+    "core": [
+     {
+      "id": "S:K0267#L2.0",
+      "item": "S:K0267",
+      "prop": "(At Margaret Kitchen [70,82))",
+      "level": 2,
+      "sources": [
+       "Robert",
+       "S:K0038",
+       "S:K0039",
+       "S:K0178",
+       "S:K0181"
+      ]
+     },
+     {
+      "id": "HYP",
+      "prop": "(Did Margaret Study [76,77) ('attack', 'Harold'))",
+      "level": 3
+     }
+    ]
+   },
+   "Robert": {
+    "excluded": true,
+    "times": [],
+    "core": [
+     {
+      "id": "S:K0264#L2.0",
+      "item": "S:K0264",
+      "prop": "(At Robert Kitchen [70,82))",
+      "level": 2,
+      "sources": [
+       "Robert",
+       "S:K0039",
+       "S:K0181"
+      ]
+     },
+     {
+      "id": "HYP",
+      "prop": "(Did Robert Study [76,77) ('attack', 'Harold'))",
+      "level": 3
+     }
+    ]
+   }
+  },
+  "outsider": {
+   "excluded": true,
+   "path": null,
+   "assumed": false
+  }
+ },
+ "exclusion_chains": {
+  "Elena": [
+   {
+    "id": "S:K0265#L2.0",
+    "item": "S:K0265",
+    "prop": "(At Elena Kitchen [70,82))",
+    "level": 2,
+    "sources": [
+     "Robert",
+     "S:K0035",
+     "S:K0039",
+     "S:K0179",
+     "S:K0181"
+    ]
+   },
+   {
+    "id": "HYP",
+    "prop": "(Did Elena Study [76,77) ('attack', 'Harold'))",
+    "level": 3
+   }
+  ],
+  "Margaret": [
+   {
+    "id": "S:K0267#L2.0",
+    "item": "S:K0267",
+    "prop": "(At Margaret Kitchen [70,82))",
+    "level": 2,
+    "sources": [
+     "Robert",
+     "S:K0038",
+     "S:K0039",
+     "S:K0178",
+     "S:K0181"
+    ]
+   },
+   {
+    "id": "HYP",
+    "prop": "(Did Margaret Study [76,77) ('attack', 'Harold'))",
+    "level": 3
+   }
+  ],
+  "Robert": [
+   {
+    "id": "S:K0264#L2.0",
+    "item": "S:K0264",
+    "prop": "(At Robert Kitchen [70,82))",
+    "level": 2,
+    "sources": [
+     "Robert",
+     "S:K0039",
+     "S:K0181"
+    ]
+   },
+   {
+    "id": "HYP",
+    "prop": "(Did Robert Study [76,77) ('attack', 'Harold'))",
+    "level": 3
+   }
+  ]
+ },
+ "outsider": {
+  "excluded": true,
+  "path": null,
+  "assumed": false
+ },
+ "proof_core": [
+  {
+   "id": "E_gate_Gazebo",
+   "kind": "gatelog",
+   "at": "Gazebo",
+   "implications": [
+    "(NoStranger Gazebo [8,120))"
+   ]
+  },
+  {
+   "id": "E_watch",
+   "kind": "watch",
+   "at": "Study",
+   "implications": [
+    "(Died Harold Study [76,77))"
+   ]
+  },
+  {
+   "id": "S:K0181",
+   "speaker": "Margaret",
+   "prop": "(At Robert Kitchen [68,84))",
+   "source": "CoPresence",
+   "observed_from": "Kitchen",
+   "while": [
+    "22:08",
+    "22:24"
+   ],
+   "reliability": 1.0,
+   "granularity_min": 2
+  },
+  {
+   "id": "S:K0265",
+   "speaker": "Robert",
+   "prop": "(At Elena Kitchen [68,84))",
+   "source": "CoPresence",
+   "observed_from": "Kitchen",
+   "while": [
+    "22:08",
+    "22:24"
+   ],
+   "reliability": 1.0,
+   "granularity_min": 2
+  },
+  {
+   "id": "S:K0267",
+   "speaker": "Robert",
+   "prop": "(At Margaret Kitchen [68,84))",
+   "source": "CoPresence",
+   "observed_from": "Kitchen",
+   "while": [
+    "22:08",
+    "22:24"
+   ],
+   "reliability": 1.0,
+   "granularity_min": 2
+  }
+ ],
+ "proof_core_cued_depths": {
+  "E_gate_Gazebo": 1,
+  "E_watch": 1,
+  "S:K0181": 1,
+  "S:K0265": 1,
+  "S:K0267": 1
+ },
+ "fully_cued": true,
+ "cue_closure_unique": true,
+ "absence_fragility": {
+  "Elena": {
+   "absence_constraints": 0,
+   "of": 1,
+   "absence_sources": []
+  },
+  "Margaret": {
+   "absence_constraints": 0,
+   "of": 1,
+   "absence_sources": []
+  },
+  "Robert": {
+   "absence_constraints": 0,
+   "of": 1,
+   "absence_sources": []
+  }
+ },
+ "knowledge_size": 316,
+ "material_size": 310,
+ "search": {
+  "seeds_tried": 1,
+  "planner": "construct",
+  "mode": [
+   "layer0_fixpoint",
+   "tick"
+  ]
+ }
+}

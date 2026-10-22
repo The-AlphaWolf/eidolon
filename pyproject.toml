@@ -1,0 +1,20 @@
+[project]
+name = "eidolon"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.11"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "hypothesis>=6"]
+llm = ["anthropic"]  # Phase 5: only needed for a live model (`eidolon play --llm`); the test suite never imports it
+web = ["starlette", "jinja2", "python-multipart", "uvicorn", "httpx"]  # Phase 8: `eidolon serve`; httpx for the test client
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["eidolon*"]

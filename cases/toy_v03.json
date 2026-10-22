@@ -1,0 +1,427 @@
+{
+ "name": "toy_v03",
+ "skeleton": "toy_4x5",
+ "seed": 1,
+ "mode": [
+  "layer0_fixpoint",
+  "tick"
+ ],
+ "produced_by": "spike/run_spike.py (solver-selected; not hand-authored) \u2014 construct planner, seed 1",
+ "actors": {
+  "Hugo": {
+   "role": "victim",
+   "attrs": {
+    "sex": "M"
+   }
+  },
+  "Ada": {
+   "role": "living",
+   "attrs": {
+    "sex": "F",
+    "role": "housekeeper"
+   }
+  },
+  "Ben": {
+   "role": "living",
+   "attrs": {
+    "sex": "M",
+    "role": "guest"
+   }
+  },
+  "Cora": {
+   "role": "living",
+   "attrs": {
+    "sex": "F",
+    "role": "guest"
+   }
+  }
+ },
+ "locations": {
+  "Hall": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "Study": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "Kitchen": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "Bedroom": {
+   "entrances_visible": true,
+   "exterior": false
+  },
+  "Garden": {
+   "entrances_visible": false,
+   "exterior": true
+  },
+  "EXT": {
+   "entrances_visible": false,
+   "exterior": false
+  }
+ },
+ "travel": [
+  "Bedroom-Hall:2",
+  "EXT-Garden:3",
+  "Garden-Hall:2",
+  "Garden-Kitchen:1",
+  "Hall-Kitchen:1",
+  "Hall-Study:1"
+ ],
+ "perception": [
+  [
+   "Hall",
+   "Study",
+   "sound",
+   0.7
+  ],
+  [
+   "Kitchen",
+   "Hall",
+   "sight",
+   0.5
+  ],
+  [
+   "Hall",
+   "Kitchen",
+   "sight",
+   0.5
+  ],
+  [
+   "Bedroom",
+   "Hall",
+   "sound",
+   0.4
+  ],
+  [
+   "Garden",
+   "Kitchen",
+   "sight",
+   0.4
+  ]
+ ],
+ "murder": {
+  "murderer": "Ada",
+  "victim": "Hugo",
+  "t_m": 76,
+  "time": "22:16",
+  "location": "Study"
+ },
+ "timeline": {
+  "Hugo": [
+   "Hall 21:00-21:05",
+   "Study 21:05-23:00"
+  ],
+  "Ada": [
+   "Hall 21:00-21:05",
+   "Kitchen 21:05-21:11",
+   "Garden 21:11-21:25",
+   "Kitchen 21:25-21:26",
+   "Hall 21:26-21:27",
+   "Study 21:27-21:35",
+   "Hall 21:35-22:05",
+   "Kitchen 22:05-22:13",
+   "Hall 22:13-22:14",
+   "Study 22:14-22:17",
+   "Hall 22:17-22:18",
+   "Garden 22:19-22:48",
+   "Kitchen 22:48-22:57",
+   "Hall 22:57-22:58",
+   "Bedroom 22:59-23:00 (asleep)"
+  ],
+  "Ben": [
+   "Hall 21:00-21:05",
+   "Kitchen 21:05-21:32",
+   "Hall 21:32-21:33",
+   "Bedroom 21:34-21:49",
+   "Hall 21:50-22:08",
+   "Kitchen 22:08-22:24",
+   "Hall 22:24-22:25",
+   "Bedroom 22:26-22:47",
+   "Hall 22:48-22:49",
+   "Kitchen 22:49-23:00"
+  ],
+  "Cora": [
+   "Hall 21:00-21:05",
+   "Bedroom 21:06-21:51",
+   "Hall 21:52-21:53",
+   "Kitchen 21:53-22:24",
+   "Garden 22:24-22:51",
+   "Hall 22:52-23:00"
+  ]
+ },
+ "events": [
+  "Attack Ada @Study 22:16-22:17 ['decanter']",
+  "Speak Ada @Study 22:14-22:16 []",
+  "Clean Ada @Study 21:29-21:30 ['decanter']",
+  "Logged Ada @Study 21:27-21:35 ['device']",
+  "Logged Hugo @Garden 21:15-23:00 ['gate']"
+ ],
+ "secrets": {
+  "Cora": {
+   "kind": "solo",
+   "protected": [
+    "21:26",
+    "21:51"
+   ],
+   "shared_with": []
+  },
+  "Ada": {
+   "kind": "murder",
+   "protected": [
+    "22:13",
+    "22:19"
+   ],
+   "shared_with": []
+  }
+ },
+ "relationships": [
+  [
+   "Ada",
+   "Ben",
+   "lover"
+  ]
+ ],
+ "evidence": [
+  {
+   "id": "E_pin_clean_Ada",
+   "kind": "pin",
+   "at": "Study",
+   "implications": [
+    "(At Ada Study [27,35))"
+   ]
+  },
+  {
+   "id": "E_scene",
+   "kind": "scene",
+   "at": "Study",
+   "implications": []
+  },
+  {
+   "id": "E_watch",
+   "kind": "watch",
+   "at": "Study",
+   "implications": [
+    "(Died Hugo Study [76,77))"
+   ]
+  },
+  {
+   "id": "E_trace",
+   "kind": "trace",
+   "at": "Study",
+   "implications": [
+    "(Did Ada Study [29,120) ('touch', 'decanter')) requires ['clean@Ada']"
+   ]
+  },
+  {
+   "id": "E_gate_Garden",
+   "kind": "gatelog",
+   "at": "Garden",
+   "implications": [
+    "(NoStranger Garden [15,120))"
+   ]
+  }
+ ],
+ "verdict": {
+  "fairness": 2,
+  "window": [
+   76,
+   77
+  ],
+  "unique": true,
+  "survivors": [
+   "Ada"
+  ],
+  "time_bins": [
+   7
+  ],
+  "reasons": [],
+  "n_constraints": {
+   "3": 3,
+   "2": 48,
+   "1": 50
+  },
+  "candidates": {
+   "Ada": {
+    "excluded": false,
+    "times": [
+     76
+    ],
+    "core": [],
+    "times_approx": false
+   },
+   "Ben": {
+    "excluded": true,
+    "times": [],
+    "core": [
+     {
+      "id": "S:K0127#L2.0",
+      "item": "S:K0127",
+      "prop": "(At Ben Kitchen [70,82))",
+      "level": 2,
+      "sources": [
+       "Cora",
+       "S:K0032",
+       "S:K0033",
+       "S:K0088",
+       "S:K0090"
+      ]
+     },
+     {
+      "id": "HYP",
+      "prop": "(Did Ben Study [76,77) ('attack', 'Hugo'))",
+      "level": 3
+     }
+    ]
+   },
+   "Cora": {
+    "excluded": true,
+    "times": [],
+    "core": [
+     {
+      "id": "S:K0125#L2.0",
+      "item": "S:K0125",
+      "prop": "(At Cora Kitchen [67,82))",
+      "level": 2,
+      "sources": [
+       "Cora",
+       "S:K0033",
+       "S:K0090"
+      ]
+     },
+     {
+      "id": "HYP",
+      "prop": "(Did Cora Study [76,77) ('attack', 'Hugo'))",
+      "level": 3
+     }
+    ]
+   }
+  },
+  "outsider": {
+   "excluded": true,
+   "path": null,
+   "assumed": false
+  }
+ },
+ "exclusion_chains": {
+  "Ben": [
+   {
+    "id": "S:K0127#L2.0",
+    "item": "S:K0127",
+    "prop": "(At Ben Kitchen [70,82))",
+    "level": 2,
+    "sources": [
+     "Cora",
+     "S:K0032",
+     "S:K0033",
+     "S:K0088",
+     "S:K0090"
+    ]
+   },
+   {
+    "id": "HYP",
+    "prop": "(Did Ben Study [76,77) ('attack', 'Hugo'))",
+    "level": 3
+   }
+  ],
+  "Cora": [
+   {
+    "id": "S:K0125#L2.0",
+    "item": "S:K0125",
+    "prop": "(At Cora Kitchen [67,82))",
+    "level": 2,
+    "sources": [
+     "Cora",
+     "S:K0033",
+     "S:K0090"
+    ]
+   },
+   {
+    "id": "HYP",
+    "prop": "(Did Cora Study [76,77) ('attack', 'Hugo'))",
+    "level": 3
+   }
+  ]
+ },
+ "outsider": {
+  "excluded": true,
+  "path": null,
+  "assumed": false
+ },
+ "proof_core": [
+  {
+   "id": "E_gate_Garden",
+   "kind": "gatelog",
+   "at": "Garden",
+   "implications": [
+    "(NoStranger Garden [15,120))"
+   ]
+  },
+  {
+   "id": "E_watch",
+   "kind": "watch",
+   "at": "Study",
+   "implications": [
+    "(Died Hugo Study [76,77))"
+   ]
+  },
+  {
+   "id": "S:K0090",
+   "speaker": "Ben",
+   "prop": "(At Cora Kitchen [68,84))",
+   "source": "CoPresence",
+   "observed_from": "Kitchen",
+   "while": [
+    "22:08",
+    "22:24"
+   ],
+   "reliability": 1.0,
+   "granularity_min": 2
+  },
+  {
+   "id": "S:K0127",
+   "speaker": "Cora",
+   "prop": "(At Ben Kitchen [68,84))",
+   "source": "CoPresence",
+   "observed_from": "Kitchen",
+   "while": [
+    "21:53",
+    "22:24"
+   ],
+   "reliability": 1.0,
+   "granularity_min": 2
+  }
+ ],
+ "proof_core_cued_depths": {
+  "E_gate_Garden": 1,
+  "E_watch": 1,
+  "S:K0090": 1,
+  "S:K0127": 1
+ },
+ "fully_cued": true,
+ "cue_closure_unique": true,
+ "absence_fragility": {
+  "Ben": {
+   "absence_constraints": 0,
+   "of": 1,
+   "absence_sources": []
+  },
+  "Cora": {
+   "absence_constraints": 0,
+   "of": 1,
+   "absence_sources": []
+  }
+ },
+ "knowledge_size": 169,
+ "material_size": 157,
+ "search": {
+  "seeds_tried": 1,
+  "planner": "construct",
+  "mode": [
+   "layer0_fixpoint",
+   "tick"
+  ]
+ }
+}

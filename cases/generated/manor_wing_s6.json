@@ -1,0 +1,7050 @@
+{
+ "bundle_seal": "75fd45e39220bc83954e64db424f8f1b4b625f75d2d587c31e67aed5cdccba18",
+ "package": {
+  "accounts": [
+   "clean@Beatrix"
+  ],
+  "architecture_version": "0.4",
+  "case": {
+   "actors": {
+    "Alistair": {
+     "id": "Alistair",
+     "name": "Alistair",
+     "role": "victim",
+     "static_attrs": {
+      "sex": "M"
+     }
+    },
+    "Beatrix": {
+     "id": "Beatrix",
+     "name": "Beatrix",
+     "role": "witness",
+     "static_attrs": {
+      "sex": "F"
+     }
+    },
+    "Cormac": {
+     "id": "Cormac",
+     "name": "Cormac",
+     "role": "suspect",
+     "static_attrs": {
+      "sex": "M"
+     }
+    },
+    "Delphine": {
+     "id": "Delphine",
+     "name": "Delphine",
+     "role": "suspect",
+     "static_attrs": {
+      "sex": "F"
+     }
+    },
+    "Emeric": {
+     "id": "Emeric",
+     "name": "Emeric",
+     "role": "suspect",
+     "static_attrs": {
+      "sex": "M"
+     }
+    },
+    "Fiora": {
+     "id": "Fiora",
+     "name": "Fiora",
+     "role": "suspect",
+     "static_attrs": {
+      "sex": "F"
+     }
+    }
+   },
+   "alias": {
+    "names": {}
+   },
+   "attitudes": [],
+   "events": [
+    {
+     "actor": "Alistair",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Alistair",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Alistair:0",
+     "intent": null,
+     "interval": [
+      0,
+      8
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Alistair",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Alistair",
+       "kind": "ActorAt",
+       "location": "Office"
+      }
+     ],
+     "id": "stay:Alistair:1",
+     "intent": null,
+     "interval": [
+      8,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Office",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Beatrix:0",
+     "intent": null,
+     "interval": [
+      0,
+      8
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Beatrix:1",
+     "intent": null,
+     "interval": [
+      9,
+      23
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Beatrix:2",
+     "intent": null,
+     "interval": [
+      24,
+      25
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Office"
+      }
+     ],
+     "id": "stay:Beatrix:3",
+     "intent": null,
+     "interval": [
+      25,
+      33
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Office",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Beatrix:4",
+     "intent": null,
+     "interval": [
+      33,
+      34
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Beatrix:5",
+     "intent": null,
+     "interval": [
+      35,
+      61
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Beatrix:6",
+     "intent": null,
+     "interval": [
+      62,
+      63
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Beatrix:7",
+     "intent": null,
+     "interval": [
+      63,
+      79
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Beatrix:8",
+     "intent": null,
+     "interval": [
+      79,
+      80
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Suite"
+      }
+     ],
+     "id": "stay:Beatrix:9",
+     "intent": null,
+     "interval": [
+      80,
+      96
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Suite",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Beatrix:10",
+     "intent": null,
+     "interval": [
+      96,
+      97
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Beatrix:11",
+     "intent": null,
+     "interval": [
+      97,
+      98
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Conservatory"
+      }
+     ],
+     "id": "stay:Beatrix:12",
+     "intent": null,
+     "interval": [
+      98,
+      116
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Conservatory",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Beatrix",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Beatrix:13",
+     "intent": null,
+     "interval": [
+      116,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Cormac:0",
+     "intent": null,
+     "interval": [
+      0,
+      8
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Suite"
+      }
+     ],
+     "id": "stay:Cormac:1",
+     "intent": null,
+     "interval": [
+      8,
+      21
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Suite",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Cormac:2",
+     "intent": null,
+     "interval": [
+      21,
+      22
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Cormac:3",
+     "intent": null,
+     "interval": [
+      22,
+      46
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Cormac:4",
+     "intent": null,
+     "interval": [
+      46,
+      68
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Office"
+      }
+     ],
+     "id": "stay:Cormac:5",
+     "intent": null,
+     "interval": [
+      68,
+      72
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Office",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Cormac:6",
+     "intent": null,
+     "interval": [
+      72,
+      73
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Suite"
+      }
+     ],
+     "id": "stay:Cormac:7",
+     "intent": null,
+     "interval": [
+      73,
+      98
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Suite",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Cormac:8",
+     "intent": null,
+     "interval": [
+      98,
+      99
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Cormac:9",
+     "intent": null,
+     "interval": [
+      99,
+      100
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Conservatory"
+      }
+     ],
+     "id": "stay:Cormac:10",
+     "intent": null,
+     "interval": [
+      100,
+      115
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Conservatory",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Cormac",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Cormac:11",
+     "intent": null,
+     "interval": [
+      115,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Delphine:0",
+     "intent": null,
+     "interval": [
+      0,
+      8
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Delphine:1",
+     "intent": null,
+     "interval": [
+      8,
+      9
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Conservatory"
+      }
+     ],
+     "id": "stay:Delphine:2",
+     "intent": null,
+     "interval": [
+      9,
+      23
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Conservatory",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Delphine:3",
+     "intent": null,
+     "interval": [
+      23,
+      24
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Delphine:4",
+     "intent": null,
+     "interval": [
+      24,
+      25
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Suite"
+      }
+     ],
+     "id": "stay:Delphine:5",
+     "intent": null,
+     "interval": [
+      25,
+      37
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Suite",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Delphine:6",
+     "intent": null,
+     "interval": [
+      37,
+      38
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Delphine:7",
+     "intent": null,
+     "interval": [
+      38,
+      60
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Delphine:8",
+     "intent": null,
+     "interval": [
+      60,
+      63
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Delphine:9",
+     "intent": null,
+     "interval": [
+      63,
+      79
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Conservatory"
+      }
+     ],
+     "id": "stay:Delphine:10",
+     "intent": null,
+     "interval": [
+      79,
+      97
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Conservatory",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Delphine:11",
+     "intent": null,
+     "interval": [
+      97,
+      117
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Delphine",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Delphine",
+       "kind": "ActorAt",
+       "location": "Conservatory"
+      }
+     ],
+     "id": "stay:Delphine:12",
+     "intent": null,
+     "interval": [
+      117,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Conservatory",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Emeric",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Emeric",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Emeric:0",
+     "intent": null,
+     "interval": [
+      0,
+      8
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Emeric",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Emeric",
+       "kind": "ActorAt",
+       "location": "Suite"
+      }
+     ],
+     "id": "stay:Emeric:1",
+     "intent": null,
+     "interval": [
+      8,
+      49
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Suite",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Emeric",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Emeric",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Emeric:2",
+     "intent": null,
+     "interval": [
+      49,
+      63
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Emeric",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Emeric",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Emeric:3",
+     "intent": null,
+     "interval": [
+      63,
+      79
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Emeric",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Emeric",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Emeric:4",
+     "intent": null,
+     "interval": [
+      79,
+      98
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Emeric",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Emeric",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Emeric:5",
+     "intent": null,
+     "interval": [
+      98,
+      110
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Emeric",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Emeric",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Emeric:6",
+     "intent": null,
+     "interval": [
+      110,
+      111
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Emeric",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Emeric",
+       "kind": "ActorAt",
+       "location": "Suite"
+      },
+      {
+       "actor": "Emeric",
+       "attr": "attention",
+       "kind": "ActorState",
+       "value": "0.3"
+      }
+     ],
+     "id": "stay:Emeric:7",
+     "intent": null,
+     "interval": [
+      111,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Suite",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Fiora:0",
+     "intent": null,
+     "interval": [
+      0,
+      8
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Fiora:1",
+     "intent": null,
+     "interval": [
+      9,
+      20
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Conservatory"
+      }
+     ],
+     "id": "stay:Fiora:2",
+     "intent": null,
+     "interval": [
+      20,
+      21
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Conservatory",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Fiora:3",
+     "intent": null,
+     "interval": [
+      21,
+      25
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Fiora:4",
+     "intent": null,
+     "interval": [
+      25,
+      26
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Suite"
+      }
+     ],
+     "id": "stay:Fiora:5",
+     "intent": null,
+     "interval": [
+      26,
+      49
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Suite",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Fiora:6",
+     "intent": null,
+     "interval": [
+      49,
+      50
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Fiora:7",
+     "intent": null,
+     "interval": [
+      50,
+      51
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Conservatory"
+      }
+     ],
+     "id": "stay:Fiora:8",
+     "intent": null,
+     "interval": [
+      51,
+      63
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Conservatory",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Parlor"
+      }
+     ],
+     "id": "stay:Fiora:9",
+     "intent": null,
+     "interval": [
+      63,
+      79
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Parlor",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Fiora:10",
+     "intent": null,
+     "interval": [
+      79,
+      98
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Fiora:11",
+     "intent": null,
+     "interval": [
+      99,
+      118
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Fiora",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Fiora",
+       "kind": "ActorAt",
+       "location": "Foyer"
+      }
+     ],
+     "id": "stay:Fiora:12",
+     "intent": null,
+     "interval": [
+      119,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [
+      {
+       "kind": "TraceCreated",
+       "object": "Paperweight",
+       "trace_kind": "fingerprint"
+      }
+     ],
+     "id": "attack",
+     "intent": null,
+     "interval": [
+      71,
+      72
+     ],
+     "kind": "Attack",
+     "load_bearing": false,
+     "location": "Office",
+     "objects": [
+      "Paperweight"
+     ],
+     "participants": [
+      "Alistair"
+     ],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 1.0,
+      "sound": 0.8
+     }
+    },
+    {
+     "actor": "Alistair",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Alistair",
+       "attr": "alive",
+       "kind": "ActorState",
+       "value": "false"
+      }
+     ],
+     "id": "die",
+     "intent": null,
+     "interval": [
+      71,
+      72
+     ],
+     "kind": "Die",
+     "load_bearing": false,
+     "location": "Office",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Cormac",
+     "causes": [],
+     "effects": [],
+     "id": "argue",
+     "intent": null,
+     "interval": [
+      68,
+      71
+     ],
+     "kind": "Speak",
+     "load_bearing": false,
+     "location": "Office",
+     "objects": [],
+     "participants": [
+      "Alistair"
+     ],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 1.0,
+      "sound": 0.8
+     }
+    },
+    {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [],
+     "id": "clean",
+     "intent": null,
+     "interval": [
+      27,
+      28
+     ],
+     "kind": "Clean",
+     "load_bearing": false,
+     "location": "Office",
+     "objects": [
+      "Paperweight"
+     ],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.6,
+      "sound": 0.2
+     }
+    },
+    {
+     "actor": null,
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Alistair",
+       "attr": "alive",
+       "kind": "ActorState",
+       "value": "true"
+      }
+     ],
+     "id": "alive0:Alistair",
+     "intent": null,
+     "interval": [
+      0,
+      1
+     ],
+     "kind": "Environmental",
+     "load_bearing": false,
+     "location": "Foyer",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    }
+   ],
+   "id": "manor_wing_s6",
+   "locations": {
+    "Conservatory": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Conservatory",
+     "name": "the conservatory",
+     "private": false,
+     "zone": ""
+    },
+    "EXT": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": false,
+     "exterior": false,
+     "id": "EXT",
+     "name": "outside",
+     "private": false,
+     "zone": ""
+    },
+    "Foyer": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Foyer",
+     "name": "the foyer",
+     "private": false,
+     "zone": ""
+    },
+    "Kitchen": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Kitchen",
+     "name": "the kitchen",
+     "private": false,
+     "zone": ""
+    },
+    "Office": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Office",
+     "name": "the office",
+     "private": true,
+     "zone": ""
+    },
+    "Parlor": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Parlor",
+     "name": "the parlor",
+     "private": false,
+     "zone": ""
+    },
+    "Suite": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Suite",
+     "name": "the guest suite",
+     "private": false,
+     "zone": ""
+    },
+    "Terrace": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": false,
+     "exterior": true,
+     "id": "Terrace",
+     "name": "the terrace",
+     "private": false,
+     "zone": ""
+    }
+   },
+   "motives": [
+    {
+     "actor": "Cormac",
+     "kind": "Motive",
+     "motive_kind": "revenge",
+     "strength": 0.7,
+     "victim": "Alistair"
+    },
+    {
+     "actor": "Fiora",
+     "kind": "Motive",
+     "motive_kind": "jealousy",
+     "strength": 0.7,
+     "victim": "Alistair"
+    }
+   ],
+   "objects": {
+    "Paperweight": {
+     "id": "Paperweight",
+     "initial_location": "Office",
+     "kind": "weapon",
+     "name": "a brass paperweight",
+     "static_attrs": {},
+     "traceable": [
+      "fingerprint"
+     ]
+    }
+   },
+   "perception_edges": [
+    {
+     "conditions": [],
+     "modality": "sound",
+     "observer_at": "Foyer",
+     "perceives": "Office",
+     "quality": 0.6
+    },
+    {
+     "conditions": [],
+     "modality": "sight",
+     "observer_at": "Kitchen",
+     "perceives": "Conservatory",
+     "quality": 0.5
+    },
+    {
+     "conditions": [],
+     "modality": "sight",
+     "observer_at": "Parlor",
+     "perceives": "Foyer",
+     "quality": 0.5
+    },
+    {
+     "conditions": [],
+     "modality": "sound",
+     "observer_at": "Conservatory",
+     "perceives": "Office",
+     "quality": 0.5
+    }
+   ],
+   "rels": [
+    {
+     "a": "Beatrix",
+     "b": "Delphine",
+     "kind": "Rel",
+     "rel_kind": "lover",
+     "value": null
+    }
+   ],
+   "t_investigation": 120,
+   "time_anchor": null,
+   "travel_edges": [
+    {
+     "a": "Foyer",
+     "b": "Office",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "Foyer",
+     "b": "Parlor",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "Foyer",
+     "b": "Kitchen",
+     "conditions": [],
+     "directed": false,
+     "minutes": 2
+    },
+    {
+     "a": "Parlor",
+     "b": "Conservatory",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "Kitchen",
+     "b": "Conservatory",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "Foyer",
+     "b": "Suite",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "Conservatory",
+     "b": "Terrace",
+     "conditions": [],
+     "directed": false,
+     "minutes": 2
+    },
+    {
+     "a": "Office",
+     "b": "Terrace",
+     "conditions": [],
+     "directed": false,
+     "minutes": 2
+    },
+    {
+     "a": "Terrace",
+     "b": "EXT",
+     "conditions": [],
+     "directed": false,
+     "minutes": 2
+    }
+   ]
+  },
+  "difficulty": "standard",
+  "distortions": [
+   {
+    "actor": "Beatrix",
+    "delta": 6,
+    "know_ids": [
+     "S:P0041"
+    ],
+    "memory": "MBeatrix0027"
+   },
+   {
+    "actor": "Cormac",
+    "delta": 17,
+    "know_ids": [
+     "S:P0109"
+    ],
+    "memory": "MCormac0008"
+   },
+   {
+    "actor": "Delphine",
+    "delta": -10,
+    "know_ids": [
+     "S:P0204"
+    ],
+    "memory": "MDelphine0014"
+   },
+   {
+    "actor": "Emeric",
+    "delta": -8,
+    "know_ids": [
+     "S:P0287"
+    ],
+    "memory": "MEmeric0006"
+   },
+   {
+    "actor": "Fiora",
+    "delta": -18,
+    "know_ids": [
+     "S:P0401"
+    ],
+    "memory": "MFiora0065"
+   }
+  ],
+  "evidence": [
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": null,
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Office",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "Alistair lies dead in the office; a brass paperweight lies nearby."
+    },
+    "id": "E_scene",
+    "implications": [],
+    "interacted": [],
+    "kind": "Object",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": "Office",
+    "object": "Paperweight",
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     71,
+     72
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Office",
+     "cue": null,
+     "prerequisites": [
+      {
+       "kind": "EvidenceFound",
+       "ref": "E_scene"
+      }
+     ],
+     "reveals_text": "The victim's watch stopped at the moment of the blow."
+    },
+    "id": "E_watch",
+    "implications": [
+     {
+      "proposition": {
+       "action": "Die",
+       "actor": "Alistair",
+       "interval": [
+        71,
+        72
+       ],
+       "kind": "Did",
+       "location": "Office",
+       "object": null,
+       "target_actor": null
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Timepiece",
+    "known_to": {},
+    "load_bearing": true,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": null,
+    "created_by": null,
+    "discovery": {
+     "action": "Dust",
+     "at": "Paperweight",
+     "cue": "Paperweight",
+     "prerequisites": [
+      {
+       "kind": "EvidenceFound",
+       "ref": "E_scene"
+      }
+     ],
+     "reveals_text": "A print on the weapon."
+    },
+    "id": "E_trace",
+    "implications": [
+     {
+      "proposition": {
+       "action": "touch",
+       "actor": "Cormac",
+       "interval": [
+        27,
+        120
+       ],
+       "kind": "Did",
+       "location": "Office",
+       "object": "Paperweight",
+       "target_actor": null
+      },
+      "requires": [
+       "clean@Beatrix"
+      ],
+      "strength": 0.9
+     }
+    ],
+    "interacted": [],
+    "kind": "Fingerprint",
+    "known_to": {},
+    "load_bearing": true,
+    "location_at_investigation": "Office",
+    "object": "Paperweight",
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 0.9,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     25,
+     33
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Office",
+     "cue": null,
+     "prerequisites": [
+      {
+       "kind": "EvidenceFound",
+       "ref": "E_watch"
+      }
+     ],
+     "reveals_text": "A door log records who was in the room while it was cleaned."
+    },
+    "id": "E_pin_clean",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Beatrix",
+       "interval": [
+        25,
+        33
+       ],
+       "kind": "At",
+       "location": "Office"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": true,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     20,
+     120
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Terrace",
+     "cue": null,
+     "prerequisites": [
+      {
+       "kind": "EvidenceFound",
+       "ref": "E_pin_clean"
+      }
+     ],
+     "reveals_text": "The gate log shows no stranger passed."
+    },
+    "id": "E_gate_Terrace",
+    "implications": [
+     {
+      "proposition": {
+       "identified": false,
+       "interval": [
+        20,
+        120
+       ],
+       "kind": "Saw",
+       "location": "Terrace",
+       "observer": "Alistair",
+       "subject": "nobody"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": true,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     98,
+     116
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Conservatory",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "Something here shows someone was not where they said."
+    },
+    "id": "E_secret_Beatrix",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Beatrix",
+       "interval": [
+        98,
+        116
+       ],
+       "kind": "At",
+       "location": "Conservatory"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     63,
+     79
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Parlor",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "A device log fixes where this person was around the time of death."
+    },
+    "id": "E_alibi_Delphine",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Delphine",
+       "interval": [
+        63,
+        79
+       ],
+       "kind": "At",
+       "location": "Parlor"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     25,
+     37
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Suite",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "Something here shows someone was not where they said."
+    },
+    "id": "E_secret_Delphine",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Delphine",
+       "interval": [
+        25,
+        37
+       ],
+       "kind": "At",
+       "location": "Suite"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Object",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": {
+     "misleads_toward": "H_Delphine_did_it",
+     "refuter": "E_alibi_Delphine"
+    },
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     63,
+     79
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Parlor",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "A device log fixes where this person was around the time of death."
+    },
+    "id": "E_alibi_Emeric",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Emeric",
+       "interval": [
+        63,
+        79
+       ],
+       "kind": "At",
+       "location": "Parlor"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     26,
+     49
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Suite",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "Something here shows someone was not where they said."
+    },
+    "id": "E_secret_Emeric",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Emeric",
+       "interval": [
+        26,
+        49
+       ],
+       "kind": "At",
+       "location": "Suite"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Object",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": {
+     "misleads_toward": "H_Emeric_did_it",
+     "refuter": "E_alibi_Emeric"
+    },
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     26,
+     49
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Suite",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "Something here shows someone was not where they said."
+    },
+    "id": "E_secret_Fiora",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Fiora",
+       "interval": [
+        26,
+        49
+       ],
+       "kind": "At",
+       "location": "Suite"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   }
+  ],
+  "fairness_level": 2,
+  "generator_version": "6.0",
+  "id": "manor_wing_s6",
+  "memory_boosts": [
+   {
+    "actor": "Beatrix",
+    "memory": "MBeatrix0001",
+    "strength_bp": 8000
+   },
+   {
+    "actor": "Emeric",
+    "memory": "MEmeric0027",
+    "strength_bp": 8000
+   },
+   {
+    "actor": "Emeric",
+    "memory": "MEmeric0028",
+    "strength_bp": 8000
+   },
+   {
+    "actor": "Emeric",
+    "memory": "MEmeric0029",
+    "strength_bp": 8000
+   },
+   {
+    "actor": "Cormac",
+    "memory": "MCormac0077",
+    "strength_bp": 10000
+   },
+   {
+    "actor": "Beatrix",
+    "memory": "MBeatrix0045",
+    "strength_bp": 10000
+   },
+   {
+    "actor": "Beatrix",
+    "memory": "MBeatrix0058",
+    "strength_bp": 10000
+   }
+  ],
+  "method": {
+   "admits": [],
+   "kind": "blunt_force",
+   "weapon": "Paperweight"
+  },
+  "seal": "604f720bb383ad51a3cb388c26eb799505b0b48a9f131ba3f82344e2d56634d5",
+  "secrets": [
+   {
+    "beneficiaries": [],
+    "cover": {
+     "layers": [
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Beatrix_L0",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Beatrix",
+          "interval": [
+           98,
+           116
+          ],
+          "kind": "At",
+          "location": "Foyer"
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [],
+       "frame": [],
+       "index": 0,
+       "resolve": 6000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Beatrix_L1",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Beatrix",
+          "interval": [
+           98,
+           116
+          ],
+          "kind": "At",
+          "location": "Conservatory"
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "actor": "Beatrix",
+         "interval": [
+          98,
+          116
+         ],
+         "kind": "At",
+         "location": "Conservatory"
+        }
+       ],
+       "frame": [],
+       "index": 1,
+       "resolve": 10000,
+       "terminal": "stonewall"
+      }
+     ]
+    },
+    "deflections": [],
+    "evidence_responses": [
+     {
+      "act": "REINTERPRET",
+      "claims": [],
+      "evidence": "E_secret_Beatrix",
+      "layer": 0
+     }
+    ],
+    "id": "S_Beatrix",
+    "kind": "theft",
+    "misleading_truths": [],
+    "owner": "Beatrix",
+    "protected": [
+     {
+      "actor": "Beatrix",
+      "interval": [
+       98,
+       116
+      ],
+      "kind": "At",
+      "location": "Conservatory"
+     }
+    ],
+    "slips": [],
+    "stakes": {
+     "legal": 0.2,
+     "protective": 0.0,
+     "social": 0.5
+    }
+   },
+   {
+    "beneficiaries": [],
+    "cover": {
+     "layers": [
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Cormac_L0",
+         "modality": "actual",
+         "proposition": {
+          "action": "touch",
+          "actor": "Cormac",
+          "interval": [
+           0,
+           120
+          ],
+          "kind": "DidNot",
+          "location": null,
+          "object": "Paperweight",
+          "target_actor": null
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [],
+       "frame": [],
+       "index": 0,
+       "resolve": 6000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Cormac_L1",
+         "modality": "actual",
+         "proposition": {
+          "action": "touch",
+          "actor": "Cormac",
+          "interval": [
+           27,
+           120
+          ],
+          "kind": "Did",
+          "location": "Office",
+          "object": "Paperweight",
+          "target_actor": null
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        },
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Cormac_L1b",
+         "modality": "actual",
+         "proposition": {
+          "action": "Attack",
+          "actor": "Cormac",
+          "interval": [
+           0,
+           120
+          ],
+          "kind": "DidNot",
+          "location": null,
+          "object": "Paperweight",
+          "target_actor": "Alistair"
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "action": "touch",
+         "actor": "Cormac",
+         "interval": [
+          27,
+          120
+         ],
+         "kind": "Did",
+         "location": "Office",
+         "object": "Paperweight",
+         "target_actor": null
+        }
+       ],
+       "frame": [],
+       "index": 1,
+       "resolve": 8000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Cormac_LT",
+         "modality": "actual",
+         "proposition": {
+          "action": "Attack",
+          "actor": "Cormac",
+          "interval": [
+           71,
+           72
+          ],
+          "kind": "Did",
+          "location": "Office",
+          "object": "Paperweight",
+          "target_actor": null
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "action": "touch",
+         "actor": "Cormac",
+         "interval": [
+          27,
+          120
+         ],
+         "kind": "Did",
+         "location": "Office",
+         "object": "Paperweight",
+         "target_actor": null
+        },
+        {
+         "action": "Attack",
+         "actor": "Cormac",
+         "interval": [
+          71,
+          72
+         ],
+         "kind": "Did",
+         "location": "Office",
+         "object": "Paperweight",
+         "target_actor": null
+        }
+       ],
+       "frame": [],
+       "index": 2,
+       "resolve": 10000,
+       "terminal": "confession"
+      }
+     ]
+    },
+    "deflections": [],
+    "evidence_responses": [
+     {
+      "act": "DENY_EVIDENCE",
+      "claims": [],
+      "evidence": "E_trace",
+      "layer": 0
+     },
+     {
+      "act": "DENY_EVIDENCE",
+      "claims": [],
+      "evidence": "clean@Beatrix",
+      "layer": 0
+     }
+    ],
+    "id": "S_Cormac",
+    "kind": "murder",
+    "misleading_truths": [],
+    "owner": "Cormac",
+    "protected": [
+     {
+      "actor": "Cormac",
+      "interval": [
+       68,
+       72
+      ],
+      "kind": "At",
+      "location": "Office"
+     },
+     {
+      "actor": "Cormac",
+      "interval": [
+       72,
+       73
+      ],
+      "kind": "At",
+      "location": "Foyer"
+     },
+     {
+      "action": "Attack",
+      "actor": "Cormac",
+      "interval": [
+       71,
+       72
+      ],
+      "kind": "Did",
+      "location": "Office",
+      "object": "Paperweight",
+      "target_actor": null
+     }
+    ],
+    "slips": [],
+    "stakes": {
+     "legal": 1.0,
+     "protective": 0.0,
+     "social": 0.5
+    }
+   },
+   {
+    "beneficiaries": [],
+    "cover": {
+     "layers": [
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Delphine_L0",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Delphine",
+          "interval": [
+           25,
+           37
+          ],
+          "kind": "At",
+          "location": "Foyer"
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [],
+       "frame": [],
+       "index": 0,
+       "resolve": 6000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Delphine_L1",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Delphine",
+          "interval": [
+           25,
+           37
+          ],
+          "kind": "At",
+          "location": "Suite"
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "actor": "Delphine",
+         "interval": [
+          25,
+          37
+         ],
+         "kind": "At",
+         "location": "Suite"
+        }
+       ],
+       "frame": [],
+       "index": 1,
+       "resolve": 10000,
+       "terminal": "confession"
+      }
+     ]
+    },
+    "deflections": [],
+    "evidence_responses": [
+     {
+      "act": "REINTERPRET",
+      "claims": [],
+      "evidence": "E_secret_Delphine",
+      "layer": 0
+     }
+    ],
+    "id": "S_Delphine",
+    "kind": "debt",
+    "misleading_truths": [],
+    "owner": "Delphine",
+    "protected": [
+     {
+      "actor": "Delphine",
+      "interval": [
+       25,
+       37
+      ],
+      "kind": "At",
+      "location": "Suite"
+     }
+    ],
+    "slips": [],
+    "stakes": {
+     "legal": 0.2,
+     "protective": 0.0,
+     "social": 0.5
+    }
+   },
+   {
+    "beneficiaries": [
+     "Fiora"
+    ],
+    "cover": {
+     "layers": [
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Emeric_L0",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Emeric",
+          "interval": [
+           26,
+           49
+          ],
+          "kind": "At",
+          "location": "Conservatory"
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [],
+       "frame": [],
+       "index": 0,
+       "resolve": 6000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Emeric_L1",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Emeric",
+          "interval": [
+           26,
+           49
+          ],
+          "kind": "At",
+          "location": "Suite"
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "actor": "Emeric",
+         "interval": [
+          26,
+          49
+         ],
+         "kind": "At",
+         "location": "Suite"
+        }
+       ],
+       "frame": [],
+       "index": 1,
+       "resolve": 10000,
+       "terminal": "stonewall"
+      }
+     ]
+    },
+    "deflections": [],
+    "evidence_responses": [
+     {
+      "act": "REINTERPRET",
+      "claims": [],
+      "evidence": "E_secret_Emeric",
+      "layer": 0
+     }
+    ],
+    "id": "S_Emeric",
+    "kind": "affair",
+    "misleading_truths": [],
+    "owner": "Emeric",
+    "protected": [
+     {
+      "actor": "Emeric",
+      "interval": [
+       26,
+       49
+      ],
+      "kind": "At",
+      "location": "Suite"
+     }
+    ],
+    "slips": [],
+    "stakes": {
+     "legal": 0.2,
+     "protective": 0.0,
+     "social": 0.5
+    }
+   },
+   {
+    "beneficiaries": [
+     "Emeric"
+    ],
+    "cover": {
+     "layers": [
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Fiora_L0",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Fiora",
+          "interval": [
+           26,
+           49
+          ],
+          "kind": "At",
+          "location": "Kitchen"
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [],
+       "frame": [],
+       "index": 0,
+       "resolve": 6000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Fiora_L1",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Fiora",
+          "interval": [
+           26,
+           49
+          ],
+          "kind": "At",
+          "location": "Suite"
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "actor": "Fiora",
+         "interval": [
+          26,
+          49
+         ],
+         "kind": "At",
+         "location": "Suite"
+        }
+       ],
+       "frame": [],
+       "index": 1,
+       "resolve": 10000,
+       "terminal": "stonewall"
+      }
+     ]
+    },
+    "deflections": [],
+    "evidence_responses": [
+     {
+      "act": "REINTERPRET",
+      "claims": [],
+      "evidence": "E_secret_Fiora",
+      "layer": 0
+     }
+    ],
+    "id": "S_Fiora",
+    "kind": "affair",
+    "misleading_truths": [],
+    "owner": "Fiora",
+    "protected": [
+     {
+      "actor": "Fiora",
+      "interval": [
+       26,
+       49
+      ],
+      "kind": "At",
+      "location": "Suite"
+     }
+    ],
+    "slips": [],
+    "stakes": {
+     "legal": 0.2,
+     "protective": 0.0,
+     "social": 0.5
+    }
+   }
+  ],
+  "seed": 6,
+  "skeleton_id": "manor_wing",
+  "solution": {
+   "alternatives": [
+    {
+     "candidate": "Beatrix",
+     "material": [],
+     "reason": "alibi"
+    },
+    {
+     "candidate": "Delphine",
+     "material": [
+      "E_alibi_Delphine"
+     ],
+     "reason": "alibi"
+    },
+    {
+     "candidate": "Emeric",
+     "material": [
+      "E_alibi_Emeric"
+     ],
+     "reason": "alibi"
+    },
+    {
+     "candidate": "Fiora",
+     "material": [],
+     "reason": "alibi"
+    },
+    {
+     "candidate": "Outsider",
+     "material": [
+      "E_gate_Terrace"
+     ],
+     "reason": "containment"
+    }
+   ],
+   "approach": [
+    68,
+    72
+   ],
+   "critical_constraints": [
+    "time_pin:E_watch",
+    "opportunity:E_pin_clean+E_trace",
+    "containment:E_gate_Terrace"
+   ],
+   "interval": [
+    71,
+    72
+   ],
+   "load_bearing": [
+    "E_gate_Terrace",
+    "E_pin_clean",
+    "E_trace",
+    "E_watch"
+   ],
+   "location": "Office",
+   "method": "blunt_force",
+   "motive_kind": "revenge",
+   "murder_event": "attack",
+   "murderer": "Cormac",
+   "opportunity_witness": "Beatrix",
+   "victim": "Alistair",
+   "weapon": "Paperweight"
+  },
+  "structure": {
+   "alibi_window": 8,
+   "containment": "device_L3",
+   "corroborator_rule": "outside_component",
+   "opportunity_pin": true,
+   "secret_clearance": 12,
+   "time_pin": "physical"
+  }
+ },
+ "proof": {
+  "candidate_domain": [
+   "Beatrix",
+   "Cormac",
+   "Delphine",
+   "Emeric",
+   "Fiora"
+  ],
+  "candidates": {
+   "Beatrix": {
+    "core": [
+     "S:P0396#L2.0"
+    ],
+    "excluded": true,
+    "times": []
+   },
+   "Cormac": {
+    "core": [],
+    "excluded": false,
+    "times": [
+     71
+    ]
+   },
+   "Delphine": {
+    "core": [
+     "S:P0397#L2.0"
+    ],
+    "excluded": true,
+    "times": []
+   },
+   "Emeric": {
+    "core": [
+     "S:P0398#L2.0"
+    ],
+    "excluded": true,
+    "times": []
+   },
+   "Fiora": {
+    "core": [
+     "S:P0395#L2.0"
+    ],
+    "excluded": true,
+    "times": []
+   }
+  },
+  "constraints": [
+   {
+    "actor": "Delphine",
+    "id": "E_alibi_Delphine#0",
+    "item": "E_alibi_Delphine",
+    "iv": [
+     63,
+     79
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "E_alibi_Delphine"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "E_alibi_Emeric#0",
+    "item": "E_alibi_Emeric",
+    "iv": [
+     63,
+     79
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "E_alibi_Emeric"
+    ]
+   },
+   {
+    "actor": null,
+    "id": "E_gate_Terrace#0",
+    "item": "E_gate_Terrace",
+    "iv": [
+     20,
+     120
+    ],
+    "kind": "NoStranger",
+    "level": 3,
+    "loc": "Terrace",
+    "observer": "Alistair",
+    "sources": [
+     "E_gate_Terrace"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "E_pin_clean#0",
+    "item": "E_pin_clean",
+    "iv": [
+     25,
+     33
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "E_secret_Beatrix#0",
+    "item": "E_secret_Beatrix",
+    "iv": [
+     98,
+     116
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "E_secret_Beatrix"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "E_secret_Delphine#0",
+    "item": "E_secret_Delphine",
+    "iv": [
+     25,
+     37
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "E_secret_Delphine"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "E_secret_Emeric#0",
+    "item": "E_secret_Emeric",
+    "iv": [
+     26,
+     49
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "E_secret_Emeric"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "E_secret_Fiora#0",
+    "item": "E_secret_Fiora",
+    "iv": [
+     26,
+     49
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "E_secret_Fiora"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "E_trace#0",
+    "item": "E_trace",
+    "iv": [
+     27,
+     120
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "E_trace",
+     "S:P0423"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "E_watch#0",
+    "item": "E_watch",
+    "iv": [
+     71,
+     72
+    ],
+    "kind": "Died",
+    "level": 3,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "E_watch"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0016#L2.0",
+    "item": "S:P0016",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0106",
+     "S:P0284",
+     "S:P0339"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0017#L2.0",
+    "item": "S:P0017",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0105",
+     "S:P0106",
+     "S:P0283",
+     "S:P0284",
+     "S:P0338",
+     "S:P0339"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0018#L2.0",
+    "item": "S:P0018",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0104",
+     "S:P0106",
+     "S:P0284",
+     "S:P0285",
+     "S:P0339",
+     "S:P0340"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0019#L2.0",
+    "item": "S:P0019",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0106",
+     "S:P0107",
+     "S:P0284",
+     "S:P0286",
+     "S:P0339",
+     "S:P0341"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0020#L2.0",
+    "item": "S:P0020",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0106",
+     "S:P0108",
+     "S:P0282",
+     "S:P0284",
+     "S:P0339",
+     "S:P0342"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0021#L2.0",
+    "item": "S:P0021",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0106",
+     "S:P0109",
+     "S:P0284",
+     "S:P0287",
+     "S:P0337",
+     "S:P0339"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0022#L2.0",
+    "item": "S:P0022",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0344"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0023#L2.0",
+    "item": "S:P0023",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0343",
+     "S:P0344"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0024#L2.0",
+    "item": "S:P0024",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0344",
+     "S:P0345"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0025#L2.0",
+    "item": "S:P0025",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0344",
+     "S:P0346"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0026#L2.0",
+    "item": "S:P0026",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0344",
+     "S:P0347"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0027#L2.0",
+    "item": "S:P0027",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0344",
+     "S:P0348"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0035#L2.0",
+    "item": "S:P0035",
+    "iv": [
+     27,
+     31
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0036#L2.0",
+    "item": "S:P0036",
+    "iv": [
+     27,
+     31
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0037#L2.0",
+    "item": "S:P0037",
+    "iv": [
+     27,
+     31
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0038#L2.0",
+    "item": "S:P0038",
+    "iv": [
+     27,
+     31
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0039#L2.0",
+    "item": "S:P0039",
+    "iv": [
+     27,
+     31
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0040#L2.0",
+    "item": "S:P0040",
+    "iv": [
+     27,
+     31
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0059#L2.0",
+    "item": "S:P0059",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0308",
+     "S:P0396"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0060#L2.0",
+    "item": "S:P0060",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0308",
+     "S:P0309",
+     "S:P0396",
+     "S:P0397"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0061#L2.0",
+    "item": "S:P0061",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0307",
+     "S:P0308",
+     "S:P0396",
+     "S:P0398"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0062#L2.0",
+    "item": "S:P0062",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0308",
+     "S:P0310",
+     "S:P0395",
+     "S:P0396"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0063#L2.0",
+    "item": "S:P0063",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0308",
+     "S:P0311",
+     "S:P0396",
+     "S:P0399"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0064#L2.0",
+    "item": "S:P0064",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0308",
+     "S:P0312",
+     "S:P0396",
+     "S:P0400"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0071#L2.0",
+    "item": "S:P0071",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0159"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0072#L2.0",
+    "item": "S:P0072",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0158",
+     "S:P0159"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0073#L2.0",
+    "item": "S:P0073",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0159",
+     "S:P0160"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0074#L2.0",
+    "item": "S:P0074",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0159",
+     "S:P0163"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0075#L2.0",
+    "item": "S:P0075",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0159",
+     "S:P0164"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0076#L2.0",
+    "item": "S:P0076",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "S:P0159",
+     "S:P0165"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0089#L2.0",
+    "item": "S:P0089",
+    "iv": [
+     100,
+     114
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_secret_Beatrix",
+     "S:P0179"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0090#L2.0",
+    "item": "S:P0090",
+    "iv": [
+     102,
+     113
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_secret_Beatrix",
+     "S:P0178",
+     "S:P0179"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0091#L2.0",
+    "item": "S:P0091",
+    "iv": [
+     100,
+     114
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_secret_Beatrix",
+     "S:P0179",
+     "S:P0180"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0094#L2.0",
+    "item": "S:P0094",
+    "iv": [
+     100,
+     114
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_secret_Beatrix",
+     "S:P0179",
+     "S:P0181"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0095#L2.0",
+    "item": "S:P0095",
+    "iv": [
+     100,
+     114
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_secret_Beatrix",
+     "S:P0179",
+     "S:P0182"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0096#L2.0",
+    "item": "S:P0096",
+    "iv": [
+     100,
+     114
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_secret_Beatrix",
+     "S:P0179",
+     "S:P0183"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0104#L2.0",
+    "item": "S:P0104",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0018",
+     "S:P0194",
+     "S:P0285",
+     "S:P0340"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0105#L2.0",
+    "item": "S:P0105",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0017",
+     "S:P0018",
+     "S:P0192",
+     "S:P0194",
+     "S:P0283",
+     "S:P0285",
+     "S:P0338",
+     "S:P0340"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0106#L2.0",
+    "item": "S:P0106",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0016",
+     "S:P0018",
+     "S:P0193",
+     "S:P0194",
+     "S:P0284",
+     "S:P0285",
+     "S:P0339",
+     "S:P0340"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0107#L2.0",
+    "item": "S:P0107",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0018",
+     "S:P0019",
+     "S:P0191",
+     "S:P0194",
+     "S:P0285",
+     "S:P0286",
+     "S:P0340",
+     "S:P0341"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0108#L2.0",
+    "item": "S:P0108",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0018",
+     "S:P0020",
+     "S:P0194",
+     "S:P0195",
+     "S:P0282",
+     "S:P0285",
+     "S:P0340",
+     "S:P0342"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0109#L2.0",
+    "item": "S:P0109",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0018",
+     "S:P0021",
+     "S:P0194",
+     "S:P0196",
+     "S:P0285",
+     "S:P0287",
+     "S:P0337",
+     "S:P0340"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0110#L2.0",
+    "item": "S:P0110",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0289"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0111#L2.0",
+    "item": "S:P0111",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0288",
+     "S:P0289"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0112#L2.0",
+    "item": "S:P0112",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0289",
+     "S:P0292"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0113#L2.0",
+    "item": "S:P0113",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0289",
+     "S:P0293"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0114#L2.0",
+    "item": "S:P0114",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0289",
+     "S:P0295"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0115#L2.0",
+    "item": "S:P0115",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0289",
+     "S:P0297"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0122#L2.0",
+    "item": "S:P0122",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0237"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0124#L2.0",
+    "item": "S:P0124",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0236",
+     "S:P0237"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0126#L2.0",
+    "item": "S:P0126",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0237",
+     "S:P0239"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0127#L2.0",
+    "item": "S:P0127",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0237",
+     "S:P0240"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0130#L2.0",
+    "item": "S:P0130",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0237",
+     "S:P0242"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0131#L2.0",
+    "item": "S:P0131",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0237",
+     "S:P0243"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0132#L2.0",
+    "item": "S:P0132",
+    "iv": [
+     51,
+     61
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0300"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0135#L2.0",
+    "item": "S:P0135",
+    "iv": [
+     51,
+     61
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0298",
+     "S:P0300"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0137#L2.0",
+    "item": "S:P0137",
+    "iv": [
+     51,
+     61
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0300",
+     "S:P0303"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0138#L2.0",
+    "item": "S:P0138",
+    "iv": [
+     51,
+     60
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0300",
+     "S:P0304"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0140#L2.0",
+    "item": "S:P0140",
+    "iv": [
+     51,
+     58
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0300",
+     "S:P0305"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0145#L2.0",
+    "item": "S:P0145",
+    "iv": [
+     52,
+     61
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0300",
+     "S:P0306"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0158#L2.0",
+    "item": "S:P0158",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0072"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0159#L2.0",
+    "item": "S:P0159",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0071",
+     "S:P0072"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0160#L2.0",
+    "item": "S:P0160",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0072",
+     "S:P0073"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0163#L2.0",
+    "item": "S:P0163",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0072",
+     "S:P0074"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0164#L2.0",
+    "item": "S:P0164",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0072",
+     "S:P0075"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0165#L2.0",
+    "item": "S:P0165",
+    "iv": [
+     82,
+     94
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0072",
+     "S:P0076"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0178#L2.0",
+    "item": "S:P0178",
+    "iv": [
+     102,
+     113
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0090"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0179#L2.0",
+    "item": "S:P0179",
+    "iv": [
+     102,
+     113
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0089",
+     "S:P0090"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0180#L2.0",
+    "item": "S:P0180",
+    "iv": [
+     102,
+     113
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0090",
+     "S:P0091"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0181#L2.0",
+    "item": "S:P0181",
+    "iv": [
+     102,
+     113
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0090",
+     "S:P0094"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0182#L2.0",
+    "item": "S:P0182",
+    "iv": [
+     102,
+     113
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0090",
+     "S:P0095"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0183#L2.0",
+    "item": "S:P0183",
+    "iv": [
+     102,
+     113
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Conservatory",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0090",
+     "S:P0096"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0191#L2.0",
+    "item": "S:P0191",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0107",
+     "S:P0286",
+     "S:P0341"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0192#L2.0",
+    "item": "S:P0192",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0105",
+     "S:P0107",
+     "S:P0283",
+     "S:P0286",
+     "S:P0338",
+     "S:P0341"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0193#L2.0",
+    "item": "S:P0193",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0106",
+     "S:P0107",
+     "S:P0284",
+     "S:P0286",
+     "S:P0339",
+     "S:P0341"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0194#L2.0",
+    "item": "S:P0194",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0104",
+     "S:P0107",
+     "S:P0285",
+     "S:P0286",
+     "S:P0340",
+     "S:P0341"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0195#L2.0",
+    "item": "S:P0195",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0107",
+     "S:P0108",
+     "S:P0282",
+     "S:P0286",
+     "S:P0341",
+     "S:P0342"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0196#L2.0",
+    "item": "S:P0196",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0107",
+     "S:P0109",
+     "S:P0286",
+     "S:P0287",
+     "S:P0337",
+     "S:P0341"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0223#L2.0",
+    "item": "S:P0223",
+    "iv": [
+     27,
+     35
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_secret_Delphine",
+     "S:P0290",
+     "S:P0371"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0224#L2.0",
+    "item": "S:P0224",
+    "iv": [
+     27,
+     35
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_secret_Delphine",
+     "S:P0288",
+     "S:P0290",
+     "S:P0371",
+     "S:P0372"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0225#L2.0",
+    "item": "S:P0225",
+    "iv": [
+     28,
+     35
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_secret_Delphine",
+     "S:P0290",
+     "S:P0291",
+     "S:P0370",
+     "S:P0371"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0226#L2.0",
+    "item": "S:P0226",
+    "iv": [
+     27,
+     35
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_secret_Delphine",
+     "S:P0290",
+     "S:P0292",
+     "S:P0371",
+     "S:P0373"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0227#L2.0",
+    "item": "S:P0227",
+    "iv": [
+     27,
+     35
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_secret_Delphine",
+     "S:P0290",
+     "S:P0293",
+     "S:P0371",
+     "S:P0374"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0228#L2.0",
+    "item": "S:P0228",
+    "iv": [
+     27,
+     35
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_secret_Delphine",
+     "S:P0290",
+     "S:P0294",
+     "S:P0371",
+     "S:P0375"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0236#L2.0",
+    "item": "S:P0236",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0124"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0237#L2.0",
+    "item": "S:P0237",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0122",
+     "S:P0124"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0239#L2.0",
+    "item": "S:P0239",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0124",
+     "S:P0126"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0240#L2.0",
+    "item": "S:P0240",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0124",
+     "S:P0127"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0242#L2.0",
+    "item": "S:P0242",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0124",
+     "S:P0130"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0243#L2.0",
+    "item": "S:P0243",
+    "iv": [
+     40,
+     44
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0124",
+     "S:P0131"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0252#L2.0",
+    "item": "S:P0252",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_alibi_Delphine",
+     "S:P0309",
+     "S:P0397"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0253#L2.0",
+    "item": "S:P0253",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_alibi_Delphine",
+     "S:P0308",
+     "S:P0309",
+     "S:P0396",
+     "S:P0397"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0254#L2.0",
+    "item": "S:P0254",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_alibi_Delphine",
+     "S:P0307",
+     "S:P0309",
+     "S:P0397",
+     "S:P0398"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0255#L2.0",
+    "item": "S:P0255",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_alibi_Delphine",
+     "S:P0309",
+     "S:P0310",
+     "S:P0395",
+     "S:P0397"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0256#L2.0",
+    "item": "S:P0256",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_alibi_Delphine",
+     "S:P0309",
+     "S:P0311",
+     "S:P0397",
+     "S:P0399"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0257#L2.0",
+    "item": "S:P0257",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "E_alibi_Delphine",
+     "S:P0309",
+     "S:P0312",
+     "S:P0397",
+     "S:P0400"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0264#L2.0",
+    "item": "S:P0264",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0324"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0268#L2.0",
+    "item": "S:P0268",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0322",
+     "S:P0324"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0269#L2.0",
+    "item": "S:P0269",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0324",
+     "S:P0325"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0270#L2.0",
+    "item": "S:P0270",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0324",
+     "S:P0326"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0272#L2.0",
+    "item": "S:P0272",
+    "iv": [
+     102,
+     108
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0324",
+     "S:P0328"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0275#L2.0",
+    "item": "S:P0275",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Delphine",
+     "S:P0324",
+     "S:P0329"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0282#L2.0",
+    "item": "S:P0282",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0020",
+     "S:P0108",
+     "S:P0195"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0283#L2.0",
+    "item": "S:P0283",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0017",
+     "S:P0020",
+     "S:P0105",
+     "S:P0108",
+     "S:P0192",
+     "S:P0195"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0284#L2.0",
+    "item": "S:P0284",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0016",
+     "S:P0020",
+     "S:P0106",
+     "S:P0108",
+     "S:P0193",
+     "S:P0195"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0285#L2.0",
+    "item": "S:P0285",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0018",
+     "S:P0020",
+     "S:P0104",
+     "S:P0108",
+     "S:P0194",
+     "S:P0195"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0286#L2.0",
+    "item": "S:P0286",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0019",
+     "S:P0020",
+     "S:P0107",
+     "S:P0108",
+     "S:P0191",
+     "S:P0195"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0287#L2.0",
+    "item": "S:P0287",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0020",
+     "S:P0021",
+     "S:P0108",
+     "S:P0109",
+     "S:P0195",
+     "S:P0196"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0288#L2.0",
+    "item": "S:P0288",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0224"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0288#L2.1",
+    "item": "S:P0288",
+    "iv": [
+     26,
+     47
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0224"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0289#L2.0",
+    "item": "S:P0289",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0110",
+     "S:P0111",
+     "S:P0224"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0290#L2.0",
+    "item": "S:P0290",
+    "iv": [
+     27,
+     35
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0223",
+     "S:P0224"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0291#L2.0",
+    "item": "S:P0291",
+    "iv": [
+     28,
+     47
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0224",
+     "S:P0225"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0292#L2.0",
+    "item": "S:P0292",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0112",
+     "S:P0224",
+     "S:P0226"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0292#L2.1",
+    "item": "S:P0292",
+    "iv": [
+     26,
+     47
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0112",
+     "S:P0224",
+     "S:P0226"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0293#L2.0",
+    "item": "S:P0293",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0113",
+     "S:P0224",
+     "S:P0227"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0293#L2.1",
+    "item": "S:P0293",
+    "iv": [
+     26,
+     47
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0113",
+     "S:P0224",
+     "S:P0227"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0294#L2.0",
+    "item": "S:P0294",
+    "iv": [
+     26,
+     47
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0224",
+     "S:P0228"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0295#L2.0",
+    "item": "S:P0295",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0114",
+     "S:P0224"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0296#L2.0",
+    "item": "S:P0296",
+    "iv": [
+     39,
+     47
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0224"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0297#L2.0",
+    "item": "S:P0297",
+    "iv": [
+     10,
+     19
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_secret_Emeric",
+     "S:P0111",
+     "S:P0115",
+     "S:P0224"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0298#L2.0",
+    "item": "S:P0298",
+    "iv": [
+     51,
+     61
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0135"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0300#L2.0",
+    "item": "S:P0300",
+    "iv": [
+     51,
+     61
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0132",
+     "S:P0135"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0303#L2.0",
+    "item": "S:P0303",
+    "iv": [
+     51,
+     61
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0135",
+     "S:P0137"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0304#L2.0",
+    "item": "S:P0304",
+    "iv": [
+     51,
+     60
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0135",
+     "S:P0138"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0305#L2.0",
+    "item": "S:P0305",
+    "iv": [
+     51,
+     58
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0135",
+     "S:P0140"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0306#L2.0",
+    "item": "S:P0306",
+    "iv": [
+     52,
+     61
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0135",
+     "S:P0145"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0307#L2.0",
+    "item": "S:P0307",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_alibi_Emeric",
+     "S:P0061",
+     "S:P0254"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0308#L2.0",
+    "item": "S:P0308",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_alibi_Emeric",
+     "S:P0059",
+     "S:P0061",
+     "S:P0253",
+     "S:P0254"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0309#L2.0",
+    "item": "S:P0309",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_alibi_Emeric",
+     "S:P0060",
+     "S:P0061",
+     "S:P0252",
+     "S:P0254"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0310#L2.0",
+    "item": "S:P0310",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_alibi_Emeric",
+     "S:P0061",
+     "S:P0062",
+     "S:P0254",
+     "S:P0255"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0311#L2.0",
+    "item": "S:P0311",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_alibi_Emeric",
+     "S:P0061",
+     "S:P0063",
+     "S:P0254",
+     "S:P0256"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0312#L2.0",
+    "item": "S:P0312",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "E_alibi_Emeric",
+     "S:P0061",
+     "S:P0064",
+     "S:P0254",
+     "S:P0257"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0322#L2.0",
+    "item": "S:P0322",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0268"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0324#L2.0",
+    "item": "S:P0324",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0264",
+     "S:P0268"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0325#L2.0",
+    "item": "S:P0325",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0268",
+     "S:P0269"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0326#L2.0",
+    "item": "S:P0326",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0268",
+     "S:P0270"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0328#L2.0",
+    "item": "S:P0328",
+    "iv": [
+     102,
+     108
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0268",
+     "S:P0272"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0329#L2.0",
+    "item": "S:P0329",
+    "iv": [
+     100,
+     108
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0268",
+     "S:P0275"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0337#L2.0",
+    "item": "S:P0337",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0021",
+     "S:P0109",
+     "S:P0196"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0338#L2.0",
+    "item": "S:P0338",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0017",
+     "S:P0021",
+     "S:P0105",
+     "S:P0109",
+     "S:P0192",
+     "S:P0196"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0339#L2.0",
+    "item": "S:P0339",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0016",
+     "S:P0021",
+     "S:P0106",
+     "S:P0109",
+     "S:P0193",
+     "S:P0196"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0340#L2.0",
+    "item": "S:P0340",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0018",
+     "S:P0021",
+     "S:P0104",
+     "S:P0109",
+     "S:P0194",
+     "S:P0196"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0341#L2.0",
+    "item": "S:P0341",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0019",
+     "S:P0021",
+     "S:P0107",
+     "S:P0109",
+     "S:P0191",
+     "S:P0196"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0342#L2.0",
+    "item": "S:P0342",
+    "iv": [
+     2,
+     6
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Foyer",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0020",
+     "S:P0021",
+     "S:P0108",
+     "S:P0109",
+     "S:P0195",
+     "S:P0196"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0343#L2.0",
+    "item": "S:P0343",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0023"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0344#L2.0",
+    "item": "S:P0344",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0022",
+     "S:P0023"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0345#L2.0",
+    "item": "S:P0345",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0023",
+     "S:P0024"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0346#L2.0",
+    "item": "S:P0346",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0023",
+     "S:P0025"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0347#L2.0",
+    "item": "S:P0347",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0023",
+     "S:P0026"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0348#L2.0",
+    "item": "S:P0348",
+    "iv": [
+     11,
+     18
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0023",
+     "S:P0027"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0370#L2.0",
+    "item": "S:P0370",
+    "iv": [
+     28,
+     47
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "E_secret_Fiora",
+     "S:P0225"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0371#L2.0",
+    "item": "S:P0371",
+    "iv": [
+     28,
+     35
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "E_secret_Fiora",
+     "S:P0223",
+     "S:P0225"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0372#L2.0",
+    "item": "S:P0372",
+    "iv": [
+     28,
+     47
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "E_secret_Fiora",
+     "S:P0224",
+     "S:P0225"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0373#L2.0",
+    "item": "S:P0373",
+    "iv": [
+     28,
+     47
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "E_secret_Fiora",
+     "S:P0225",
+     "S:P0226"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0374#L2.0",
+    "item": "S:P0374",
+    "iv": [
+     28,
+     47
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "E_secret_Fiora",
+     "S:P0225",
+     "S:P0227"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0375#L2.0",
+    "item": "S:P0375",
+    "iv": [
+     28,
+     47
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "E_secret_Fiora",
+     "S:P0225",
+     "S:P0228"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0376#L2.0",
+    "item": "S:P0376",
+    "iv": [
+     39,
+     47
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "E_secret_Fiora",
+     "S:P0225"
+    ]
+   },
+   {
+    "actor": "Fiora",
+    "id": "S:P0395#L2.0",
+    "item": "S:P0395",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0062",
+     "S:P0255"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0396#L2.0",
+    "item": "S:P0396",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0059",
+     "S:P0062",
+     "S:P0253",
+     "S:P0255"
+    ]
+   },
+   {
+    "actor": "Delphine",
+    "id": "S:P0397#L2.0",
+    "item": "S:P0397",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0060",
+     "S:P0062",
+     "S:P0252",
+     "S:P0255"
+    ]
+   },
+   {
+    "actor": "Emeric",
+    "id": "S:P0398#L2.0",
+    "item": "S:P0398",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0061",
+     "S:P0062",
+     "S:P0254",
+     "S:P0255"
+    ]
+   },
+   {
+    "actor": "Alistair",
+    "id": "S:P0399#L2.0",
+    "item": "S:P0399",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0062",
+     "S:P0063",
+     "S:P0255",
+     "S:P0256"
+    ]
+   },
+   {
+    "actor": "Cormac",
+    "id": "S:P0400#L2.0",
+    "item": "S:P0400",
+    "iv": [
+     65,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Parlor",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "S:P0062",
+     "S:P0064",
+     "S:P0255",
+     "S:P0257"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0423#L2",
+    "item": "S:P0423",
+    "iv": [
+     25,
+     30
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Office",
+    "observer": null,
+    "sources": [
+     "Beatrix",
+     "E_pin_clean"
+    ]
+   }
+  ],
+  "cracked": [
+   {
+    "actor": "Beatrix",
+    "core": [
+     "S:P0396"
+    ],
+    "round": 0
+   },
+   {
+    "actor": "Delphine",
+    "core": [
+     "S:P0397"
+    ],
+    "round": 0
+   },
+   {
+    "actor": "Emeric",
+    "core": [
+     "S:P0398"
+    ],
+    "round": 0
+   },
+   {
+    "actor": "Fiora",
+    "core": [
+     "S:P0395"
+    ],
+    "round": 0
+   }
+  ],
+  "fairness": 2,
+  "murder_loc": "Office",
+  "outsider": {
+   "blocked": [
+    "E_gate_Terrace#0"
+   ],
+   "excluded": true
+  },
+  "package_seal": "604f720bb383ad51a3cb388c26eb799505b0b48a9f131ba3f82344e2d56634d5",
+  "proof_core": [
+   "E_alibi_Emeric",
+   "E_gate_Terrace",
+   "E_watch",
+   "S:P0308",
+   "S:P0309",
+   "S:P0310"
+  ],
+  "robustness": {
+   "failures": [],
+   "subsets_run": 8
+  },
+  "schema": "eidolon.proof/2",
+  "survivors": [
+   "Cormac"
+  ],
+  "time_bins": [
+   7
+  ],
+  "unique": true,
+  "window": [
+   71,
+   72
+  ]
+ },
+ "report": {
+  "failed_at": null,
+  "metrics": {
+   "bands": {
+    "min_depth": "standard",
+    "proof_core": "standard",
+    "red_herrings": "standard",
+    "suspects": "standard"
+   },
+   "conditional_implications": 1,
+   "cover_layers": 3,
+   "distortions_per_witness_max": 1,
+   "eliminations": 4,
+   "eliminations_on_absence": 0,
+   "fragility": {
+    "Beatrix": {
+     "absence_sources": 0,
+     "levels": [
+      2
+     ],
+     "rests_on_absence": false
+    },
+    "Delphine": {
+     "absence_sources": 0,
+     "levels": [
+      2
+     ],
+     "rests_on_absence": false
+    },
+    "Emeric": {
+     "absence_sources": 0,
+     "levels": [
+      2
+     ],
+     "rests_on_absence": false
+    },
+    "Fiora": {
+     "absence_sources": 0,
+     "levels": [
+      2
+     ],
+     "rests_on_absence": false
+    }
+   },
+   "min_depth": 3,
+   "proof_core": 6,
+   "red_herrings": 2,
+   "suspects": 5
+  },
+  "ok": true,
+  "package": "manor_wing_s6",
+  "problems": [],
+  "stages": {
+   "V-0": {
+    "ok": true,
+    "seconds": 0.002
+   },
+   "V-1": {
+    "ok": true,
+    "seconds": 0.017
+   },
+   "V-2": {
+    "knowledge_entries": 465,
+    "ok": true,
+    "seconds": 0.421
+   },
+   "V-3": {
+    "breaker_sets": 5,
+    "ok": true,
+    "seconds": 2.852,
+    "secrets": 5
+   },
+   "V-4": {
+    "breaker_refs": 6,
+    "cued_depth": 3,
+    "ok": true,
+    "retrieval_checked": 4,
+    "seconds": 0.41
+   },
+   "V-5": {
+    "active_distortions": 3,
+    "distortion_subsets": 8,
+    "ok": true,
+    "proof_core": 6,
+    "rounds": 1,
+    "seconds": 6.825,
+    "survivors": [
+     "Cormac"
+    ],
+    "unique": true
+   },
+   "V-6": {
+    "bands": {
+     "min_depth": "standard",
+     "proof_core": "standard",
+     "red_herrings": "standard",
+     "suspects": "standard"
+    },
+    "contract": {
+     "10_proof_testimony_askable": true,
+     "1_proof_core_fair": true,
+     "2_lies_breakable": true,
+     "3_red_herrings_refutable": true,
+     "4_distortions_correctable": true,
+     "8_cued_path": true
+    },
+    "in_band": true,
+    "ok": true,
+    "seconds": 0.098
+   },
+   "V-7": {
+    "9_not_solvable_without_evidence": true,
+    "adversarial_per_character": 500,
+    "bluffs_per_character": 500,
+    "bots": {
+     "adversarial": {
+      "actions": 2500,
+      "ok": true,
+      "peels": 0,
+      "rejected": 0
+     },
+     "bluff": {
+      "actions": 2500,
+      "ok": true,
+      "peels": 0,
+      "rejected": 0
+     },
+     "cue_following": {
+      "actions": 209,
+      "ok": true,
+      "peels": 0,
+      "rejected": 0
+     },
+     "greedy": {
+      "actions": 146,
+      "ok": true,
+      "peels": 0,
+      "rejected": 0
+     },
+     "murderer_peel": {
+      "actions": 57,
+      "ok": true,
+      "peels": 1,
+      "rejected": 0
+     }
+    },
+    "ok": true,
+    "scale": "full",
+    "seconds": 73.435
+   },
+   "V-8": {
+    "ok": true,
+    "seal": "604f720bb383ad51a3cb388c26eb799505b0b48a9f131ba3f82344e2d56634d5"
+   }
+  }
+ }
+}

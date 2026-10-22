@@ -1,0 +1,5870 @@
+{
+ "bundle_seal": "eeadf8699615d36040bfe71e6742ab2fe94ae0e65d052f7711b8990c64da9a09",
+ "package": {
+  "accounts": [
+   "clean@Elena"
+  ],
+  "architecture_version": "0.4",
+  "case": {
+   "actors": {
+    "David": {
+     "id": "David",
+     "name": "David",
+     "role": "suspect",
+     "static_attrs": {
+      "sex": "M"
+     }
+    },
+    "Elena": {
+     "id": "Elena",
+     "name": "Elena",
+     "role": "witness",
+     "static_attrs": {
+      "sex": "F"
+     }
+    },
+    "Harold": {
+     "id": "Harold",
+     "name": "Harold",
+     "role": "victim",
+     "static_attrs": {
+      "sex": "M"
+     }
+    },
+    "Margaret": {
+     "id": "Margaret",
+     "name": "Margaret",
+     "role": "suspect",
+     "static_attrs": {
+      "sex": "F"
+     }
+    },
+    "Robert": {
+     "id": "Robert",
+     "name": "Robert",
+     "role": "suspect",
+     "static_attrs": {
+      "sex": "M"
+     }
+    }
+   },
+   "alias": {
+    "names": {}
+   },
+   "attitudes": [],
+   "events": [
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "David",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:David:0",
+     "intent": null,
+     "interval": [
+      0,
+      5
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "David",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:David:1",
+     "intent": null,
+     "interval": [
+      5,
+      25
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "David",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:David:2",
+     "intent": null,
+     "interval": [
+      25,
+      26
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "David",
+       "kind": "ActorAt",
+       "location": "Library"
+      }
+     ],
+     "id": "stay:David:3",
+     "intent": null,
+     "interval": [
+      26,
+      43
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Library",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "David",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:David:4",
+     "intent": null,
+     "interval": [
+      43,
+      56
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "David",
+       "kind": "ActorAt",
+       "location": "Study"
+      }
+     ],
+     "id": "stay:David:5",
+     "intent": null,
+     "interval": [
+      56,
+      61
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Study",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "David",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:David:6",
+     "intent": null,
+     "interval": [
+      61,
+      89
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "David",
+       "kind": "ActorAt",
+       "location": "Room"
+      }
+     ],
+     "id": "stay:David:7",
+     "intent": null,
+     "interval": [
+      89,
+      119
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "David",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:David:8",
+     "intent": null,
+     "interval": [
+      119,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Elena:0",
+     "intent": null,
+     "interval": [
+      0,
+      5
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Room"
+      }
+     ],
+     "id": "stay:Elena:1",
+     "intent": null,
+     "interval": [
+      5,
+      30
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Elena:2",
+     "intent": null,
+     "interval": [
+      30,
+      31
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Elena:3",
+     "intent": null,
+     "interval": [
+      31,
+      32
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "BackSteps"
+      }
+     ],
+     "id": "stay:Elena:4",
+     "intent": null,
+     "interval": [
+      32,
+      37
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "BackSteps",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Elena:5",
+     "intent": null,
+     "interval": [
+      37,
+      38
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Elena:6",
+     "intent": null,
+     "interval": [
+      38,
+      39
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Study"
+      }
+     ],
+     "id": "stay:Elena:7",
+     "intent": null,
+     "interval": [
+      39,
+      47
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Study",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Elena:8",
+     "intent": null,
+     "interval": [
+      47,
+      48
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Elena:9",
+     "intent": null,
+     "interval": [
+      48,
+      50
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Elena:10",
+     "intent": null,
+     "interval": [
+      50,
+      51
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Room"
+      }
+     ],
+     "id": "stay:Elena:11",
+     "intent": null,
+     "interval": [
+      51,
+      67
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Elena:12",
+     "intent": null,
+     "interval": [
+      67,
+      68
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Elena:13",
+     "intent": null,
+     "interval": [
+      68,
+      79
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Elena:14",
+     "intent": null,
+     "interval": [
+      79,
+      80
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Library"
+      }
+     ],
+     "id": "stay:Elena:15",
+     "intent": null,
+     "interval": [
+      80,
+      91
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Library",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Elena:16",
+     "intent": null,
+     "interval": [
+      91,
+      92
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Elena:17",
+     "intent": null,
+     "interval": [
+      92,
+      93
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "BackSteps"
+      }
+     ],
+     "id": "stay:Elena:18",
+     "intent": null,
+     "interval": [
+      93,
+      107
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "BackSteps",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Elena",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Elena:19",
+     "intent": null,
+     "interval": [
+      107,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Harold",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Harold",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Harold:0",
+     "intent": null,
+     "interval": [
+      0,
+      5
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Harold",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Harold",
+       "kind": "ActorAt",
+       "location": "Study"
+      }
+     ],
+     "id": "stay:Harold:1",
+     "intent": null,
+     "interval": [
+      5,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Study",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Margaret:0",
+     "intent": null,
+     "interval": [
+      0,
+      5
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Room"
+      }
+     ],
+     "id": "stay:Margaret:1",
+     "intent": null,
+     "interval": [
+      5,
+      12
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Margaret:2",
+     "intent": null,
+     "interval": [
+      12,
+      13
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Margaret:3",
+     "intent": null,
+     "interval": [
+      13,
+      16
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Margaret:4",
+     "intent": null,
+     "interval": [
+      16,
+      17
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Room"
+      }
+     ],
+     "id": "stay:Margaret:5",
+     "intent": null,
+     "interval": [
+      17,
+      38
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Margaret:6",
+     "intent": null,
+     "interval": [
+      38,
+      39
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Library"
+      }
+     ],
+     "id": "stay:Margaret:7",
+     "intent": null,
+     "interval": [
+      39,
+      50
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Library",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Margaret:8",
+     "intent": null,
+     "interval": [
+      50,
+      51
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Room"
+      }
+     ],
+     "id": "stay:Margaret:9",
+     "intent": null,
+     "interval": [
+      51,
+      67
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Margaret:10",
+     "intent": null,
+     "interval": [
+      67,
+      86
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Library"
+      }
+     ],
+     "id": "stay:Margaret:11",
+     "intent": null,
+     "interval": [
+      86,
+      111
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Library",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Margaret:12",
+     "intent": null,
+     "interval": [
+      111,
+      112
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Margaret",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Margaret",
+       "kind": "ActorAt",
+       "location": "Room"
+      },
+      {
+       "actor": "Margaret",
+       "attr": "attention",
+       "kind": "ActorState",
+       "value": "0.3"
+      }
+     ],
+     "id": "stay:Margaret:13",
+     "intent": null,
+     "interval": [
+      112,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Robert:0",
+     "intent": null,
+     "interval": [
+      0,
+      5
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Robert:1",
+     "intent": null,
+     "interval": [
+      5,
+      30
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Robert:2",
+     "intent": null,
+     "interval": [
+      30,
+      46
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Room"
+      }
+     ],
+     "id": "stay:Robert:3",
+     "intent": null,
+     "interval": [
+      46,
+      67
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Robert:4",
+     "intent": null,
+     "interval": [
+      67,
+      68
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Library"
+      }
+     ],
+     "id": "stay:Robert:5",
+     "intent": null,
+     "interval": [
+      68,
+      79
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Library",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Robert:6",
+     "intent": null,
+     "interval": [
+      79,
+      80
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Robert:7",
+     "intent": null,
+     "interval": [
+      80,
+      81
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "BackSteps"
+      }
+     ],
+     "id": "stay:Robert:8",
+     "intent": null,
+     "interval": [
+      81,
+      92
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "BackSteps",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Robert:9",
+     "intent": null,
+     "interval": [
+      92,
+      93
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Robert:10",
+     "intent": null,
+     "interval": [
+      93,
+      94
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Room"
+      }
+     ],
+     "id": "stay:Robert:11",
+     "intent": null,
+     "interval": [
+      94,
+      112
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Hall"
+      }
+     ],
+     "id": "stay:Robert:12",
+     "intent": null,
+     "interval": [
+      112,
+      113
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "Kitchen"
+      }
+     ],
+     "id": "stay:Robert:13",
+     "intent": null,
+     "interval": [
+      113,
+      114
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "Kitchen",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "Robert",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Robert",
+       "kind": "ActorAt",
+       "location": "BackSteps"
+      }
+     ],
+     "id": "stay:Robert:14",
+     "intent": null,
+     "interval": [
+      114,
+      120
+     ],
+     "kind": "Stay",
+     "load_bearing": false,
+     "location": "BackSteps",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [
+      {
+       "kind": "TraceCreated",
+       "object": "Decanter",
+       "trace_kind": "fingerprint"
+      }
+     ],
+     "id": "attack",
+     "intent": null,
+     "interval": [
+      59,
+      60
+     ],
+     "kind": "Attack",
+     "load_bearing": false,
+     "location": "Study",
+     "objects": [
+      "Decanter"
+     ],
+     "participants": [
+      "Harold"
+     ],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 1.0,
+      "sound": 0.8
+     }
+    },
+    {
+     "actor": "Harold",
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Harold",
+       "attr": "alive",
+       "kind": "ActorState",
+       "value": "false"
+      }
+     ],
+     "id": "die",
+     "intent": null,
+     "interval": [
+      59,
+      60
+     ],
+     "kind": "Die",
+     "load_bearing": false,
+     "location": "Study",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    },
+    {
+     "actor": "David",
+     "causes": [],
+     "effects": [],
+     "id": "argue",
+     "intent": null,
+     "interval": [
+      56,
+      59
+     ],
+     "kind": "Speak",
+     "load_bearing": false,
+     "location": "Study",
+     "objects": [],
+     "participants": [
+      "Harold"
+     ],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 1.0,
+      "sound": 0.8
+     }
+    },
+    {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [],
+     "id": "clean",
+     "intent": null,
+     "interval": [
+      41,
+      42
+     ],
+     "kind": "Clean",
+     "load_bearing": false,
+     "location": "Study",
+     "objects": [
+      "Decanter"
+     ],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.6,
+      "sound": 0.2
+     }
+    },
+    {
+     "actor": null,
+     "causes": [],
+     "effects": [
+      {
+       "actor": "Harold",
+       "attr": "alive",
+       "kind": "ActorState",
+       "value": "true"
+      }
+     ],
+     "id": "alive0:Harold",
+     "intent": null,
+     "interval": [
+      0,
+      1
+     ],
+     "kind": "Environmental",
+     "load_bearing": false,
+     "location": "Hall",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 0.0,
+      "sound": 0.0
+     }
+    }
+   ],
+   "id": "study_party_s4",
+   "locations": {
+    "BackSteps": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "BackSteps",
+     "name": "the back steps",
+     "private": false,
+     "zone": ""
+    },
+    "EXT": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": false,
+     "exterior": false,
+     "id": "EXT",
+     "name": "outside",
+     "private": false,
+     "zone": ""
+    },
+    "Gazebo": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": false,
+     "exterior": true,
+     "id": "Gazebo",
+     "name": "the gazebo",
+     "private": false,
+     "zone": ""
+    },
+    "Hall": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Hall",
+     "name": "the hall",
+     "private": false,
+     "zone": ""
+    },
+    "Kitchen": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Kitchen",
+     "name": "the kitchen",
+     "private": false,
+     "zone": ""
+    },
+    "Library": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Library",
+     "name": "the library",
+     "private": false,
+     "zone": ""
+    },
+    "Room": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Room",
+     "name": "the guest room",
+     "private": false,
+     "zone": ""
+    },
+    "Study": {
+     "attributes": {},
+     "entrances": [],
+     "entrances_visible": true,
+     "exterior": false,
+     "id": "Study",
+     "name": "the study",
+     "private": true,
+     "zone": ""
+    }
+   },
+   "motives": [
+    {
+     "actor": "David",
+     "kind": "Motive",
+     "motive_kind": "blackmail",
+     "strength": 0.7,
+     "victim": "Harold"
+    },
+    {
+     "actor": "Margaret",
+     "kind": "Motive",
+     "motive_kind": "blackmail",
+     "strength": 0.7,
+     "victim": "Harold"
+    }
+   ],
+   "objects": {
+    "Decanter": {
+     "id": "Decanter",
+     "initial_location": "Study",
+     "kind": "weapon",
+     "name": "a crystal decanter",
+     "static_attrs": {},
+     "traceable": [
+      "fingerprint"
+     ]
+    }
+   },
+   "perception_edges": [
+    {
+     "conditions": [],
+     "modality": "sound",
+     "observer_at": "BackSteps",
+     "perceives": "Study",
+     "quality": 0.7
+    },
+    {
+     "conditions": [],
+     "modality": "sight",
+     "observer_at": "Kitchen",
+     "perceives": "Hall",
+     "quality": 0.5
+    },
+    {
+     "conditions": [],
+     "modality": "sound",
+     "observer_at": "Hall",
+     "perceives": "Study",
+     "quality": 0.6
+    }
+   ],
+   "rels": [
+    {
+     "a": "Elena",
+     "b": "David",
+     "kind": "Rel",
+     "rel_kind": "lover",
+     "value": null
+    }
+   ],
+   "t_investigation": 120,
+   "time_anchor": null,
+   "travel_edges": [
+    {
+     "a": "Hall",
+     "b": "Study",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "Hall",
+     "b": "Library",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "Hall",
+     "b": "Kitchen",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "Hall",
+     "b": "Room",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "Kitchen",
+     "b": "BackSteps",
+     "conditions": [],
+     "directed": false,
+     "minutes": 1
+    },
+    {
+     "a": "BackSteps",
+     "b": "Gazebo",
+     "conditions": [],
+     "directed": false,
+     "minutes": 3
+    },
+    {
+     "a": "Gazebo",
+     "b": "EXT",
+     "conditions": [],
+     "directed": false,
+     "minutes": 2
+    },
+    {
+     "a": "Study",
+     "b": "Gazebo",
+     "conditions": [],
+     "directed": false,
+     "minutes": 2
+    }
+   ]
+  },
+  "difficulty": "easy",
+  "distortions": [
+   {
+    "actor": "David",
+    "delta": -18,
+    "know_ids": [
+     "S:P0008"
+    ],
+    "memory": "MDavid0010"
+   },
+   {
+    "actor": "Elena",
+    "delta": -16,
+    "know_ids": [
+     "S:P0362"
+    ],
+    "memory": "MElena0112"
+   },
+   {
+    "actor": "Margaret",
+    "delta": 13,
+    "know_ids": [
+     "S:P0224"
+    ],
+    "memory": "MMargaret0038"
+   },
+   {
+    "actor": "Robert",
+    "delta": 6,
+    "know_ids": [
+     "S:P0306"
+    ],
+    "memory": "MRobert0044"
+   }
+  ],
+  "evidence": [
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": null,
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Study",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "Harold lies dead in the study; a crystal decanter lies nearby."
+    },
+    "id": "E_scene",
+    "implications": [],
+    "interacted": [],
+    "kind": "Object",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": "Study",
+    "object": "Decanter",
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     59,
+     60
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Study",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "The victim's watch stopped at the moment of the blow."
+    },
+    "id": "E_watch",
+    "implications": [
+     {
+      "proposition": {
+       "action": "Die",
+       "actor": "Harold",
+       "interval": [
+        59,
+        60
+       ],
+       "kind": "Did",
+       "location": "Study",
+       "object": null,
+       "target_actor": null
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Timepiece",
+    "known_to": {},
+    "load_bearing": true,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": null,
+    "created_by": null,
+    "discovery": {
+     "action": "Dust",
+     "at": "Decanter",
+     "cue": "Decanter",
+     "prerequisites": [
+      {
+       "kind": "EvidenceFound",
+       "ref": "E_scene"
+      }
+     ],
+     "reveals_text": "A print on the weapon."
+    },
+    "id": "E_trace",
+    "implications": [
+     {
+      "proposition": {
+       "action": "touch",
+       "actor": "David",
+       "interval": [
+        41,
+        120
+       ],
+       "kind": "Did",
+       "location": "Study",
+       "object": "Decanter",
+       "target_actor": null
+      },
+      "requires": [
+       "clean@Elena"
+      ],
+      "strength": 0.9
+     }
+    ],
+    "interacted": [],
+    "kind": "Fingerprint",
+    "known_to": {},
+    "load_bearing": true,
+    "location_at_investigation": "Study",
+    "object": "Decanter",
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 0.9,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     39,
+     47
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Study",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "A door log records who was in the room while it was cleaned."
+    },
+    "id": "E_pin_clean",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Elena",
+       "interval": [
+        39,
+        47
+       ],
+       "kind": "At",
+       "location": "Study"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": true,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     32,
+     37
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "BackSteps",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "A device log places someone here."
+    },
+    "id": "E_pin_Elena",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Elena",
+       "interval": [
+        32,
+        37
+       ],
+       "kind": "At",
+       "location": "BackSteps"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     10,
+     120
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Gazebo",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "The gate log shows no stranger passed."
+    },
+    "id": "E_gate_Gazebo",
+    "implications": [
+     {
+      "proposition": {
+       "identified": false,
+       "interval": [
+        10,
+        120
+       ],
+       "kind": "Saw",
+       "location": "Gazebo",
+       "observer": "Harold",
+       "subject": "nobody"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": true,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     51,
+     67
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Room",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "A room log records everyone who was in here around the time of death."
+    },
+    "id": "E_alibi_room",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Elena",
+       "interval": [
+        51,
+        67
+       ],
+       "kind": "At",
+       "location": "Room"
+      },
+      "requires": [],
+      "strength": 1.0
+     },
+     {
+      "proposition": {
+       "actor": "Margaret",
+       "interval": [
+        51,
+        67
+       ],
+       "kind": "At",
+       "location": "Room"
+      },
+      "requires": [],
+      "strength": 1.0
+     },
+     {
+      "proposition": {
+       "actor": "Robert",
+       "interval": [
+        51,
+        67
+       ],
+       "kind": "At",
+       "location": "Room"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": true,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     80,
+     91
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Library",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "Something here shows someone was not where they said."
+    },
+    "id": "E_secret_Elena",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Elena",
+       "interval": [
+        80,
+        91
+       ],
+       "kind": "At",
+       "location": "Library"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     17,
+     38
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Room",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "Something here shows someone was not where they said."
+    },
+    "id": "E_secret_Margaret",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Margaret",
+       "interval": [
+        17,
+        38
+       ],
+       "kind": "At",
+       "location": "Room"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Object",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": {
+     "misleads_toward": "H_Margaret_did_it",
+     "refuter": "E_alibi_room"
+    },
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   },
+   {
+    "authentic": true,
+    "contradicts": [],
+    "created_at": [
+     94,
+     112
+    ],
+    "created_by": null,
+    "discovery": {
+     "action": "Look",
+     "at": "Room",
+     "cue": null,
+     "prerequisites": [],
+     "reveals_text": "Something here shows someone was not where they said."
+    },
+    "id": "E_secret_Robert",
+    "implications": [
+     {
+      "proposition": {
+       "actor": "Robert",
+       "interval": [
+        94,
+        112
+       ],
+       "kind": "At",
+       "location": "Room"
+      },
+      "requires": [],
+      "strength": 1.0
+     }
+    ],
+    "interacted": [],
+    "kind": "Digital",
+    "known_to": {},
+    "load_bearing": false,
+    "location_at_investigation": null,
+    "object": null,
+    "planted_by": null,
+    "red_herring": null,
+    "reliability": 1.0,
+    "supports": [],
+    "visibility": "plain"
+   }
+  ],
+  "fairness_level": 2,
+  "generator_version": "6.0",
+  "id": "study_party_s4",
+  "memory_boosts": [
+   {
+    "actor": "Elena",
+    "memory": "MElena0001",
+    "strength_bp": 8000
+   },
+   {
+    "actor": "Elena",
+    "memory": "MElena0024",
+    "strength_bp": 10000
+   },
+   {
+    "actor": "David",
+    "memory": "MDavid0020",
+    "strength_bp": 10000
+   },
+   {
+    "actor": "David",
+    "memory": "MDavid0058",
+    "strength_bp": 10000
+   }
+  ],
+  "method": {
+   "admits": [],
+   "kind": "blunt_force",
+   "weapon": "Decanter"
+  },
+  "seal": "00b709d689b3cea0cba1bdd36306e340465b763f009a194bb9f0e20dc0743df3",
+  "secrets": [
+   {
+    "beneficiaries": [],
+    "cover": {
+     "layers": [
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_David_L0",
+         "modality": "actual",
+         "proposition": {
+          "action": "touch",
+          "actor": "David",
+          "interval": [
+           0,
+           120
+          ],
+          "kind": "DidNot",
+          "location": null,
+          "object": "Decanter",
+          "target_actor": null
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [],
+       "frame": [],
+       "index": 0,
+       "resolve": 6000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_David_L1",
+         "modality": "actual",
+         "proposition": {
+          "action": "touch",
+          "actor": "David",
+          "interval": [
+           41,
+           120
+          ],
+          "kind": "Did",
+          "location": "Study",
+          "object": "Decanter",
+          "target_actor": null
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        },
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_David_LT",
+         "modality": "actual",
+         "proposition": {
+          "action": "Attack",
+          "actor": "David",
+          "interval": [
+           59,
+           60
+          ],
+          "kind": "Did",
+          "location": "Study",
+          "object": "Decanter",
+          "target_actor": null
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "action": "touch",
+         "actor": "David",
+         "interval": [
+          41,
+          120
+         ],
+         "kind": "Did",
+         "location": "Study",
+         "object": "Decanter",
+         "target_actor": null
+        },
+        {
+         "action": "Attack",
+         "actor": "David",
+         "interval": [
+          59,
+          60
+         ],
+         "kind": "Did",
+         "location": "Study",
+         "object": "Decanter",
+         "target_actor": null
+        }
+       ],
+       "frame": [],
+       "index": 1,
+       "resolve": 10000,
+       "terminal": "stonewall"
+      }
+     ]
+    },
+    "deflections": [],
+    "evidence_responses": [
+     {
+      "act": "DENY_EVIDENCE",
+      "claims": [],
+      "evidence": "E_trace",
+      "layer": 0
+     },
+     {
+      "act": "DENY_EVIDENCE",
+      "claims": [],
+      "evidence": "clean@Elena",
+      "layer": 0
+     }
+    ],
+    "id": "S_David",
+    "kind": "murder",
+    "misleading_truths": [],
+    "owner": "David",
+    "protected": [
+     {
+      "actor": "David",
+      "interval": [
+       56,
+       61
+      ],
+      "kind": "At",
+      "location": "Study"
+     },
+     {
+      "action": "Attack",
+      "actor": "David",
+      "interval": [
+       59,
+       60
+      ],
+      "kind": "Did",
+      "location": "Study",
+      "object": "Decanter",
+      "target_actor": null
+     }
+    ],
+    "slips": [],
+    "stakes": {
+     "legal": 1.0,
+     "protective": 0.0,
+     "social": 0.5
+    }
+   },
+   {
+    "beneficiaries": [],
+    "cover": {
+     "layers": [
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Elena_L0",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Elena",
+          "interval": [
+           80,
+           91
+          ],
+          "kind": "At",
+          "location": "Hall"
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [],
+       "frame": [],
+       "index": 0,
+       "resolve": 6000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Elena_L1",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Elena",
+          "interval": [
+           80,
+           91
+          ],
+          "kind": "At",
+          "location": "Library"
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "actor": "Elena",
+         "interval": [
+          80,
+          91
+         ],
+         "kind": "At",
+         "location": "Library"
+        }
+       ],
+       "frame": [],
+       "index": 1,
+       "resolve": 10000,
+       "terminal": "confession"
+      }
+     ]
+    },
+    "deflections": [],
+    "evidence_responses": [
+     {
+      "act": "REINTERPRET",
+      "claims": [],
+      "evidence": "E_secret_Elena",
+      "layer": 0
+     }
+    ],
+    "id": "S_Elena",
+    "kind": "minor_infraction",
+    "misleading_truths": [],
+    "owner": "Elena",
+    "protected": [
+     {
+      "actor": "Elena",
+      "interval": [
+       80,
+       91
+      ],
+      "kind": "At",
+      "location": "Library"
+     }
+    ],
+    "slips": [],
+    "stakes": {
+     "legal": 0.2,
+     "protective": 0.0,
+     "social": 0.5
+    }
+   },
+   {
+    "beneficiaries": [],
+    "cover": {
+     "layers": [
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Margaret_L0",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Margaret",
+          "interval": [
+           17,
+           38
+          ],
+          "kind": "At",
+          "location": "Library"
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [],
+       "frame": [],
+       "index": 0,
+       "resolve": 6000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Margaret_L1",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Margaret",
+          "interval": [
+           17,
+           38
+          ],
+          "kind": "At",
+          "location": "Room"
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "actor": "Margaret",
+         "interval": [
+          17,
+          38
+         ],
+         "kind": "At",
+         "location": "Room"
+        }
+       ],
+       "frame": [],
+       "index": 1,
+       "resolve": 10000,
+       "terminal": "confession"
+      }
+     ]
+    },
+    "deflections": [],
+    "evidence_responses": [
+     {
+      "act": "REINTERPRET",
+      "claims": [],
+      "evidence": "E_secret_Margaret",
+      "layer": 0
+     }
+    ],
+    "id": "S_Margaret",
+    "kind": "debt",
+    "misleading_truths": [],
+    "owner": "Margaret",
+    "protected": [
+     {
+      "actor": "Margaret",
+      "interval": [
+       17,
+       38
+      ],
+      "kind": "At",
+      "location": "Room"
+     }
+    ],
+    "slips": [],
+    "stakes": {
+     "legal": 0.2,
+     "protective": 0.0,
+     "social": 0.5
+    }
+   },
+   {
+    "beneficiaries": [],
+    "cover": {
+     "layers": [
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Robert_L0",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Robert",
+          "interval": [
+           94,
+           112
+          ],
+          "kind": "At",
+          "location": "Kitchen"
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [],
+       "frame": [],
+       "index": 0,
+       "resolve": 6000,
+       "terminal": null
+      },
+      {
+       "breaker_sets": [],
+       "claims": [
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Robert_L1",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Robert",
+          "interval": [
+           94,
+           112
+          ],
+          "kind": "At",
+          "location": "Room"
+         },
+         "sincerity": "truthful",
+         "source": "plan",
+         "statement": null
+        }
+       ],
+       "concedes": [
+        {
+         "actor": "Robert",
+         "interval": [
+          94,
+          112
+         ],
+         "kind": "At",
+         "location": "Room"
+        }
+       ],
+       "frame": [],
+       "index": 1,
+       "resolve": 10000,
+       "terminal": "confession"
+      }
+     ]
+    },
+    "deflections": [],
+    "evidence_responses": [
+     {
+      "act": "REINTERPRET",
+      "claims": [],
+      "evidence": "E_secret_Robert",
+      "layer": 0
+     }
+    ],
+    "id": "S_Robert",
+    "kind": "affair",
+    "misleading_truths": [],
+    "owner": "Robert",
+    "protected": [
+     {
+      "actor": "Robert",
+      "interval": [
+       94,
+       112
+      ],
+      "kind": "At",
+      "location": "Room"
+     }
+    ],
+    "slips": [],
+    "stakes": {
+     "legal": 0.2,
+     "protective": 0.0,
+     "social": 0.5
+    }
+   }
+  ],
+  "seed": 4,
+  "skeleton_id": "study_party",
+  "solution": {
+   "alternatives": [
+    {
+     "candidate": "Elena",
+     "material": [],
+     "reason": "alibi"
+    },
+    {
+     "candidate": "Margaret",
+     "material": [
+      "E_alibi_Margaret"
+     ],
+     "reason": "alibi"
+    },
+    {
+     "candidate": "Robert",
+     "material": [],
+     "reason": "alibi"
+    },
+    {
+     "candidate": "Outsider",
+     "material": [
+      "E_gate_Gazebo"
+     ],
+     "reason": "containment"
+    }
+   ],
+   "approach": [
+    56,
+    61
+   ],
+   "critical_constraints": [
+    "time_pin:E_watch",
+    "opportunity:E_pin_clean+E_trace",
+    "containment:E_gate_Gazebo"
+   ],
+   "interval": [
+    59,
+    60
+   ],
+   "load_bearing": [
+    "E_alibi_room",
+    "E_gate_Gazebo",
+    "E_pin_clean",
+    "E_trace",
+    "E_watch"
+   ],
+   "location": "Study",
+   "method": "blunt_force",
+   "motive_kind": "blackmail",
+   "murder_event": "attack",
+   "murderer": "David",
+   "opportunity_witness": "Elena",
+   "victim": "Harold",
+   "weapon": "Decanter"
+  },
+  "structure": {
+   "alibi_window": 8,
+   "containment": "device_L3",
+   "corroborator_rule": "outside_component",
+   "opportunity_pin": true,
+   "secret_clearance": 12,
+   "time_pin": "physical"
+  }
+ },
+ "proof": {
+  "candidate_domain": [
+   "David",
+   "Elena",
+   "Margaret",
+   "Robert"
+  ],
+  "candidates": {
+   "David": {
+    "core": [],
+    "excluded": false,
+    "times": [
+     59
+    ]
+   },
+   "Elena": {
+    "core": [
+     "S:P0288#L2.0"
+    ],
+    "excluded": true,
+    "times": []
+   },
+   "Margaret": {
+    "core": [
+     "S:P0289#L2.0"
+    ],
+    "excluded": true,
+    "times": []
+   },
+   "Robert": {
+    "core": [
+     "S:P0287#L2.0"
+    ],
+    "excluded": true,
+    "times": []
+   }
+  },
+  "constraints": [
+   {
+    "actor": "Elena",
+    "id": "E_alibi_room#0",
+    "item": "E_alibi_room",
+    "iv": [
+     51,
+     67
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "E_alibi_room"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "E_alibi_room#1",
+    "item": "E_alibi_room",
+    "iv": [
+     51,
+     67
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "E_alibi_room"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "E_alibi_room#2",
+    "item": "E_alibi_room",
+    "iv": [
+     51,
+     67
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "E_alibi_room"
+    ]
+   },
+   {
+    "actor": null,
+    "id": "E_gate_Gazebo#0",
+    "item": "E_gate_Gazebo",
+    "iv": [
+     10,
+     120
+    ],
+    "kind": "NoStranger",
+    "level": 3,
+    "loc": "Gazebo",
+    "observer": "Harold",
+    "sources": [
+     "E_gate_Gazebo"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "E_pin_Elena#0",
+    "item": "E_pin_Elena",
+    "iv": [
+     32,
+     37
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "BackSteps",
+    "observer": null,
+    "sources": [
+     "E_pin_Elena"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "E_pin_clean#0",
+    "item": "E_pin_clean",
+    "iv": [
+     39,
+     47
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Study",
+    "observer": null,
+    "sources": [
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "E_secret_Elena#0",
+    "item": "E_secret_Elena",
+    "iv": [
+     80,
+     91
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "E_secret_Elena"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "E_secret_Margaret#0",
+    "item": "E_secret_Margaret",
+    "iv": [
+     17,
+     38
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "E_secret_Margaret"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "E_secret_Robert#0",
+    "item": "E_secret_Robert",
+    "iv": [
+     94,
+     112
+    ],
+    "kind": "At",
+    "level": 3,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "E_secret_Robert"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "E_trace#0",
+    "item": "E_trace",
+    "iv": [
+     41,
+     120
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Study",
+    "observer": null,
+    "sources": [
+     "E_trace",
+     "S:P0349"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "E_watch#0",
+    "item": "E_watch",
+    "iv": [
+     59,
+     60
+    ],
+    "kind": "Died",
+    "level": 3,
+    "loc": "Study",
+    "observer": null,
+    "sources": [
+     "E_watch"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0001#L2.0",
+    "item": "S:P0001",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0188",
+     "S:P0264"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0002#L2.0",
+    "item": "S:P0002",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0188",
+     "S:P0189",
+     "S:P0264",
+     "S:P0265"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0003#L2.0",
+    "item": "S:P0003",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0188",
+     "S:P0190",
+     "S:P0264",
+     "S:P0266"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0004#L2.0",
+    "item": "S:P0004",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0187",
+     "S:P0188",
+     "S:P0264",
+     "S:P0267"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0005#L2.0",
+    "item": "S:P0005",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0188",
+     "S:P0191",
+     "S:P0263",
+     "S:P0264"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0006#L2.0",
+    "item": "S:P0006",
+    "iv": [
+     7,
+     23
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0269"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0008#L2.0",
+    "item": "S:P0008",
+    "iv": [
+     7,
+     23
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0268",
+     "S:P0269"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0009#L2.0",
+    "item": "S:P0009",
+    "iv": [
+     7,
+     23
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0269",
+     "S:P0272"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0010#L2.0",
+    "item": "S:P0010",
+    "iv": [
+     7,
+     23
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0269",
+     "S:P0273"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0011#L2.0",
+    "item": "S:P0011",
+    "iv": [
+     7,
+     11
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0269",
+     "S:P0274"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0012#L2.0",
+    "item": "S:P0012",
+    "iv": [
+     18,
+     23
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0269",
+     "S:P0275"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0041#L2.0",
+    "item": "S:P0041",
+    "iv": [
+     69,
+     84
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0240"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0044#L2.0",
+    "item": "S:P0044",
+    "iv": [
+     69,
+     84
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0239",
+     "S:P0240"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0048#L2.0",
+    "item": "S:P0048",
+    "iv": [
+     70,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0240",
+     "S:P0245"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0049#L2.0",
+    "item": "S:P0049",
+    "iv": [
+     82,
+     84
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0240",
+     "S:P0246"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0050#L2.0",
+    "item": "S:P0050",
+    "iv": [
+     69,
+     84
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0240",
+     "S:P0247"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0054#L2.0",
+    "item": "S:P0054",
+    "iv": [
+     70,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0240",
+     "S:P0248"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0055#L2.0",
+    "item": "S:P0055",
+    "iv": [
+     82,
+     84
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0240",
+     "S:P0249"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0056#L2.0",
+    "item": "S:P0056",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0262",
+     "S:P0330"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0056#L2.1",
+    "item": "S:P0056",
+    "iv": [
+     114,
+     117
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0262",
+     "S:P0330"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0057#L2.0",
+    "item": "S:P0057",
+    "iv": [
+     114,
+     117
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0261",
+     "S:P0262",
+     "S:P0330"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0058#L2.0",
+    "item": "S:P0058",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0262",
+     "S:P0329",
+     "S:P0330"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0059#L2.0",
+    "item": "S:P0059",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0262",
+     "S:P0330",
+     "S:P0331"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0059#L2.1",
+    "item": "S:P0059",
+    "iv": [
+     114,
+     117
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0262",
+     "S:P0330",
+     "S:P0331"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0060#L2.0",
+    "item": "S:P0060",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0262",
+     "S:P0330",
+     "S:P0332"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0060#L2.1",
+    "item": "S:P0060",
+    "iv": [
+     114,
+     117
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0262",
+     "S:P0330",
+     "S:P0332"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0061#L2.0",
+    "item": "S:P0061",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0262",
+     "S:P0330",
+     "S:P0333"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0063#L2.0",
+    "item": "S:P0063",
+    "iv": [
+     114,
+     117
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "David",
+     "S:P0262",
+     "S:P0330"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0069#L2.0",
+    "item": "S:P0069",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0189",
+     "S:P0265"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0070#L2.0",
+    "item": "S:P0070",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0188",
+     "S:P0189",
+     "S:P0264",
+     "S:P0265"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0071#L2.0",
+    "item": "S:P0071",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0189",
+     "S:P0190",
+     "S:P0265",
+     "S:P0266"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0072#L2.0",
+    "item": "S:P0072",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0187",
+     "S:P0189",
+     "S:P0265",
+     "S:P0267"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0073#L2.0",
+    "item": "S:P0073",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0189",
+     "S:P0191",
+     "S:P0263",
+     "S:P0265"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0074#L2.0",
+    "item": "S:P0074",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0193",
+     "S:P0213"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0074#L2.1",
+    "item": "S:P0074",
+    "iv": [
+     19,
+     28
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0193",
+     "S:P0213"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0075#L2.0",
+    "item": "S:P0075",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0192",
+     "S:P0193",
+     "S:P0213"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0076#L2.0",
+    "item": "S:P0076",
+    "iv": [
+     19,
+     28
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0193",
+     "S:P0212",
+     "S:P0213"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0077#L2.0",
+    "item": "S:P0077",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0193",
+     "S:P0194",
+     "S:P0213",
+     "S:P0214"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0077#L2.1",
+    "item": "S:P0077",
+    "iv": [
+     19,
+     28
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0193",
+     "S:P0194",
+     "S:P0213",
+     "S:P0214"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0078#L2.0",
+    "item": "S:P0078",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0193",
+     "S:P0195",
+     "S:P0213",
+     "S:P0216"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0078#L2.1",
+    "item": "S:P0078",
+    "iv": [
+     19,
+     28
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0193",
+     "S:P0195",
+     "S:P0213",
+     "S:P0216"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0080#L2.0",
+    "item": "S:P0080",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0193",
+     "S:P0196",
+     "S:P0213",
+     "S:P0217"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0080#L2.1",
+    "item": "S:P0080",
+    "iv": [
+     19,
+     28
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "S:P0193",
+     "S:P0196",
+     "S:P0213",
+     "S:P0217"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0091#L2.0",
+    "item": "S:P0091",
+    "iv": [
+     34,
+     35
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "BackSteps",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_Elena"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0092#L2.0",
+    "item": "S:P0092",
+    "iv": [
+     34,
+     35
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "BackSteps",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_Elena"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0093#L2.0",
+    "item": "S:P0093",
+    "iv": [
+     34,
+     35
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "BackSteps",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_Elena"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0094#L2.0",
+    "item": "S:P0094",
+    "iv": [
+     34,
+     35
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "BackSteps",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_Elena"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0095#L2.0",
+    "item": "S:P0095",
+    "iv": [
+     34,
+     35
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "BackSteps",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_Elena"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0106#L2.0",
+    "item": "S:P0106",
+    "iv": [
+     41,
+     45
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Study",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0107#L2.0",
+    "item": "S:P0107",
+    "iv": [
+     41,
+     45
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Study",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0108#L2.0",
+    "item": "S:P0108",
+    "iv": [
+     41,
+     45
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Study",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0109#L2.0",
+    "item": "S:P0109",
+    "iv": [
+     41,
+     45
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Study",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0110#L2.0",
+    "item": "S:P0110",
+    "iv": [
+     41,
+     45
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Study",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_clean"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0126#L2.0",
+    "item": "S:P0126",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_alibi_room",
+     "S:P0235",
+     "S:P0288"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0127#L2.0",
+    "item": "S:P0127",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_alibi_room",
+     "S:P0234",
+     "S:P0235",
+     "S:P0288",
+     "S:P0289"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0128#L2.0",
+    "item": "S:P0128",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_alibi_room",
+     "S:P0235",
+     "S:P0236",
+     "S:P0287",
+     "S:P0288"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0129#L2.0",
+    "item": "S:P0129",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_alibi_room",
+     "S:P0235",
+     "S:P0237",
+     "S:P0288",
+     "S:P0290"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0130#L2.0",
+    "item": "S:P0130",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_alibi_room",
+     "S:P0235",
+     "S:P0238",
+     "S:P0288",
+     "S:P0292"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0146#L2.0",
+    "item": "S:P0146",
+    "iv": [
+     82,
+     89
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_secret_Elena",
+     "S:P0251"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0147#L2.0",
+    "item": "S:P0147",
+    "iv": [
+     88,
+     89
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_secret_Elena",
+     "S:P0250",
+     "S:P0251"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0148#L2.0",
+    "item": "S:P0148",
+    "iv": [
+     82,
+     89
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_secret_Elena",
+     "S:P0251",
+     "S:P0252"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0149#L2.0",
+    "item": "S:P0149",
+    "iv": [
+     82,
+     89
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_secret_Elena",
+     "S:P0251",
+     "S:P0254"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0150#L2.0",
+    "item": "S:P0150",
+    "iv": [
+     82,
+     84
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_secret_Elena",
+     "S:P0251"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0151#L2.0",
+    "item": "S:P0151",
+    "iv": [
+     82,
+     89
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_secret_Elena",
+     "S:P0251",
+     "S:P0255"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0187#L2.0",
+    "item": "S:P0187",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0004",
+     "S:P0072",
+     "S:P0267"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0188#L2.0",
+    "item": "S:P0188",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0001",
+     "S:P0004",
+     "S:P0070",
+     "S:P0072",
+     "S:P0264",
+     "S:P0267"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0189#L2.0",
+    "item": "S:P0189",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0002",
+     "S:P0004",
+     "S:P0069",
+     "S:P0072",
+     "S:P0265",
+     "S:P0267"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0190#L2.0",
+    "item": "S:P0190",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0003",
+     "S:P0004",
+     "S:P0071",
+     "S:P0072",
+     "S:P0266",
+     "S:P0267"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0191#L2.0",
+    "item": "S:P0191",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0004",
+     "S:P0005",
+     "S:P0072",
+     "S:P0073",
+     "S:P0263",
+     "S:P0267"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0192#L2.0",
+    "item": "S:P0192",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0075"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0193#L2.0",
+    "item": "S:P0193",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0074",
+     "S:P0075"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0194#L2.0",
+    "item": "S:P0194",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0075",
+     "S:P0077"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0195#L2.0",
+    "item": "S:P0195",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0075",
+     "S:P0078"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0196#L2.0",
+    "item": "S:P0196",
+    "iv": [
+     7,
+     10
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0075",
+     "S:P0080"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0212#L2.0",
+    "item": "S:P0212",
+    "iv": [
+     19,
+     36
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0076"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0213#L2.0",
+    "item": "S:P0213",
+    "iv": [
+     19,
+     28
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0074",
+     "S:P0076"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0214#L2.0",
+    "item": "S:P0214",
+    "iv": [
+     19,
+     36
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0076",
+     "S:P0077"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0215#L2.0",
+    "item": "S:P0215",
+    "iv": [
+     32,
+     36
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0076"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0216#L2.0",
+    "item": "S:P0216",
+    "iv": [
+     19,
+     36
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0076",
+     "S:P0078"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0217#L2.0",
+    "item": "S:P0217",
+    "iv": [
+     19,
+     36
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0076",
+     "S:P0080"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0234#L2.0",
+    "item": "S:P0234",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0127",
+     "S:P0289"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0235#L2.0",
+    "item": "S:P0235",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0126",
+     "S:P0127",
+     "S:P0288",
+     "S:P0289"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0236#L2.0",
+    "item": "S:P0236",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0127",
+     "S:P0128",
+     "S:P0287",
+     "S:P0289"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0237#L2.0",
+    "item": "S:P0237",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0127",
+     "S:P0129",
+     "S:P0289",
+     "S:P0290"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0238#L2.0",
+    "item": "S:P0238",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0127",
+     "S:P0130",
+     "S:P0289",
+     "S:P0292"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0239#L2.0",
+    "item": "S:P0239",
+    "iv": [
+     69,
+     84
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0044"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0240#L2.0",
+    "item": "S:P0240",
+    "iv": [
+     69,
+     84
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0041",
+     "S:P0044"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0245#L2.0",
+    "item": "S:P0245",
+    "iv": [
+     70,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0044",
+     "S:P0048"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0246#L2.0",
+    "item": "S:P0246",
+    "iv": [
+     82,
+     84
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0044",
+     "S:P0049"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0247#L2.0",
+    "item": "S:P0247",
+    "iv": [
+     69,
+     84
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0044",
+     "S:P0050"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0248#L2.0",
+    "item": "S:P0248",
+    "iv": [
+     70,
+     77
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0044",
+     "S:P0054"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0249#L2.0",
+    "item": "S:P0249",
+    "iv": [
+     82,
+     84
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0044",
+     "S:P0055"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0250#L2.0",
+    "item": "S:P0250",
+    "iv": [
+     88,
+     89
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0147"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0251#L2.0",
+    "item": "S:P0251",
+    "iv": [
+     88,
+     89
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0146",
+     "S:P0147"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0252#L2.0",
+    "item": "S:P0252",
+    "iv": [
+     88,
+     89
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0147",
+     "S:P0148"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0254#L2.0",
+    "item": "S:P0254",
+    "iv": [
+     88,
+     89
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0147",
+     "S:P0149"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0255#L2.0",
+    "item": "S:P0255",
+    "iv": [
+     88,
+     89
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Library",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0147",
+     "S:P0151"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0261#L2.0",
+    "item": "S:P0261",
+    "iv": [
+     114,
+     117
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0057"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0262#L2.0",
+    "item": "S:P0262",
+    "iv": [
+     114,
+     117
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "S:P0056",
+     "S:P0057"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0263#L2.0",
+    "item": "S:P0263",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0005",
+     "S:P0073",
+     "S:P0191"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0264#L2.0",
+    "item": "S:P0264",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0001",
+     "S:P0005",
+     "S:P0070",
+     "S:P0073",
+     "S:P0188",
+     "S:P0191"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0265#L2.0",
+    "item": "S:P0265",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0002",
+     "S:P0005",
+     "S:P0069",
+     "S:P0073",
+     "S:P0189",
+     "S:P0191"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0266#L2.0",
+    "item": "S:P0266",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0003",
+     "S:P0005",
+     "S:P0071",
+     "S:P0073",
+     "S:P0190",
+     "S:P0191"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0267#L2.0",
+    "item": "S:P0267",
+    "iv": [
+     2,
+     3
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Hall",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0004",
+     "S:P0005",
+     "S:P0072",
+     "S:P0073",
+     "S:P0187",
+     "S:P0191"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0268#L2.0",
+    "item": "S:P0268",
+    "iv": [
+     7,
+     23
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0008"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0269#L2.0",
+    "item": "S:P0269",
+    "iv": [
+     7,
+     23
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0006",
+     "S:P0008"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0272#L2.0",
+    "item": "S:P0272",
+    "iv": [
+     7,
+     23
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0008",
+     "S:P0009"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0273#L2.0",
+    "item": "S:P0273",
+    "iv": [
+     7,
+     23
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0008",
+     "S:P0010"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0274#L2.0",
+    "item": "S:P0274",
+    "iv": [
+     7,
+     11
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0008",
+     "S:P0011"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0275#L2.0",
+    "item": "S:P0275",
+    "iv": [
+     18,
+     23
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Kitchen",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "S:P0008",
+     "S:P0012"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0287#L2.0",
+    "item": "S:P0287",
+    "iv": [
+     51,
+     65
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0128",
+     "S:P0236"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0288#L2.0",
+    "item": "S:P0288",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0126",
+     "S:P0128",
+     "S:P0235",
+     "S:P0236"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0289#L2.0",
+    "item": "S:P0289",
+    "iv": [
+     53,
+     65
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0127",
+     "S:P0128",
+     "S:P0234",
+     "S:P0236"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0290#L2.0",
+    "item": "S:P0290",
+    "iv": [
+     51,
+     65
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0128",
+     "S:P0129",
+     "S:P0236",
+     "S:P0237"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0292#L2.0",
+    "item": "S:P0292",
+    "iv": [
+     51,
+     65
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0128",
+     "S:P0130",
+     "S:P0236",
+     "S:P0238"
+    ]
+   },
+   {
+    "actor": "Robert",
+    "id": "S:P0329#L2.0",
+    "item": "S:P0329",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0058"
+    ]
+   },
+   {
+    "actor": "David",
+    "id": "S:P0330#L2.0",
+    "item": "S:P0330",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "At",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0056",
+     "S:P0058"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0331#L2.0",
+    "item": "S:P0331",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0058",
+     "S:P0059"
+    ]
+   },
+   {
+    "actor": "Harold",
+    "id": "S:P0332#L2.0",
+    "item": "S:P0332",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0058",
+     "S:P0060"
+    ]
+   },
+   {
+    "actor": "Margaret",
+    "id": "S:P0333#L2.0",
+    "item": "S:P0333",
+    "iv": [
+     96,
+     110
+    ],
+    "kind": "NotAt",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0058",
+     "S:P0061"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0349#L2",
+    "item": "S:P0349",
+    "iv": [
+     39,
+     44
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Study",
+    "observer": null,
+    "sources": [
+     "Elena",
+     "E_pin_clean"
+    ]
+   }
+  ],
+  "cracked": [
+   {
+    "actor": "Elena",
+    "core": [
+     "S:P0288"
+    ],
+    "round": 0
+   },
+   {
+    "actor": "Margaret",
+    "core": [
+     "S:P0289"
+    ],
+    "round": 0
+   },
+   {
+    "actor": "Robert",
+    "core": [
+     "S:P0287"
+    ],
+    "round": 0
+   }
+  ],
+  "fairness": 2,
+  "murder_loc": "Study",
+  "outsider": {
+   "blocked": [
+    "E_gate_Gazebo#0"
+   ],
+   "excluded": true
+  },
+  "package_seal": "00b709d689b3cea0cba1bdd36306e340465b763f009a194bb9f0e20dc0743df3",
+  "proof_core": [
+   "E_alibi_room",
+   "E_gate_Gazebo",
+   "E_watch"
+  ],
+  "robustness": {
+   "failures": [],
+   "subsets_run": 2
+  },
+  "schema": "eidolon.proof/2",
+  "survivors": [
+   "David"
+  ],
+  "time_bins": [
+   5
+  ],
+  "unique": true,
+  "window": [
+   59,
+   60
+  ]
+ },
+ "report": {
+  "failed_at": null,
+  "metrics": {
+   "bands": {
+    "min_depth": "easy",
+    "proof_core": "easy",
+    "red_herrings": "easy",
+    "suspects": "easy"
+   },
+   "conditional_implications": 1,
+   "cover_layers": 2,
+   "distortions_per_witness_max": 1,
+   "eliminations": 3,
+   "eliminations_on_absence": 0,
+   "fragility": {
+    "Elena": {
+     "absence_sources": 0,
+     "levels": [
+      2
+     ],
+     "rests_on_absence": false
+    },
+    "Margaret": {
+     "absence_sources": 0,
+     "levels": [
+      2
+     ],
+     "rests_on_absence": false
+    },
+    "Robert": {
+     "absence_sources": 0,
+     "levels": [
+      2
+     ],
+     "rests_on_absence": false
+    }
+   },
+   "min_depth": 0,
+   "proof_core": 3,
+   "red_herrings": 1,
+   "suspects": 4
+  },
+  "ok": true,
+  "package": "study_party_s4",
+  "problems": [],
+  "stages": {
+   "V-0": {
+    "ok": true,
+    "seconds": 0.003
+   },
+   "V-1": {
+    "ok": true,
+    "seconds": 0.024
+   },
+   "V-2": {
+    "knowledge_entries": 369,
+    "ok": true,
+    "seconds": 0.327
+   },
+   "V-3": {
+    "breaker_sets": 4,
+    "ok": true,
+    "seconds": 1.122,
+    "secrets": 4
+   },
+   "V-4": {
+    "breaker_refs": 5,
+    "cued_depth": 0,
+    "ok": true,
+    "retrieval_checked": 1,
+    "seconds": 0.264
+   },
+   "V-5": {
+    "active_distortions": 1,
+    "distortion_subsets": 2,
+    "ok": true,
+    "proof_core": 3,
+    "rounds": 1,
+    "seconds": 3.284,
+    "survivors": [
+     "David"
+    ],
+    "unique": true
+   },
+   "V-6": {
+    "bands": {
+     "min_depth": "easy",
+     "proof_core": "easy",
+     "red_herrings": "easy",
+     "suspects": "easy"
+    },
+    "contract": {
+     "10_proof_testimony_askable": true,
+     "1_proof_core_fair": true,
+     "2_lies_breakable": true,
+     "3_red_herrings_refutable": true,
+     "4_distortions_correctable": true,
+     "8_cued_path": true
+    },
+    "in_band": true,
+    "ok": true,
+    "seconds": 0.047
+   },
+   "V-7": {
+    "9_not_solvable_without_evidence": true,
+    "adversarial_per_character": 500,
+    "bluffs_per_character": 500,
+    "bots": {
+     "adversarial": {
+      "actions": 2000,
+      "ok": true,
+      "peels": 0,
+      "rejected": 0
+     },
+     "bluff": {
+      "actions": 2000,
+      "ok": true,
+      "peels": 0,
+      "rejected": 0
+     },
+     "cue_following": {
+      "actions": 67,
+      "ok": true,
+      "peels": 0,
+      "rejected": 0
+     },
+     "greedy": {
+      "actions": 10,
+      "ok": true,
+      "peels": 0,
+      "rejected": 0
+     },
+     "murderer_peel": {
+      "actions": 67,
+      "ok": true,
+      "peels": 1,
+      "rejected": 0
+     }
+    },
+    "ok": true,
+    "scale": "full",
+    "seconds": 54.711
+   },
+   "V-8": {
+    "ok": true,
+    "seal": "00b709d689b3cea0cba1bdd36306e340465b763f009a194bb9f0e20dc0743df3"
+   }
+  }
+ }
+}

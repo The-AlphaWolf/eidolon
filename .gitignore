@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.hypothesis/
+# local games and run outputs (the committed save of record lives under tests/fixtures/saves/)
+/saves/
+/out/
+*.traces.db
+*.db-journal

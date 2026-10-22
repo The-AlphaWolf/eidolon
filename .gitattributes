@@ -1,0 +1,2 @@
+# keep every file byte-exact: reviews identify trees by sha256 manifests
+* -text

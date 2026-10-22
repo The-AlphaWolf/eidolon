@@ -1,0 +1,74 @@
+{
+ "toy3": {
+  "survivor_paths_ok": 56,
+  "survivor_paths_bad": 0,
+  "excluded_checked": 4,
+  "excluded_counterexamples": 0,
+  "outsider": {
+   "path_ok": 20,
+   "PATH_INVALID": 0,
+   "excluded_holds": 0,
+   "COUNTEREXAMPLE": 0
+  }
+ },
+ "toy4": {
+  "survivor_paths_ok": 67,
+  "survivor_paths_bad": 0,
+  "excluded_checked": 13,
+  "excluded_counterexamples": 0,
+  "outsider": {
+   "path_ok": 20,
+   "PATH_INVALID": 0,
+   "excluded_holds": 0,
+   "COUNTEREXAMPLE": 0
+  }
+ },
+ "vance4": {
+  "survivor_paths_ok": 65,
+  "survivor_paths_bad": 0,
+  "excluded_checked": 15,
+  "excluded_counterexamples": 0,
+  "outsider": {
+   "path_ok": 20,
+   "PATH_INVALID": 0,
+   "excluded_holds": 0,
+   "COUNTEREXAMPLE": 0
+  }
+ },
+ "toy3C": {
+  "survivor_paths_ok": 20,
+  "survivor_paths_bad": 0,
+  "excluded_checked": 40,
+  "excluded_counterexamples": 0,
+  "outsider": {
+   "path_ok": 0,
+   "PATH_INVALID": 0,
+   "excluded_holds": 20,
+   "COUNTEREXAMPLE": 0
+  }
+ },
+ "toy4C": {
+  "survivor_paths_ok": 20,
+  "survivor_paths_bad": 0,
+  "excluded_checked": 60,
+  "excluded_counterexamples": 0,
+  "outsider": {
+   "path_ok": 0,
+   "PATH_INVALID": 0,
+   "excluded_holds": 20,
+   "COUNTEREXAMPLE": 0
+  }
+ },
+ "vance4C": {
+  "survivor_paths_ok": 20,
+  "survivor_paths_bad": 0,
+  "excluded_checked": 60,
+  "excluded_counterexamples": 0,
+  "outsider": {
+   "path_ok": 0,
+   "PATH_INVALID": 0,
+   "excluded_holds": 20,
+   "COUNTEREXAMPLE": 0
+  }
+ }
+}
