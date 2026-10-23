@@ -736,7 +736,7 @@ from eidolon.decision.hypotheses import Lied, Planted                           
 from eidolon.decision.peel import claims_voiced_on_peel                                        # noqa: E402
 from eidolon.minds.epistemic import RecallRecord, Revision                                     # noqa: E402
 from eidolon.minds.events import BeliefRevised, CoverStateDelta, MemoryRecall                  # noqa: E402
-from eidolon.world.propositions import At, Has, Moved, ObjectAt, Said                          # noqa: E402
+from eidolon.world.propositions import At, DidNot, Has, Moved, ObjectAt, Said                          # noqa: E402
 
 
 def inject(path, events, action_id):
@@ -1720,7 +1720,11 @@ def test_F1_the_clock_is_inclusive_at_both_ends_and_the_character_stays_playable
     s = Save.create(p, BUNDLE, seed=7)
     drive(s, 6)
     H = s.state.case.t_investigation
-    widest = restate(ask(s), claims=(_own_claim(s, proposition=At(actor="David", location="Study", interval=(0, H))),), accounts=())
+    weapon = sorted(s.state.case.objects)[0]
+    # the widest legal claim, consistent with what David has already said (his own deed denial over the whole clock) - an
+    # At(Study, [0, H]) here would contradict the whereabouts lie his cover now tells (NR-I4) and poison the ledger itself
+    widest = restate(ask(s), claims=(_own_claim(s, proposition=DidNot(actor="David", action="touch", object=weapon,
+                                                                     interval=(0, H))),), accounts=())
     assert s.append(widest, s.last_seq, "widest").appended
     hyp = [TurnCommitted(turn=_n(s)), HypothesisChanged(hypothesis=Hypothesis(id="H1", propositions=(
         Moved(actor="David", from_loc="Study", to_loc="Study", t=0), Moved(actor="David", from_loc="Study", to_loc="Study", t=H),

@@ -50,7 +50,10 @@ time, `decision/voice.py` — a derivation change bricks every save, C-10), NR-I
 (the confession gate is wired and a proof breaks the murderer's last denial, so CONFESSION happens exactly when a proof is shown),
 F-14 (tie-break keyed on the question; hypotheticals answered only by HYPOTHETICAL), F-15 (`refuse_streak` produced, fold-checked; REFUSE ≤ 2
 turns running), the web/CLI/provider NR-N and H8-N/H9-N items, NR-N11 (pyflakes clean, guarded by a test), NR-N12 (git), NR-N13 (pins,
-`requirements-tested.txt`). Open: NR-I2/NR-I4 (generator), the rest of §2–§3. Author's record, not independently reviewed.
+`requirements-tested.txt`); **ADR-33** (2026-10-23, NR-I2/NR-I4): the murderer's cover also lies about whereabouts (a room nothing
+contradicts, so no new breaker set), a LIE tells only its topic's claims, and an audible
+scene in the alibi room gives innocents something heard — goldens re-sealed (same murderers and proof cores); seed study 2×50 100/100 sealed, all in band. Open: the rest of §2–§3.
+Author's record, not independently reviewed.
 
 ## Read these first
 

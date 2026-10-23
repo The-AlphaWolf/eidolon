@@ -1,5 +1,5 @@
 {
- "bundle_seal": "54eb3e6a099b9908672c612e5ef392702adbb481ee1d77e9f0c4aa0cfbe356c5",
+ "bundle_seal": "8e9fbd5b90a3f74b36e2df085f993937d0e5fcc9044f8c04e844c2d429f83683",
  "package": {
   "accounts": [
    "clean@Beatrix"
@@ -2367,6 +2367,28 @@
      }
     },
     {
+     "actor": "Beatrix",
+     "causes": [],
+     "effects": [],
+     "id": "chat",
+     "intent": null,
+     "interval": [
+      64,
+      66
+     ],
+     "kind": "Speak",
+     "load_bearing": false,
+     "location": "Suite",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 1.0,
+      "sound": 0.8
+     }
+    },
+    {
      "actor": null,
      "causes": [],
      "effects": [
@@ -2620,7 +2642,7 @@
     "actor": "Beatrix",
     "delta": 5,
     "know_ids": [
-     "S:P0070"
+     "S:P0069"
     ],
     "memory": "MBeatrix0056"
    },
@@ -2628,7 +2650,7 @@
     "actor": "Cormac",
     "delta": 9,
     "know_ids": [
-     "S:P0196"
+     "S:P0195"
     ],
     "memory": "MCormac0078"
    },
@@ -2644,17 +2666,17 @@
     "actor": "Emeric",
     "delta": -8,
     "know_ids": [
-     "S:P0374"
+     "S:P0373"
     ],
     "memory": "MEmeric0062"
    },
    {
     "actor": "Fiora",
-    "delta": -11,
+    "delta": 8,
     "know_ids": [
-     "S:P0467"
+     "S:P0469"
     ],
-    "memory": "MFiora0054"
+    "memory": "MFiora0057"
    }
   ],
   "evidence": [
@@ -3245,17 +3267,17 @@
    },
    {
     "actor": "Beatrix",
-    "memory": "MBeatrix0048",
-    "strength_bp": 8000
-   },
-   {
-    "actor": "Beatrix",
     "memory": "MBeatrix0049",
     "strength_bp": 10000
    },
    {
     "actor": "Beatrix",
-    "memory": "MBeatrix0073",
+    "memory": "MBeatrix0050",
+    "strength_bp": 8000
+   },
+   {
+    "actor": "Beatrix",
+    "memory": "MBeatrix0074",
     "strength_bp": 10000
    },
    {
@@ -3265,7 +3287,7 @@
    },
    {
     "actor": "Beatrix",
-    "memory": "MBeatrix0035",
+    "memory": "MBeatrix0036",
     "strength_bp": 10000
    }
   ],
@@ -3274,7 +3296,7 @@
    "kind": "blunt_force",
    "weapon": "Paperweight"
   },
-  "seal": "9ea995b0662e6ae63f7d923924e90673089f6b0a25d21356f439f9857b3cf6d6",
+  "seal": "71e89e8d71b9a9874535031487b2df2ee1de94a2c151e650c1f1816a5f6a89bf",
   "secrets": [
    {
     "beneficiaries": [],
@@ -3505,6 +3527,24 @@
           "location": null,
           "object": "Paperweight",
           "target_actor": null
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        },
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_Delphine_L0b",
+         "modality": "actual",
+         "proposition": {
+          "actor": "Delphine",
+          "interval": [
+           56,
+           63
+          ],
+          "kind": "At",
+          "location": "Foyer"
          },
          "sincerity": "deceptive",
          "source": "plan",
@@ -7654,6 +7694,134 @@
      "Beatrix",
      "E_pin_clean"
     ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0530#L2",
+    "item": "S:P0530",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0062",
+     "S:P0360",
+     "S:P0462",
+     "S:P0532",
+     "S:P0534"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0531#L2",
+    "item": "S:P0531",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Cormac",
+     "S:P0062",
+     "S:P0360",
+     "S:P0462",
+     "S:P0533",
+     "S:P0535"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0532#L2",
+    "item": "S:P0532",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0149",
+     "S:P0463",
+     "S:P0530",
+     "S:P0534"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0533#L2",
+    "item": "S:P0533",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Emeric",
+     "S:P0149",
+     "S:P0463",
+     "S:P0531",
+     "S:P0535"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0534#L2",
+    "item": "S:P0534",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "E_alibi_Fiora",
+     "E_secret_Fiora",
+     "S:P0064",
+     "S:P0150",
+     "S:P0361",
+     "S:P0530",
+     "S:P0532"
+    ]
+   },
+   {
+    "actor": "Beatrix",
+    "id": "S:P0535#L2",
+    "item": "S:P0535",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Suite",
+    "observer": null,
+    "sources": [
+     "Fiora",
+     "E_alibi_Fiora",
+     "E_secret_Fiora",
+     "S:P0064",
+     "S:P0150",
+     "S:P0361",
+     "S:P0531",
+     "S:P0533"
+    ]
    }
   ],
   "cracked": [
@@ -7694,7 +7862,7 @@
    ],
    "excluded": true
   },
-  "package_seal": "9ea995b0662e6ae63f7d923924e90673089f6b0a25d21356f439f9857b3cf6d6",
+  "package_seal": "71e89e8d71b9a9874535031487b2df2ee1de94a2c151e650c1f1816a5f6a89bf",
   "proof_core": [
    "E_alibi_Beatrix",
    "E_alibi_Fiora",
@@ -7775,21 +7943,21 @@
   "stages": {
    "V-0": {
     "ok": true,
-    "seconds": 0.002
+    "seconds": 0.006
    },
    "V-1": {
     "ok": true,
-    "seconds": 0.028
+    "seconds": 0.035
    },
    "V-2": {
-    "knowledge_entries": 555,
+    "knowledge_entries": 562,
     "ok": true,
-    "seconds": 0.49
+    "seconds": 0.728
    },
    "V-3": {
     "breaker_sets": 5,
     "ok": true,
-    "seconds": 4.929,
+    "seconds": 7.138,
     "secrets": 5
    },
    "V-4": {
@@ -7797,7 +7965,7 @@
     "cued_depth": 3,
     "ok": true,
     "retrieval_checked": 3,
-    "seconds": 0.621
+    "seconds": 1.0
    },
    "V-5": {
     "active_distortions": 2,
@@ -7805,7 +7973,7 @@
     "ok": true,
     "proof_core": 6,
     "rounds": 1,
-    "seconds": 6.093,
+    "seconds": 8.535,
     "survivors": [
      "Delphine"
     ],
@@ -7828,7 +7996,7 @@
     },
     "in_band": true,
     "ok": true,
-    "seconds": 0.1
+    "seconds": 0.117
    },
    "V-7": {
     "9_not_solvable_without_evidence": true,
@@ -7848,7 +8016,7 @@
       "rejected": 0
      },
      "cue_following": {
-      "actions": 257,
+      "actions": 273,
       "ok": true,
       "peels": 0,
       "rejected": 0
@@ -7868,11 +8036,11 @@
     },
     "ok": true,
     "scale": "full",
-    "seconds": 77.417
+    "seconds": 438.745
    },
    "V-8": {
     "ok": true,
-    "seal": "9ea995b0662e6ae63f7d923924e90673089f6b0a25d21356f439f9857b3cf6d6"
+    "seal": "71e89e8d71b9a9874535031487b2df2ee1de94a2c151e650c1f1816a5f6a89bf"
    }
   }
  }

@@ -121,8 +121,8 @@ kept for history). New or still open from it:
 
 | ID | Debt | Why open |
 |---|---|---|
-| G-1 (NR-I2) | generated cases carry no `Heard` memory, so "what did you hear" never gets a substantive answer | needs audible events in earshot in the planner, goldens regenerated, seed study |
-| G-2 (NR-I4) | each cover has one lie (the murderer never lies about whereabouts; since ADR-30 an off-topic question gets a non-answer) | cover synthesis per topic; V-3/V-6 bands must hold; seed study |
+| G-1 (NR-I2) | **RESOLVED 2026-10-23 (ADR-33)**, residual: recall is cue-driven, so a bare "what did you hear?" usually recalls nothing; a question naming the room and time does | the §8.4 cue model (Jaccard over a memory's whole cue set) penalises sparse questions on every topic |
+| G-2 (NR-I4) | **RESOLVED 2026-10-23 (ADR-33)**, residual: innocents still have one lie each (their protected footprint is one whereabouts) | — |
 | G-3 (NR-N13) | Starlette 1.3 deprecates `httpx` for its `TestClient` | moving needs a new package (`httpx2`) installed and the web tests re-run |
 | G-4 (H9-N9) | a live nightly exits 0 when some machine metric is UNMEASURED at small scale | by design for N-5 under 200 statements; revisit when the live run is real |
 | G-5 | ADR-32 runs the solver once per turn addressed to a murderer standing at the last denial (cached per presented set within a turn) | measured cost per turn not recorded |

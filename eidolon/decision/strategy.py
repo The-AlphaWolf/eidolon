@@ -159,8 +159,8 @@ def _lie(inp: StrategyInput) -> Candidate | None:
     if not any(c.sincerity == "deceptive" and claim_covers(c.proposition, inp.query, inp.character)
                and on_topic(c.proposition, inp.query) for c in layer.claims):
         return None
-    return Candidate(act="LIE", claims=layer.claims, exposes_protected=False,
-                      delivery=DeliveryDirective("composed"))
+    told = tuple(c for c in layer.claims if on_topic(c.proposition, inp.query))   # NR-I4: a lie per topic; tell the asked one
+    return Candidate(act="LIE", claims=told, exposes_protected=False, delivery=DeliveryDirective("composed"))
 
 
 def _deny_evidence_or_reinterpret(inp: StrategyInput) -> Candidate | None:

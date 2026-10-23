@@ -199,6 +199,10 @@ MUTANTS = [
     M("H8N8-any-window-earns-the-time-axis", GAME, ("and acc.interval[1] - acc.interval[0] <= ACCUSATION_WINDOW_MAX", ""),
       "H8_N8_a_window", ["H8_N8_a_window"], tests="tests/test_review_fixes.py"),
     M("H8N7-notebook-recomputed-every-render", GAME, ("    if key not in _NOTEBOOK:", "    if True:"), "H8_N7", ["H8_N7"], tests="tests/test_review_fixes.py"),
+    # ---- NR-I4: a lie per topic - only the asked one is told ----
+    M("NRI4-lie-recites-every-topic", "eidolon/decision/strategy.py",
+      ("    told = tuple(c for c in layer.claims if on_topic(c.proposition, inp.query)", "    told = tuple(c for c in layer.claims if True"),
+      "NR_I4", ["lies_on_topic"], tests="tests/gen/test_topic_covers.py"),
     # ---- NR-B1: a save made by an earlier engine keeps loading (the derivation may not move) ----
     M("NRB1-derived-personality-moves", SESSION, ('voice=VoiceSpec(voice_register="plain"))', 'voice=VoiceSpec(voice_register="plain", tics=("hm.",)))'),
       "earlier_engine", ["a_save_made_by_an_earlier_engine"], tests="tests/test_committed_saves.py"),

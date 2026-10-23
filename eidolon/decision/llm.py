@@ -81,7 +81,11 @@ def render_claim(claim: Claim | EnvelopeClaim, case: Case) -> str:
         who = _name(case, p.subject) if p.identified else "someone"
         return f"I saw {who} in {_name(case, p.location)} around {t1}."
     if p.kind == "Heard":
-        return f"I heard {p.sound_kind}."
+        t1 = render_time(p.interval[0])
+        who = _name(case, p.identified_actor) if p.identified_actor else "someone"
+        noise = {"speak": f"{who} talking", "attack": "a struggle", "clean": "someone cleaning"}.get(p.sound_kind.lower(), "a noise")
+        where = f" in {_name(case, p.from_location)}" if p.from_location else ""
+        return f"I heard {noise}{where} around {t1}."
     if p.kind == "Attitude":
         return f"I {p.attitude_kind} {_name(case, p.b)}."
     return f"({p.kind.lower()} noted.)"

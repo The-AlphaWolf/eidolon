@@ -279,7 +279,7 @@ guards an invariant, a mutant (`tests/persistence_mutation_check.py` NRB1/H9I3/F
 | NR-N14 | **fixed** — architecture header, `CLAUDE.md`, KNOWN-DEBT header, ADR-30 report |
 | NR-N15 | **left** — `saves/` and `out/` are git-ignored; the owner's local files were not deleted |
 | NR-N10 | open — UNMEASURED until a live audit runs |
-| NR-I2, NR-I4 | open — generator changes (audible perceptions; a covering lie per topic); need goldens regenerated and a seed study |
+| NR-I2, NR-I4 | **fixed (ADR-33, 2026-10-23)** — an audible scene in the alibi room gives every other innocent a `Heard` memory; the murderer's cover lies on whereabouts too, in a room nothing contradicts (no new breaker set); a LIE tells only its topic's claims; goldens re-sealed (same murderers and proof cores); V-7: all 20 bot runs ok, same action counts, bluff parity and zero tells; seed study 2×50 **100/100 sealed, all in band** (manor_wing 45, before the one non-robust rejection, now seals). A bare "what did you hear?" still usually recalls nothing (cue-driven recall, §8.4) |
 | H8-N2, H8-N3, H8-N4, H8-N5, H8-N7, H8-N8 | **fixed** (checks before parse; names = encountered ∪ cast ∪ places; non-string fields refused; anti-framing headers; notebook cached by head; stable item numbers, resent form shows its reply, time axis ≤ 60 min) |
 | H9-N1, H9-N2, H9-N3, H9-N4, H9-N8 | **fixed** |
 | H9-N9 | addressee **fixed**; the exit-code half not changed — small-sample UNMEASURED (N-5 under 200 statements) is by design not a failure, and `test_a_live_run_passes_when_the_numbers_pass` asserts it |

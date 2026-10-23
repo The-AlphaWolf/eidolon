@@ -12,6 +12,7 @@ import hashlib
 
 from ..decision.claims import Claim
 from ..decision.secrets import CoverLayer, CoverStory, EvidenceResponse, Secret, Stakes
+from ..evidence.contradiction import contradiction
 from ..evidence.model import DiscoverySpec, Evidence, Implication, Prereq, RedHerringSpec
 from ..minds import accounts
 from ..solve.package import (
@@ -21,6 +22,7 @@ from ..world.case import Case
 from ..world.entities import Actor
 from ..world.events import EffActorAt, EffActorState, Event
 from ..world.frozen import FrozenDict
+from ..world.perception import derive_perception
 from ..world.propositions import At, Did, DidNot, Rel, Saw
 from .planner import ALIBI_WINDOW, SECRET_CLEARANCE, Draft
 
@@ -152,7 +154,7 @@ def _accounts(dr: Draft, case: Case) -> tuple[str, ...]:
     return (token,) if accounts.atoms_of(case, token) else ()
 
 
-def _secrets(dr: Draft, case: Case) -> tuple[Secret, ...]:
+def _secrets(dr: Draft, case: Case, evidence=()) -> tuple[Secret, ...]:
     """§18.3 stage 7 (cover synthesis). Each cover is authored so that V-3 (§19.3) can DERIVE a
     breaker set for its layer 0 from material that is actually in the case and actually
     admissible, and so that every item of that intended set carries an `EvidenceResponse`.
@@ -181,7 +183,8 @@ def _secrets(dr: Draft, case: Case) -> tuple[Secret, ...]:
         terminal = "confession" if int.from_bytes(hashlib.sha256(f"{dr.seed}|term:{a}".encode()).digest()[:1], "big") < 128 \
             else "stonewall"
         if murder:
-            layers, responses = _murder_cover(dr, a, protected, terminal, n_murder_layers)
+            layers, responses = _murder_cover(dr, a, protected, terminal, n_murder_layers,
+                                              _alibi_lie(dr, case, evidence, a, iv))
         else:
             layers, responses = _innocent_cover(a, loc, iv, lie_loc, terminal)
         out.append(Secret(id=f"S_{a}", owner=a, kind=kind, protected=protected,
@@ -206,7 +209,27 @@ def _innocent_cover(a: str, loc: str, iv, lie_loc: str, terminal: str):
     return layers, responses
 
 
-def _murder_cover(dr: Draft, a: str, protected: tuple, terminal: str, n_layers: int):
+def _alibi_lie(dr: Draft, case: Case, evidence, a: str, iv) -> Claim | None:
+    """NR-I4: the murderer's whereabouts lie for the excursion ("I was in the library"), so a question about where they were
+    meets a lie on its own topic (ADR-30) instead of a non-answer. The room is one nothing in the case can contradict - no
+    living witness's perception (the victim is never questioned), no item's implication - so it adds no breaker set: layer 0 still breaks on the trace and the
+    housekeeper's account alone, exactly as V-3 derived it before. The room they were in just before is preferred; no such
+    room, no lie (the cover stays as it was)."""
+    skel = dr.skel
+    before = [s.loc for s in dr.segments[a] if s.e <= iv[0] and not s.hop]
+    rooms = sorted(l for l in skel.role_weights["guest"] if l not in (skel.murder_loc, dr.meta["alibi"][0]))
+    rooms = ([before[-1]] if before and before[-1] in rooms else []) + [l for l in rooms if not before or l != before[-1]]
+    witnesses = set(case.living_actors()) - {a}
+    known = [f.proposition for f in derive_perception(case) if f.observer in witnesses]
+    known += [imp.proposition for e in evidence for imp in e.implications]
+    for room in rooms:
+        lie = At(actor=a, location=room, interval=iv)
+        if all(contradiction(p, lie, case=case) is None for p in known):
+            return Claim(id=f"C_{a}_L0b", proposition=lie, sincerity="deceptive", source="plan")
+    return None
+
+
+def _murder_cover(dr: Draft, a: str, protected: tuple, terminal: str, n_layers: int, alibi: Claim | None = None):
     """§20.1 item 6 made operational: layer 0 denies ever handling the weapon, and the trace plus
     the housekeeper's account of the cleaning (the statement its `requires` names) is the derived
     breaker set. Layer 1 (standard band) concedes the handling and denies the blow — nothing in
@@ -225,18 +248,19 @@ def _murder_cover(dr: Draft, a: str, protected: tuple, terminal: str, n_layers: 
     confess = Claim(id=f"C_{a}_LT", proposition=protected[-1], sincerity="truthful", source="plan")
     responses = (EvidenceResponse(evidence="E_trace", layer=0, act="DENY_EVIDENCE"),
                  EvidenceResponse(evidence=f"clean@{hk}", layer=0, act="DENY_EVIDENCE"))
+    first = (deny_touch,) + ((alibi,) if alibi is not None else ())
     if n_layers == 2:
         # I-21 / §19.3 check (i): with two layers, layer 0 IS the pre-terminal layer, and its
         # breaker set (the trace) proves handling, never the blow — so a confession reached from
         # it would be cheaper than a proof. The terminal is a stonewall; this murderer is
         # convicted by elimination or not at all. (A three-layer cover may confess: its
         # pre-terminal layer has no breaker set, so nothing reaches the terminal for free.)
-        layers = (CoverLayer(index=0, claims=(deny_touch,), resolve=RESOLVE_L0),
+        layers = (CoverLayer(index=0, claims=first, resolve=RESOLVE_L0),
                   CoverLayer(index=1, claims=(concede_touch, confess), concedes=(concede_touch.proposition,
                                                                                  confess.proposition),
                              resolve=RESOLVE_TERMINAL, terminal="stonewall"))
         return layers, responses
-    layers = (CoverLayer(index=0, claims=(deny_touch,), resolve=RESOLVE_L0),
+    layers = (CoverLayer(index=0, claims=first, resolve=RESOLVE_L0),
               CoverLayer(index=1, claims=(concede_touch, deny_blow), concedes=(concede_touch.proposition,),
                          resolve=RESOLVE_PRE_TERMINAL),
               CoverLayer(index=2, claims=(confess,), concedes=(concede_touch.proposition, confess.proposition),
@@ -274,5 +298,5 @@ def compile_draft(dr: Draft) -> CasePackage:
                               *(f"containment:E_gate_{e}" for e in skel.exterior)),
         alternatives=alts)
     return CasePackage(id=case.id, skeleton_id=skel.id, seed=dr.seed, case=case, evidence=evidence,
-                       secrets=_secrets(dr, case), accounts=_accounts(dr, case), method=skel.method,
+                       secrets=_secrets(dr, case, evidence), accounts=_accounts(dr, case), method=skel.method,
                        structure=structure, solution=sol, difficulty=skel.difficulty).sealed()

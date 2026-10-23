@@ -286,6 +286,14 @@ def plan(skel: Skeleton, seed: int, n_living: int | None = None, murderer: str |
                                perceptibility=Perceptibility(sight=1.0, sound=0.8, identifies_voice=True)))
     dr.events.append(Event(id="clean", kind="Clean", interval=(t_clean, t_clean + 1), location=vloc, actor=hk,
                            objects=(obj,), perceptibility=Perceptibility(sight=0.6, sound=0.2)))
+    # NR-I2: one innocent holds forth in the alibi room as the alibi window closes - an ordinary, audible scene, so every
+    # listener has something HEARD to tell (listeners, not participants: a participant's knowledge is what they DID). Late
+    # in the window, the freshest memory the window allows (§8.3 decay). No rng draw: the rest of the plan is unchanged.
+    alibi_loc, _, a1 = dr.meta["alibi"]
+    talkers = sorted(innocents)
+    if len(talkers) >= 2:
+        dr.events.append(Event(id="chat", kind="Speak", interval=(a1 - 3, a1 - 1), location=alibi_loc, actor=talkers[0],
+                               perceptibility=Perceptibility(sight=1.0, sound=0.8, identifies_voice=True)))
     dr.events.append(Event(id=f"alive0:{victim}", kind="Environmental", interval=(0, 1), location=skel.hub,
                            effects=(EffActorState(actor=victim, attr="alive", value="true"),)))
     # motives (stage 2): the murderer and at least one other suspect
