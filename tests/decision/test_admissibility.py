@@ -13,7 +13,7 @@ from eidolon.decision.secrets import Secret, SecretStore, Stakes, CoverStory
 from eidolon.minds.belief import Belief, BeliefStore
 from eidolon.minds.knowledge import KnowledgeEntry, KnowledgeStore
 from eidolon.minds.provenance import AdmissibilityLevel, Witnessed
-from eidolon.world.propositions import At
+from eidolon.world.propositions import At, Did, DidNot
 
 ANN, BEA, CAL = "Ann", "Bea", "Cal"
 
@@ -100,3 +100,16 @@ def test_evidence_authentic_is_l3_both_ways():
     beliefs = BeliefStore()
     assert evidence_admissibility(authentic) == AdmissibilityLevel.L3
     assert evidence_apparent_admissibility(authentic, "Ann", beliefs) == AdmissibilityLevel.L3
+
+
+def test_review_i7_agreement_at_another_granularity_is_not_seeing_through_and_never_hides_a_contradiction():
+    """Review I-7: a belief in the same act over a coarser window read as "knows it is false" (the item weighed nothing),
+    and an exactly-matching belief ended the scan before a contradicting one was looked at."""
+    shown = Did(actor=ANN, action="touch", object="Glass", interval=(0, 20))
+    belief = lambda bid, prop: Belief(id=bid, character=ANN, proposition=prop, confidence_0=8000, grounds=(),   # noqa: E731
+                                      formed_at=0, is_true=True)
+    coarser = belief("B1", Did(actor=ANN, action="touch", object="Glass", interval=(0, 120)))
+    assert confrontee_knows_false(shown, ANN, BeliefStore([coarser])) is False
+    exact, denial = belief("B2", shown), belief("B3", DidNot(actor=ANN, action="touch", object="Glass", interval=(0, 120)))
+    assert confrontee_knows_false(shown, ANN, BeliefStore([exact, denial])) is True
+    assert confrontee_knows_false(shown, ANN, BeliefStore([denial, exact])) is True

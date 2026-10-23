@@ -219,6 +219,9 @@ MUTANTS = [
       "RR_N2", ["RR_N2"], tests="tests/test_review_fixes.py"),
     M("RRN3-model-asked-for", "eidolon/llm/provider.py", ("    return reported if isinstance(reported, str) and reported else asked", "    return asked"),
       "RR_N3", ["RR_N3"], tests="tests/test_review_fixes.py"),
+    # ---- Phase 4 review N-5: an opened confession layer drives the turn whatever the wording ----
+    M("RN5-confession-waits-for-the-right-wording", TURN, ("    secret = peeled[0][0] if peeled else (confessing or topical)", "    secret = peeled[0][0] if peeled else topical"),
+      "N5", ["N5_once_the_proof"], tests="tests/test_confession_gate.py"),
     # ---- NR-B1: a save made by an earlier engine keeps loading (the derivation may not move) ----
     M("NRB1-derived-personality-moves", SESSION, ('voice=VoiceSpec(voice_register="plain"))', 'voice=VoiceSpec(voice_register="plain", tics=("hm.",)))'),
       "earlier_engine", ["a_save_made_by_an_earlier_engine"], tests="tests/test_committed_saves.py"),

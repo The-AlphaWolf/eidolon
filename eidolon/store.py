@@ -48,7 +48,7 @@ from .decision.exploration import (
     check_heard_state, known_items, known_locations,
 )
 from .decision.peel import claims_voiced_on_peel, confession_gated, layer_index
-from .decision.turn import CANARY, GameState
+from .decision.turn import CANARY, GameState, slips_voiced
 from .evidence.discovery import Discovery, apply_discovery, check_discovery_state
 from .minds import accounts as acct
 from .minds.events import (
@@ -398,6 +398,9 @@ def _fold_turn(state: GameState, events, action_id) -> GameState:
             if kind == "CoverStateDelta" and ev.refuse_streak is not None and ev.refuse_streak != (
                     chars[who].refuse_streak + 1 if made is not None and made.act == "REFUSE" else 0):
                 _refuse("CoverStateDelta refuse_streak is not the run of consecutive REFUSE turns (§15.4)", "fold")
+            if kind == "CoverStateDelta" and ev.slips_used is not None and frozenset(ev.slips_used) != (
+                    chars[who].slips_used | (slips_voiced(made.act, made.claims) if made is not None else frozenset())):
+                _refuse("CoverStateDelta slips_used is not the slips this turn voiced (§11.7)", "fold")
             chars[who] = apply_character(chars[who], ev)
         else:
             _refuse(f"event kind {kind!r} has no fold", "fold")

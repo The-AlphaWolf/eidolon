@@ -81,6 +81,7 @@ def _put_everything_to_the_murderer(gate_for):
         acts.append(r.plan_act)
         if r.plan_act == "CONFESSION":
             break
+    _put_everything_to_the_murderer.last = (sealed, st)
     return acts, permitted
 
 
@@ -92,6 +93,17 @@ def test_ADR32_a_murderer_shown_a_proof_confesses_and_never_before():
     assert acts[-1] == "CONFESSION", acts
     assert permitted[-1] and all(a != "CONFESSION" for a, p in zip(acts, permitted) if not p)
     assert "STONEWALL" not in acts, "short of a proof the last denial simply holds; nothing reaches the terminal to stonewall"
+
+
+def test_N5_once_the_proof_has_opened_the_confession_any_question_gets_it():
+    """Phase 4 review N-5: standing on an open confession layer, the murderer confessed only when the question's wording
+    happened to select that secret; any other question got REFUSE/DONT_KNOW. The opened layer now drives the turn."""
+    acts, _ = _put_everything_to_the_murderer(game.confession_gate)
+    assert acts[-1] == "CONFESSION"
+    sealed, st = _put_everything_to_the_murderer.last
+    for q in (Query(kind="smalltalk", raw="Lovely weather."), Query(kind="did_you", predicate_hint="heard", raw="Hear anything?")):
+        r = run_ask_turn(st, st.murderer, q, confession_check=game.confession_gate(st, sealed.package))
+        assert not r.rejected and r.plan_act == "CONFESSION", (q.raw, r.plan_act)
 
 
 def test_ADR32_without_the_gate_nothing_confesses():

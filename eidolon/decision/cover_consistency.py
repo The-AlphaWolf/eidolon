@@ -35,7 +35,7 @@ MAX_BREAKER_SET_SIZE = 4
 
 @dataclass(frozen=True)
 class V3Violation:
-    check: str  # "i".."v"
+    check: str  # "i".."vi"
     detail: str
 
     def __str__(self) -> str:
@@ -244,6 +244,12 @@ class MurderUniquenessCheck:
     fairness_level: FairnessLevel = "standard"
 
 
+def about(proposition, speaker: str) -> str:
+    """Review I-6: testimony constrains the person it is ABOUT - Elena's `NotAt(David, …)` can exclude David - so it is filed under
+    the proposition's actor; a proposition naming no actor stays with its speaker."""
+    return getattr(proposition, "actor", None) or speaker
+
+
 def check_murder_confession_uniqueness(secret: Secret, pre_terminal_index: int, breaker_sets: tuple[frozenset[Ref], ...],
                                         ctx: DecisionContext, check: MurderUniquenessCheck) -> list[V3Violation]:
     """(i): for the murder secret's pre-terminal layer, EVERY breaker set must already
@@ -272,7 +278,7 @@ def check_murder_confession_uniqueness(secret: Secret, pre_terminal_index: int, 
             if ref in ctx_all.accounts:
                 speaker = acct.parse(ref)[1]
                 for e in acct.entries_of(ctx_all.case, ctx_all.knowledge, ref):
-                    admissible.append(AdmissibleClaim(actor=speaker, proposition=e.proposition, level=claim_admissibility(
+                    admissible.append(AdmissibleClaim(actor=about(e.proposition, speaker), proposition=e.proposition, level=claim_admissibility(
                         Claim(id=f"acct:{ref}", proposition=e.proposition, sincerity="truthful", source="plan",
                               grounding=(e.id,)), speaker, knowledge, ctx_all.beliefs, ctx_all.secrets, ctx_all.collusion)))
                 continue
@@ -280,12 +286,32 @@ def check_murder_confession_uniqueness(secret: Secret, pre_terminal_index: int, 
             if st is not None:
                 for c in st.claims:
                     level = claim_admissibility(c, st.speaker, knowledge, ctx_all.beliefs, ctx_all.secrets, ctx_all.collusion)
-                    admissible.append(AdmissibleClaim(actor=st.speaker, proposition=c.proposition, level=level))
+                    admissible.append(AdmissibleClaim(actor=about(c.proposition, st.speaker), proposition=c.proposition, level=level))
         result = unique(check.candidates, check.murder_location, check.murder_interval, admissible,
                          ctx.case, check.fairness_level)
         if not result.unique:
             v.append(V3Violation("i", f"{secret.id} layer {pre_terminal_index}: breaker set {sorted(bset)} "
                                         f"does not establish uniqueness (survivors: {result.survivors})"))
+    return v
+
+
+def check_concessions_against_own_word(secret: Secret, ctx: DecisionContext) -> list[V3Violation]:
+    """(vi), Phase 4 review N-3: a concession layer may not contradict anything its owner could truthfully have said at that
+    layer (their speakable knowledge, I-54). Otherwise the owner says it as TRUTH first, the concession owed on the peel can
+    never be committed (§14.2(f)), and the turn is refused on every later peel - a fail-closed livelock authored into the case."""
+    from ..evidence.contradiction import contradiction
+    from .speakable import speakable
+    v: list[V3Violation] = []
+    for layer in secret.cover.layers[1:]:
+        def layer_of(s: Secret, i: int = layer.index) -> int:
+            return i if s.id == secret.id else 0
+        own = [e for e in ctx.knowledge.for_character(secret.owner)
+               if speakable(Claim(id=f"k:{e.id}", proposition=e.proposition, sincerity="truthful", source="plan", grounding=(e.id,)),
+                            secret.owner, ctx.secrets, layer_of, ctx.knowledge, ctx.case)]
+        for c in layer.claims:
+            if hit := next((e for e in own if contradiction(c.proposition, e.proposition, case=ctx.case) is not None), None):
+                v.append(V3Violation("vi", f"{secret.id} layer {layer.index}: {c.id} contradicts what {secret.owner} may "
+                                           f"truthfully say ({hit.id}); the owed concession could never be committed"))
     return v
 
 
@@ -315,6 +341,7 @@ def check_cover_consistency(secrets: list[Secret], ctx: DecisionContext,
                 violations += check_murder_confession_uniqueness(secret, layer.index, bsets, ctx, murder_check)
         violations += check_innocent_reachability(secret, all_breaker_sets)
         violations += check_monotone_concedes(secret)
+        violations += check_concessions_against_own_word(secret, ctx)
         violations += check_deflection_grounding(secret, ctx)
         violations += check_slip_excuse_reachable(secret, ctx)
     return violations

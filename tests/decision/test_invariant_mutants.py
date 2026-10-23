@@ -328,3 +328,13 @@ def test_i1_every_envelope_in_a_mixed_session_is_bounded_by_the_addressees_own_m
         slots = (env.digest_text, env.query_text, *env.retrieved_statements, *env.recent_exchange)
         assert not any(t and t in slot for t in others_text for slot in slots)
         state = r.state
+
+
+def test_review_i1_a_slip_is_spent_once_voiced():
+    """Review I-1 (§11.7): `slips_used` had no producer, so once weight and topic lined up SLIP was a forced act on EVERY
+    matching turn - the same reveal, forever. The turn now records the slip it voiced; the next matching turn cannot slip."""
+    ask = Query(kind="did_you", predicate_hint="study", raw="Were you in the study?")
+    first = run_ask_turn(_slip_state(0.7), DAVID, ask)
+    assert first.plan_act == "SLIP" and first.state.characters[DAVID].slips_used
+    again = run_ask_turn(first.state, DAVID, ask)
+    assert not again.rejected and again.plan_act != "SLIP", again.plan_act

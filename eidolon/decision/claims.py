@@ -96,14 +96,11 @@ class StatementStore:
         self._statements: tuple[Statement, ...] = tuple(statements)
         self._by_id: dict[StatementId, Statement] = {}
         self._by_speaker: dict[ActorId, list[StatementId]] = {}
-        self._claim_index: dict[ClaimId, tuple[StatementId, Claim]] = {}
         for s in self._statements:
             if s.id in self._by_id:
                 raise ValueError(f"duplicate Statement id: {s.id}")
             self._by_id[s.id] = s
             self._by_speaker.setdefault(s.speaker, []).append(s.id)
-            for c in s.claims:
-                self._claim_index[c.id] = (s.id, c)
 
     def get(self, statement_id: StatementId) -> Statement | None:
         return self._by_id.get(statement_id)
@@ -118,13 +115,8 @@ class StatementStore:
         """§15.3's `standing_claims`: non-retracted statements only."""
         return [s for s in self.for_speaker(speaker) if s.retracted_by is None]
 
-    def claim(self, claim_id: ClaimId) -> Claim | None:
-        found = self._claim_index.get(claim_id)
-        return found[1] if found else None
-
-    def statement_of_claim(self, claim_id: ClaimId) -> Statement | None:
-        found = self._claim_index.get(claim_id)
-        return self._by_id.get(found[0]) if found else None
+    # review I-14: there is no claim-id index. A cover claim is re-told under the same id in many statements, so "the
+    # statement of claim X" is ambiguous; a claim is addressed through the statement that carries it.
 
     def standing_claims(self, speaker: ActorId) -> list[Claim]:
         """Every non-retracted claim currently on the record for `speaker` — what

@@ -131,3 +131,39 @@ def test_murder_confession_uniqueness_pass_and_fail():
                           epistemic=ctx.epistemic, discovery=ctx.discovery)
     ok = check_murder_confession_uniqueness(secret, 0, (frozenset({"E_scene", "E_margaret"}),), ctx2, check)
     assert ok == []
+
+
+def test_review_i6_testimony_is_filed_under_the_person_it_is_about():
+    """Review I-6: a witness's statement about another suspect was filed under the witness, so it could never exclude its
+    subject (survivors stayed David, Elena, Margaret, Robert when Elena's word places David out of the room)."""
+    from eidolon.decision.cover_consistency import about
+    from eidolon.world.propositions import At, NotAt
+    assert about(NotAt(actor="David", location="Study", interval=(71, 72)), "Elena") == "David"
+    assert about(At(actor="Elena", location="Hall", interval=(71, 72)), "Elena") == "Elena"
+
+
+def test_review_n3_a_concession_that_contradicts_the_owners_own_word_is_a_v3_violation():
+    """Phase 4 review N-3: a concession contradicting something the owner may truthfully say (and so may already have said
+    as TRUTH) can never be committed - every later peel is refused. V-3 now rejects such a cover; the goldens have none."""
+    from pathlib import Path
+    from eidolon.decision.claims import Claim
+    from eidolon.decision.cover_consistency import check_concessions_against_own_word
+    from eidolon.decision.secrets import CoverStory
+    from eidolon.decision.speakable import speakable
+    from eidolon.solve.package import load_sealed_case
+    from eidolon.solve.session import decision_context
+    from eidolon.world.propositions import At
+    p = load_sealed_case(str(Path(__file__).resolve().parents[2] / "cases" / "generated" / "study_party_s4.json")).package
+    ctx = decision_context(p)
+    secret = next(s for s in p.secrets if s.kind != "murder")
+    assert check_concessions_against_own_word(secret, ctx) == []
+    said = next(e for e in ctx.knowledge.for_character(secret.owner) if e.proposition.kind == "At" and speakable(
+        Claim(id="k", proposition=e.proposition, sincerity="truthful", source="plan", grounding=(e.id,)),
+        secret.owner, ctx.secrets, lambda s: 1 if s.id == secret.id else 0, ctx.knowledge, ctx.case))
+    elsewhere = next(loc for loc in sorted(ctx.case.locations) if loc != said.proposition.location)
+    bad = Claim(id="bad", proposition=At(actor=secret.owner, location=elsewhere, interval=said.proposition.interval),
+                sincerity="truthful", source="plan")
+    l1 = secret.cover.layers[1]
+    broken = secret.model_copy(update={"cover": CoverStory(layers=(secret.cover.layers[0], l1.model_copy(
+        update={"claims": l1.claims + (bad,)})) + secret.cover.layers[2:])})
+    assert [x.check for x in check_concessions_against_own_word(broken, ctx)] == ["vi"]

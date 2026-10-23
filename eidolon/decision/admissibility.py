@@ -99,9 +99,8 @@ def confrontee_knows_false(proposition: Proposition, confrontee: ActorId,
             at, nat = (p, q) if p.kind == "At" else (q, p)
             if at.actor == nat.actor and at.location == nat.location and overlaps(at.interval, nat.interval):
                 return True
-        if p.kind == "Did" == q.kind and p.actor == q.actor and p.action == q.action and p.object == q.object:
-            if overlaps(p.interval, q.interval):
-                return False if p == q else True
+        # review I-7: two `Did`s of the same act are agreement at different granularity, never a contradiction - and an
+        # agreeing belief never ends the scan (a contradicting one later in the store must still be seen)
         if {p.kind, q.kind} == {"Did", "DidNot"}:
             did, didnot = (p, q) if p.kind == "Did" else (q, p)
             if (did.actor == didnot.actor and did.action == didnot.action
