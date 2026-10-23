@@ -46,6 +46,9 @@ METHODS = tuple(m for m in get_args(DiscoverySpec.model_fields["action"].annotat
 TOPICS = {"presence": "who was where", "did": "what was done", "heard": "what was heard"}
 OUTSIDER = "Outsider"
 NOT_RECORDED = "That could not be done. Nothing was recorded."
+TRACE_KINDS = ("ask", "say", "goto", "search", "hypothesis", "withdraw", "accuse")     # `trace.Kind`
+BUSY = "The model did not answer (it may be busy or rate limited). Nothing was recorded - try again in a moment."
+ACCUSATION_WINDOW_MAX = 60          # H8-N8: a time "window" as wide as the whole evening establishes nothing
 
 
 @dataclass(frozen=True)
@@ -89,7 +92,10 @@ def _labels(save: Save) -> dict[str, str]:
     """engine ref -> what the player calls it: a numbered item for evidence, a numbered statement for testimony."""
     st, case = save.state, save.state.case
     out = {}
-    for n, (_, e) in enumerate(sorted((handle(save, e), e) for e in st.discovery.known_evidence), 1):
+    # H8-N8: numbered in the order they were found, so an item keeps its number when another turns up
+    found = [e for e in save.discovery_order() if e in st.discovery.known_evidence]
+    found += sorted((e for e in st.discovery.known_evidence if e not in found), key=lambda e: handle(save, e))
+    for n, e in enumerate(found, 1):
         ev = st.evidence.get(e)
         out[e] = f"item {n}: {ev.kind.lower()} ({name(case, ev.discovery.at)})"
     for sid in st.discovery.known_statements:
@@ -121,9 +127,15 @@ def describe(save: Save, p, labels: dict[str, str] | None = None) -> str:
 _STALE = "The case moved on since this page was loaded. Nothing was recorded."
 
 
-def _already(ref, chip: str) -> Outcome:
+def _already(ref, chip: str, save: Save | None = None) -> Outcome:
+    """H8-N8: a re-sent form shows what that turn said, not only that it was recorded."""
+    said = ""
+    if save is not None:
+        st = next((x for x in save.state.decision.statements.all() if x.turn == ref.turn), None)
+        if st is not None and st.id in save.state.discovery.known_statements:
+            said = f"{name(save.state.case, st.speaker)}: {st.text}"
     return Outcome("duplicate", f"Already recorded as turn {ref.turn}: this form was sent before. Nothing new was recorded.",
-                   chip, turn=ref.turn)
+                   chip, said, turn=ref.turn)
 
 
 def _game_id(save: Save) -> str:
@@ -158,7 +170,7 @@ def _commit(save: Save, action_id: str, expected_seq: int, run: Callable, *, chi
     §27.1: the turn's trace is built and written AFTER the commit (a rejected attempt is noted in the `aborted` table). Both
     are best-effort and cannot change the Outcome."""
     if (ref := save.turn_for(action_id)) is not None:
-        return _already(ref, chip)
+        return _already(ref, chip, save)
     if expected_seq != save.last_seq:
         return Outcome("stale", _STALE, chip)
     if save.state.decision.solved is not None:
@@ -168,7 +180,8 @@ def _commit(save: Save, action_id: str, expected_seq: int, run: Callable, *, chi
     run_ms = int((CLOCK() - t0) * 1000)
     if res.rejected:
         note_attempt(save, kind=kind, outcome="rejected", character=character, observed=observed, res=res, run_ms=run_ms)
-        return Outcome("rejected", NOT_RECORDED, chip)
+        busy = any(str(v).startswith(("PROVIDER_ERROR", "PROVIDER_TIMEOUT")) for v in res.violations)
+        return Outcome("rejected", BUSY if busy else NOT_RECORDED, chip)       # NR-N2: a busy model is not a broken game
     t1 = CLOCK()
     try:
         got = save.append(res.events, expected_seq, action_id)
@@ -179,7 +192,7 @@ def _commit(save: Save, action_id: str, expected_seq: int, run: Callable, *, chi
                      run_ms=run_ms, failures=("store_refused",))
         return Outcome("rejected", NOT_RECORDED, chip)
     if not got.appended:
-        return _already(got.ref, chip) if got.same_events else Outcome("stale", _STALE, chip)
+        return _already(got.ref, chip, save) if got.same_events else Outcome("stale", _STALE, chip)
     append_ms = int((CLOCK() - t1) * 1000)
     _traced(lambda row: save.write_trace(got.ref.turn, row), save, res, kind=kind, game_id=_game_id(save), outcome="committed",
             character=character, observed=observed, committed=got, run_ms=run_ms, append_ms=append_ms)
@@ -200,10 +213,14 @@ def confession_gate(st, pkg):
     run on what the player has presented (`credited_material(only=presented)`, the crediting rule V-7 and the evidence axis
     use) at the case's fairness level. `decision.peel.confession_permitted` binds the verdict to identity (the survivor must
     be the confrontee). The store re-checks the turn's shape (`store._check_confession`)."""
+    seen: dict = {}                     # one solver run per presented set (ADR-32 asks again on every turn at the last denial)
+
     def check(actor, secret, presented, ctx):
-        v = evaluate(_solver_ctx(pkg), credited_material(st, only=frozenset(presented)), fairness=pkg.fairness_level,
-                     want_cores=False)
-        return UniquenessResult(unique=bool(v.unique), survivors=tuple(v.survivors))
+        key = frozenset(presented)
+        if key not in seen:
+            v = evaluate(_solver_ctx(pkg), credited_material(st, only=key), fairness=pkg.fairness_level, want_cores=False)
+            seen[key] = UniquenessResult(unique=bool(v.unique), survivors=tuple(v.survivors))
+        return seen[key]
     return check
 
 
@@ -335,7 +352,24 @@ def player_objects(st) -> frozenset[str]:
     return names.objects
 
 
+def question_buckets(case) -> list[int]:
+    """NR-N1: the half hours the question form offers - those that START before the investigation ends (the last is clipped)."""
+    return sorted(b for b in clock_buckets(case) if b * BUCKET < case.t_investigation)
+
+
+_NOTEBOOK: dict = {}                  # H8-N7: one projection per (save, log head); a page re-render recomputes nothing
+
+
 def notebook(save: Save) -> dict:
+    key = (str(save.path), save.last_seq, save.last_hash)
+    if key not in _NOTEBOOK:
+        if len(_NOTEBOOK) > 64:
+            _NOTEBOOK.clear()
+        _NOTEBOOK[key] = _notebook(save)
+    return _NOTEBOOK[key]
+
+
+def _notebook(save: Save) -> dict:
     """Everything the player holds, as they may see it — the statements they heard, the items they found, the tensions
     between them, their live theories — plus what the forms may offer: the cast and the house (public, §19.4), the
     objects their material names, the clock."""
@@ -366,7 +400,8 @@ def notebook(save: Save) -> dict:
         "places": [{"id": loc, "name": name(case, loc), "visited": loc in st.discovery.visited_locations}
                    for loc in sorted(case.locations)],
         "objects": [{"id": o, "name": name(case, o)} for o in sorted(objects)],
-        "times": [{"bucket": b, "label": minutes(b * BUCKET, b * BUCKET + BUCKET)} for b in sorted(clock_buckets(case))],
+        "times": [{"bucket": b, "label": minutes(b * BUCKET, min(b * BUCKET + BUCKET, case.t_investigation))}
+                  for b in sorted(question_buckets(case))],
         "methods": list(METHODS), "topics": dict(TOPICS), "motives": motive_menu(save),
         "clock_end": render_time(case.t_investigation),
     }
@@ -395,6 +430,7 @@ def report(save: Save) -> dict | None:
         "who": acc.target == st.murderer,
         "method": attack is not None and acc.weapon is not None and acc.weapon in attack.objects,
         "place_and_time": attack is not None and acc.location == attack.location and acc.interval is not None
+                          and acc.interval[1] - acc.interval[0] <= ACCUSATION_WINDOW_MAX
                           and overlaps(tuple(acc.interval), tuple(attack.interval)),
         "motive": motive is not None and acc.motive_kind == motive,
         "evidence": establishes(save, acc.cited),

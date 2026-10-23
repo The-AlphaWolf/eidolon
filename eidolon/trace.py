@@ -326,7 +326,7 @@ def failures_of(audit, violations=(), extra=()) -> tuple[str, ...]:
     if audit is not None:
         for c in audit.calls:
             out.append({"": None, "ProviderTimeout": "provider_timeout", "ProviderRefusal": "provider_refusal",
-                        "PromptLeak": "prompt_leak"}.get(c.error, "provider_error" if c.error else None) or "")
+                        "PromptLeak": "prompt_leak", "PROMPT_LEAK": "prompt_leak"}.get(c.error, "provider_error" if c.error else None) or "")
         for a in audit.attempts:
             out.append({"refused": "provider_refusal", "malformed": "malformed_output", "repair": "validation_failure",
                         "rejected": "plan_rejected"}.get(a.outcome, ""))

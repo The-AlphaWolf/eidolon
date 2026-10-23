@@ -234,7 +234,7 @@ def _ref(case: Case, name: str | None, known: frozenset[str]) -> EntityRef | Non
 
 _HOUR_WORDS = {w: n for n, w in enumerate("twelve one two three four five six seven eight nine ten eleven".split())}
 _HOUR_WORDS.update({"midnight": 0, "twelve": 0})
-_CLOCK_TEXT = re.compile(r"(?:(half|quarter)\s+(past|to|after)\s+)?(\d{1,2}|[a-z]+)(?::(\d{2}))?(?:\s*o'?clock|\s*[ap]\.?m\.?)?")
+_CLOCK_TEXT = re.compile(r"(?:(half|quarter)\s+(past|to|after)\s+)?(\d{1,2}|[a-z]+)(?::(\d{2}))?(?:\s*o'?clock|\s*([ap])\.?m\.?)?")
 
 
 def clock_interval(text: str, t_max: int) -> tuple[int, int] | None:
@@ -243,11 +243,13 @@ def clock_interval(text: str, t_max: int) -> tuple[int, int] | None:
     exactly, or a time outside the investigation, is no window at all - never a guess."""
     low = text.strip().lower().replace("’", "'")
     for m in _CLOCK_TEXT.finditer(low):
-        frac, rel, hour, mins = m.groups()
+        frac, rel, hour, mins, ampm = m.groups()
         h = int(hour) if hour.isdigit() else _HOUR_WORDS.get(hour)
         if h is None or h > 23 or (mins is not None and int(mins) > 59):
             continue
         minute = (h % 12) * 60 + int(mins or 0) if h <= 12 else h * 60 + int(mins or 0)
+        if ampm == "p" and h < 12:
+            minute += 12 * 60
         if frac:
             minute += {"half": 30, "quarter": 15}[frac] if rel != "to" else -15 if frac == "quarter" else -30
         if 0 <= minute <= t_max:

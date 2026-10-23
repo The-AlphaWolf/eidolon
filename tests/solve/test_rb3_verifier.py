@@ -23,7 +23,6 @@ from eidolon.solve.package import SealedCase, SealRefusal, bundle_seal, load_sea
 from eidolon.solve.proof import verify_proof
 from eidolon.solve.solver import build_ctx, robust_material
 from eidolon.world.case import Case
-from eidolon.world.entities import Actor
 from tests.solve.helpers import GOLDEN, golden, rebuild
 
 BOTH = (("study_party", 4), ("manor_wing", 4))

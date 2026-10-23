@@ -28,8 +28,7 @@ from ..world.propositions import Proposition, entities
 from .claims import Claim, ClaimId, StatementStore
 from .context import DecisionContext
 from .digest import ConversationDigest, evidence_labels
-from .llm import Draft, Segment, claimless_line, render_claim
-from .secrets import Ref
+from .llm import Draft, claimless_line, render_claim
 from .speech_acts import ACT_TABLE, RETRACTION_EXEMPT_ACTS
 from .strategy import DeliveryDirective, ResponsePlan
 from .envelope import Envelope, EnvelopeClaim, PersonaSlot, render_digest

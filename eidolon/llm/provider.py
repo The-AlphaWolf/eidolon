@@ -134,6 +134,19 @@ def _without(schema, keywords: tuple[str, ...]):
     return schema
 
 
+_MAX_REPLY_BYTES = 1_000_000                          # NR-N6: a reply is read with a cap (the draft itself is capped at 32 000)
+
+
+def _open(req, timeout):
+    """`urlopen` that never follows a redirect: urllib would re-send the Authorization header to the new host (NR-N6)."""
+    import urllib.request
+
+    class _NoRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, *a, **k):
+            return None
+    return urllib.request.build_opener(_NoRedirect).open(req, timeout=timeout)
+
+
 def _http_post(url: str, body: dict, headers: dict, timeout_s: float) -> dict:
     import urllib.error
     import urllib.request
@@ -141,8 +154,10 @@ def _http_post(url: str, body: dict, headers: dict, timeout_s: float) -> dict:
                                  # Groq's firewall refuses urllib's default agent with a bare 403 (Cloudflare 1010)
                                  headers={"Content-Type": "application/json", "User-Agent": "eidolon/0.1", **headers})
     try:
-        with urllib.request.urlopen(req, timeout=timeout_s) as r:
-            raw = r.read()
+        with _open(req, timeout=timeout_s) as r:
+            raw = r.read(_MAX_REPLY_BYTES + 1)
+        if len(raw) > _MAX_REPLY_BYTES:
+            raise ProviderError("reply too large")
         try:
             return json.loads(raw)
         except ValueError as exc:           # e.g. a proxy or gateway answering in the provider's place
@@ -162,8 +177,8 @@ class OpenAICompatTransport:
     """`Transport` over any OpenAI-compatible chat endpoint - the free ones in `FREE_PROVIDERS` (Gemini's free tier through
     AI Studio, OpenRouter's free models, a local Ollama). Same contract as `AnthropicTransport`: `complete(system, user,
     schema)` and nothing else (structured output via `response_format`, no tools), a refusal surfaced as `ProviderRefusal`,
-    every other failure as `ProviderError`/`ProviderTimeout`. Stdlib HTTP only. For play and development: the nightly never
-    counts it as live (`is_live`), because the Phase 9 criteria are defined for the configured Claude models."""
+    every other failure as `ProviderError`/`ProviderTimeout`. Stdlib HTTP only. On the real network path (no injected `post`)
+    the nightly counts it as live (`debug.nightly.is_live`, ADR-31)."""
 
     def __init__(self, base_url: str, *, model: str, api_key: str | None = None, timeout_s: float = 60.0, post=None,
                  drop_keywords: tuple[str, ...] = (), provider: str = ""):

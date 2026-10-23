@@ -13,7 +13,6 @@ from types import SimpleNamespace
 
 import pytest
 
-from eidolon import game
 from eidolon.debug import nightly
 from eidolon.llm.fakes import (
     RecordedTransport, RecordingTransport, RepairingTransport, ScriptedTransport, cassette_load, cassette_save,

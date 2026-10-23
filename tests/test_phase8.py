@@ -21,7 +21,6 @@ from pathlib import Path
 import pytest
 
 from eidolon import game, store
-from eidolon.decision.events import Accusation, CaseSolved, TurnCommitted
 from eidolon.decision.hypotheses import Lied, Planted
 from eidolon.decision.speech_acts import ACT_TABLE
 from eidolon.decision.turn import CANARY, run_accusation_turn, run_ask_turn, run_goto_turn, run_hypothesis_turn
@@ -602,7 +601,7 @@ def test_H8_B1_a_tension_between_two_held_items_rests_on_unlocked_implications_o
     def tensions(*accounts):
         discovery = DiscoveryState(known_evidence=frozenset({"EA", "EB"}), known_accounts=frozenset(accounts))
         ns = SimpleNamespace(state=replace(st, evidence=EvidenceStore([item("EA", l1, ("clean@x",)), item("EB", l2, ())]),
-                                           discovery=discovery), bundle=fresh.bundle)
+                                           discovery=discovery), bundle=fresh.bundle, discovery_order=lambda: [])
         return game._tensions(ns, game._labels(ns))
 
     assert tensions() == []
@@ -1078,15 +1077,26 @@ def test_a_typed_question_is_parsed_grounded_and_answered_through_the_model(chat
 
 
 @pytest.mark.parametrize("action", [{"kind": "clarify"}, {"kind": "ask", "query_kind": "where", "location": "the cellar"},
-                                    {"kind": "ask", "query_kind": "where", "subject": "Harold"}])
+                                    {"kind": "ask", "query_kind": "where", "subject": "Bartholomew"}])
 def test_an_unclear_or_unknown_line_gets_one_in_world_answer_and_records_nothing(chat, action):
-    """§22.2: an unclear line, a place that does not exist and a person the player has not met get the SAME reply, so
-    typing names cannot enumerate the cast; nothing is recorded."""
+    """§22.2: an unclear line, a place that does not exist and a person who is not in the case get the SAME reply, so
+    typing names cannot probe for anything the page does not already show; nothing is recorded. (This used "Harold", whom
+    the page lists - review H8-N3: the page's cast and places are public, so typed text may name them too.)"""
     c, t = chat
     page = _new_game(c)
     t.queues["parse"].append(json.dumps(action))
     out = _say(c, page, "Tell me about it.")
     assert "not sure what you mean" in out and "Turn 0" in out and c.app.state.games.open("g1").last_seq == 0
+
+
+def test_H8_N3_typed_text_may_name_anyone_the_page_lists(chat):
+    """H8-N3: the structured form lists the whole cast under "Concerning"; typed "Did you see David?" to Elena was refused as
+    an unknown name while the same question from the form was answered. Typed text now names what the page shows."""
+    c, t = chat
+    page = _new_game(c)
+    t.queues["parse"].append(json.dumps({"kind": "ask", "query_kind": "did_they", "subject": "David", "predicate_hint": "presence"}))
+    out = _say(c, page, "Did you see David?")
+    assert "not sure what you mean" not in out and "Turn 1" in out and c.app.state.games.open("g1").last_seq > 0
 
 
 def test_an_over_long_line_is_refused_before_any_model_call(chat):

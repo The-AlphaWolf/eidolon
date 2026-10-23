@@ -9,7 +9,7 @@ Each mutation = list of (relpath, old, new) exact replacements. `old` must occur
 so a mutation can never silently no-op. Applied to a fresh copy of the repo; the named test
 selection is run; the mutation is KILLED iff pytest fails. The repo itself is never touched.
 """
-import json, os, re, shutil, subprocess, sys, tempfile
+import os, re, shutil, subprocess, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -89,6 +89,9 @@ M = {
   ],
   "ADR30-c the heard topic is answered by deed denials": [
     (D+"footprint.py", '"heard": frozenset({"Heard"})', '"heard": frozenset({"Heard", "Did", "DidNot"})'),
+  ],
+  "F14-a a counterfactual is answered by whichever claimless act wins the tie": [
+    (D+"strategy.py", '    if inp.query.kind == "hypothetical":\n        # §10.3', '    if False:\n        # §10.3'),
   ],
   "M1 every item its own causal group (I-32)": [
     (D+"weight.py", "    groups = group_by_causal_support(frozenset(presented), items_by_ref)", "    groups = [[r] for r in sorted(presented)]"),

@@ -16,7 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from ..evidence.contradiction import contradiction, evidence_implication_contradicts, evidence_vs_evidence
 from ..evidence.discovery import DiscoveryState, held_material, unlocked_implications, unlocked_view
 from ..evidence.ids import StatementId
-from ..evidence.model import Evidence, EvidenceStore
+from ..evidence.model import EvidenceStore
 from ..world.ids import ActorId, EvidenceId
 from ..world.propositions import Proposition, entities
 from .claims import StatementStore

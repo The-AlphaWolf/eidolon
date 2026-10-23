@@ -19,12 +19,11 @@ import pytest
 from hypothesis import given, settings, strategies as st
 
 from eidolon.decision import turn as turn_mod
-from eidolon.decision.claims import Claim, Statement, StatementStore
+from eidolon.decision.claims import Claim
 from eidolon.decision.context import DecisionContext
 from eidolon.decision.demo import build_demo_state
 from eidolon.decision.digest import ConversationDigest, build_digest
 from eidolon.decision.envelope import Envelope, EnvelopeClaim, PersonaSlot, build_envelope
-from eidolon.decision.events import ClaimMade, apply_decision
 from eidolon.decision.llm import Draft, Segment, TemplateLLM
 from eidolon.decision.peel import evaluate_peel, layer_index
 from eidolon.decision.query import Query
@@ -434,16 +433,23 @@ def _committed(result):
 
 
 def test_n2_gate_open_is_not_itself_a_confession():
-    """N-2 (1/3): an open gate with nothing that reaches the pre-terminal layer's `resolve` —
-    nothing presented, or too little — moves nothing and confesses nothing. The gate is only
-    consulted once a peel actually reaches the confession layer."""
+    """N-2 (1/3): an open gate is never by itself a CONFESSION. With nothing that reaches the last
+    denial's `resolve` — nothing presented, or too little — a CLOSED gate (no proof) moves nothing.
+    ADR-32 (2026-10-22): an OPEN gate there is a proof, and a proof breaks the last denial before a
+    gated confession — the landing is still voiced as CONCESSION and commits no Solution (§14.2(e));
+    only a character already standing on the confession layer confesses. (Before ADR-32 this test
+    asserted that the gate was never consulted short of the confession layer; that is what
+    ADR-32 changes, and why a murderer could never confess in a generated case.)"""
     for s, presented in ((_state(), None), (_state(resolve=9000), "E_knife")):
-        gate = _gate([DAVID])
-        r = run_ask_turn(s, DAVID, Query(kind="did_you", raw="Did you do it?"), presented_ref=presented,
-                         confession_check=gate)
-        assert r.rejected is False and r.plan_act not in ("CONFESSION", "CONCESSION")
-        assert r.state.decision.layer_peels == () and gate.calls == []
-        assert not any(c.proposition.kind == "Solution" for c in _committed(r))
+        q = Query(kind="did_you", raw="Did you do it?")
+        closed = run_ask_turn(s, DAVID, q, presented_ref=presented, confession_check=_gate([DAVID], unique=False))
+        assert closed.rejected is False and closed.plan_act not in ("CONFESSION", "CONCESSION", "STONEWALL")
+        assert closed.state.decision.layer_peels == ()
+        opened = run_ask_turn(s, DAVID, q, presented_ref=presented, confession_check=_gate([DAVID]))
+        assert opened.rejected is False and opened.plan_act == "CONCESSION"
+        assert [(p.from_index, p.to_index) for p in opened.state.decision.layer_peels] == [(0, 1)]
+        for r in (closed, opened):
+            assert not any(c.proposition.kind == "Solution" for c in _committed(r))
 
 
 def test_n2_landing_on_the_confession_layer_is_a_concession_and_commits():

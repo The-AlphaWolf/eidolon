@@ -1,10 +1,10 @@
 """§19.3 (V-3): breaker-set derivation and the cover-consistency contract."""
 from __future__ import annotations
 
-from eidolon.decision.claims import Claim, Statement, StatementStore
+from eidolon.decision.claims import Claim, StatementStore
 from eidolon.decision.context import DecisionContext
 from eidolon.decision.cover_consistency import (
-    MurderUniquenessCheck, check_cover_consistency, check_deflection_grounding,
+    MurderUniquenessCheck, check_deflection_grounding,
     check_evidence_response_coverage, check_joint_feasibility_layer0, check_monotone_concedes,
     derive_breaker_sets,
 )

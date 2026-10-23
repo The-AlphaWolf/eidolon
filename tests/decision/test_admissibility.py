@@ -14,8 +14,6 @@ from eidolon.minds.belief import Belief, BeliefStore
 from eidolon.minds.knowledge import KnowledgeEntry, KnowledgeStore
 from eidolon.minds.provenance import AdmissibilityLevel, Witnessed
 from eidolon.world.propositions import At
-from eidolon.world.entities import Actor
-from eidolon.world.propositions import Rel
 
 ANN, BEA, CAL = "Ann", "Bea", "Cal"
 

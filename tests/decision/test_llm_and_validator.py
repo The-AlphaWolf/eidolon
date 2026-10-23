@@ -7,7 +7,7 @@ from eidolon.decision.envelope import PersonaSlot, build_envelope
 from eidolon.decision.llm import Draft, Segment, TemplateLLM, render_claim
 from eidolon.decision.strategy import DeliveryDirective, ResponsePlan
 from eidolon.decision.validator import validate_draft
-from eidolon.world.propositions import At, DidNot, entities
+from eidolon.world.propositions import At, DidNot
 from tests.world.fixtures.vance import vance_v03
 from eidolon.decision.context import DecisionContext
 from eidolon.decision.secrets import SecretStore
@@ -107,9 +107,6 @@ def test_unauthorized_claim_id_is_a_leak():
 
 
 def test_contradiction_with_standing_claim_caught_unless_concession():
-    prop = At(actor="David", location="Library", interval=(5, 60))
-    claim = Claim(id="c_new", proposition=DidNot(actor="David", action="touch", object="Glass1", interval=(0, 120)),
-                  sincerity="deceptive", source="plan")
     contradicting_prior = Claim(id="c_old", proposition=At(actor="David", location="Study", interval=(5, 10)),
                                  sincerity="deceptive", source="plan")
     from eidolon.decision.claims import Statement

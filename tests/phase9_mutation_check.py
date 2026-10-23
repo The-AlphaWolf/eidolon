@@ -251,6 +251,13 @@ MUTANTS = [
       "H9_I2", ["H9_I2_a_run_without"], T_REP),
     M("promptdoc-skips-tuple-constants", PROMPTDOC, ('        for t in (n for tt in targets for n in (tt.elts if isinstance(tt, ast.Tuple) else [tt])):', '        for t in targets:'),
       "checked_in_document_is_exactly or every_constant_defined", ["checked_in_document_is_exactly", "every_constant_defined"], T_DOCS),
+    # ---- F-14 / F-15 (docs/EIDOLON-FULL-REVIEW-2026-10-22.md) ----------------------------------------------------------------
+    M("F14-tie-break-keyed-on-the-turn", STRAT, ('_tie_break(inp.seed, inp.character, question, pair[0].act)', '_tie_break(inp.seed, str(inp.turn_id), "", pair[0].act)'),
+      "F14", ["F14_asking_the_same_question"], T_REP),
+    M("F15-refuse-streak-never-produced", TURN, ('    streak = char_state.refuse_streak + 1 if plan.act == "REFUSE" else 0', '    streak = char_state.refuse_streak'),
+      "F15 or H9_B1_a_lie", ["F15_refuse_runs", "H9_B1_a_lie_and_a_truth"], T_REP),
+    M("F15-cap-ignored", STRAT, ('    if inp.repeat_count >= 5 and inp.state.refuse_streak < 2:', '    if inp.repeat_count >= 5:'),
+      "F15 or H9_B1_a_lie", ["F15_refuse_runs", "H9_B1_a_lie_and_a_truth"], T_REP),
     # ---- the documentation of prompts and constants ------------------------------------------------------------------------
     M("prompt-changed-without-regenerating-the-doc", RENDER, ('Reply with the JSON object only."""\n\nVERIFY_SCHEMA', 'Reply with the JSON object, nothing else."""\n\nVERIFY_SCHEMA'),
       "checked_in_document_is_exactly", ["checked_in_document_is_exactly"], T_DOCS),

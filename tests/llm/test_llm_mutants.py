@@ -14,7 +14,7 @@ import pytest
 from eidolon.decision.claims import Claim, Statement, StatementStore
 from eidolon.decision.digest import ConversationDigest
 from eidolon.decision.envelope import PersonaSlot, build_envelope
-from eidolon.decision.llm import Draft, Segment, render_claim
+from eidolon.decision.llm import render_claim
 from eidolon.decision.strategy import DeliveryDirective, ResponsePlan
 from eidolon.decision.validator import validate_draft, verify_segments
 from eidolon.llm.fakes import MUTATIONS, MutantLLM, ScriptedTransport

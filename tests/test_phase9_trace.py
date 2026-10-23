@@ -161,12 +161,10 @@ def test_the_size_bound_is_enforced_when_the_caps_would_let_a_trace_past_it(monk
 # ====================================================================== 2. emission from the real turn path
 def test_every_control_commits_exactly_one_trace_and_leaves_no_gap(save):
     assert step(save, game.goto, ROOM).ok
-    s0 = save.state
     assert step(save, game.search, ROOM, "Look").ok
     assert step(save, game.ask, "Elena", a_question(save)).ok
     r, _ = model_renderer()
     assert step(save, game.ask, "David", a_question(save, "David"), renderer=r).ok
-    ev = sorted(save.state.discovery.known_evidence)
     props = (At(actor="Elena", location=ROOM, interval=(50, 60)),)
     assert step(save, game.hypothesize, props, 6000).ok
     (h,) = save.state.decision.hypotheses
@@ -457,7 +455,7 @@ def test_a_crash_between_commit_and_trace_is_a_reported_gap_not_corruption(save,
 def test_a_trace_failure_message_never_reaches_the_player_page(chat, monkeypatch, caplog):
     c, _ = chat
     monkeypatch.setattr(Save, "write_trace", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("SECRET-TRACE-ERR sk-ant-api03-abcdefghijklmnop")))
-    page = c.get("/g/g1").text
+    c.get("/g/g1")
     with caplog.at_level("DEBUG"):
         r = c.post("/g/g1", data={"op": "goto", "location": ROOM, "action_id": "go@0", "expected_seq": "0"})
     assert r.status_code == 200 and "Turn 1" in r.text
@@ -468,7 +466,6 @@ def test_a_trace_failure_message_never_reaches_the_player_page(chat, monkeypatch
 # ====================================================================== 4. what a trace may never hold
 def play_a_session(s, renderer):
     step(s, game.goto, ROOM)
-    ev = [e.discovery.at for e in sorted(s.state.evidence.all(), key=lambda e: e.id)][:3]
     for who in sorted(s.state.case.living_actors()):
         step(s, game.ask, who, game.question(s.state.case, who, topic="presence", place=ROOM, bucket=1), renderer=renderer)
         step(s, game.ask, who, game.question(s.state.case, who, topic="did"), accuse=True, renderer=renderer)

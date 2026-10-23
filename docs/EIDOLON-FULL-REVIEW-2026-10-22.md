@@ -254,3 +254,34 @@ voiced as CONCESSION) becomes live with H9-I3.
 6. The two independent re-reviews (Phase 8 H8 repair, Phase 9 RR repair, plus ADR-30 and today's changes).
 7. NR-N1…N11, NR-N13, NR-N14 and the NON-BLOCKING lists, in any order.
 8. Phase 9 exit: a live Claude nightly (F-1) and two playtesters (F-2); then Phase 10.
+
+---
+
+## 5. Fix status (same day, author's record — not independently reviewed)
+
+Each fix has a test named after its finding (`tests/test_review_fixes.py`, `tests/test_confession_gate.py`, `tests/test_phase9_repairs.py`
+`test_F14_*`/`test_F15_*`, the `F15_*`/`H9I3_*` forgeries in `tests/test_persistence.py`, `tests/test_committed_saves.py`) and, where it
+guards an invariant, a mutant (`tests/persistence_mutation_check.py` NRB1/H9I3/F15/ADR32, `tests/phase9_mutation_check.py` F14/F15,
+`tests/decision/mutation_check.py` F14-a).
+
+| ID | Status |
+|---|---|
+| NR-B1 | **fixed** — voice derived at render time (`decision/voice.py`); the session stores the legacy default; committed-save regression test |
+| NR-I1, NR-N9 | **fixed** — the verifier's claimless rule; one tone-keyed fallback line set |
+| NR-I3 | **fixed** — honest retrieval is topic-strict (`turn.retrieve_for_query` skips off-topic beliefs); V-7 and validate re-run |
+| H9-I3 (= F-3) + Phase 4 N-2 | **fixed** — `game.confession_gate` wired, `store._check_confession` fold rule, and **ADR-32** (a proof breaks the last denial), so the murderer confesses — as CONFESSION, never CONCESSION — exactly when shown a proof |
+| F-14 | **fixed** — tie-break keyed on (seed, speaker, question); a counterfactual is answered only by HYPOTHETICAL (the coin flip had decided it) |
+| F-15 | **fixed** — `refuse_streak` produced and fold-checked; REFUSE at most 2 turns running |
+| NR-N1…N8 | **fixed** (window bounds, BUSY notice, single worker thread, seed bound, CLI refusals, provider no-redirect + reply cap + UA, pm, rate-window prune) |
+| NR-N11 | **fixed** — pyflakes clean over `eidolon/`, `tests/`, `spike/`; guarded by `test_NR_N11_*` |
+| NR-N12 | **fixed** — git |
+| NR-N13 | **partly** — bounded ranges in `pyproject.toml`, exact versions in `requirements-tested.txt`; the move from `httpx` to Starlette's newer test client is not made (needs a new package installed) |
+| NR-N14 | **fixed** — architecture header, `CLAUDE.md`, KNOWN-DEBT header, ADR-30 report |
+| NR-N15 | **left** — `saves/` and `out/` are git-ignored; the owner's local files were not deleted |
+| NR-N10 | open — UNMEASURED until a live audit runs |
+| NR-I2, NR-I4 | open — generator changes (audible perceptions; a covering lie per topic); need goldens regenerated and a seed study |
+| H8-N2, H8-N3, H8-N4, H8-N5, H8-N7, H8-N8 | **fixed** (checks before parse; names = encountered ∪ cast ∪ places; non-string fields refused; anti-framing headers; notebook cached by head; stable item numbers, resent form shows its reply, time axis ≤ 60 min) |
+| H9-N1, H9-N2, H9-N3, H9-N4, H9-N8 | **fixed** |
+| H9-N9 | addressee **fixed**; the exit-code half not changed — small-sample UNMEASURED (N-5 under 200 statements) is by design not a failure, and `test_a_live_run_passes_when_the_numbers_pass` asserts it |
+| H9-U1, F-1, F-2 | open — need a live run (F-1 runnable now on a free key, ADR-31) and two playtesters |
+| everything else in §2–§3 | open, unchanged |

@@ -463,6 +463,9 @@ the player's controls
 | `TOPICS` | `{"did": "what was done", "heard": "what was heard", "presence": "who was where"}` |  |
 | `OUTSIDER` | `'Outsider'` |  |
 | `NOT_RECORDED` | `'That could not be done. Nothing was recorded.'` |  |
+| `TRACE_KINDS` | `["ask", "say", "goto", "search", "hypothesis", "withdraw", "accuse"]` | the player control a trace row names (§27.1); unknown controls are traced as `ask` |
+| `BUSY` | `'The model did not answer (it may be busy or rate limited). Nothing was recorded - try again in a moment.'` | what the player sees when the model did not answer (NR-N2): a retry notice, nothing recorded |
+| `ACCUSATION_WINDOW_MAX` | `60` | widest time window (minutes) that still earns the accusation's place-and-time axis (H8-N8) |
 
 ### `eidolon.web`
 
@@ -471,6 +474,7 @@ the player app's boundary
 | constant | value | note |
 |---|---|---|
 | `NAME` | `[A-Za-z0-9_-]{1,40}` |  |
+| `SEED_MAX` | `2147483648` | a new game's seed is a non-negative 31-bit integer (NR-N4) |
 | `LOOPBACK` | `["127.0.0.1", "localhost", "[::1]"]` |  |
 
 ### `eidolon.debug.slo`

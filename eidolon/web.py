@@ -18,9 +18,13 @@ connection stays on the thread that opened it. A multi-user host needs a worker 
 """
 from __future__ import annotations
 
+import asyncio
 import contextlib
+import logging
 import re
+import sqlite3
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
@@ -35,16 +39,16 @@ from starlette.routing import Route
 
 from . import game
 from .cli import encountered
-from .llm.ingress import Asked, Clarify, Explore, ModelParser, interpret, rate_window
+from .llm.ingress import RATE_WINDOW_S, Asked, Clarify, Explore, ModelParser, interpret, rate_window
 from .llm.render import LLMRenderer, ModelLLM
 from .solve.package import SealRefusal
-from .solve.queries import clock_buckets
 from .store import Save, SaveError, SaveRefusal
 from .trace import Observed
 from .decision.hypotheses import Lied, Planted
 from .world.propositions import At
 
 NAME = re.compile(r"[A-Za-z0-9_-]{1,40}")
+SEED_MAX = 2 ** 31                                                    # NR-N4: a seed is a non-negative 31-bit integer
 _RESERVED = re.compile(r"(con|prn|aux|nul|com\d|lpt\d)", re.I)       # Windows device names are not file names
 
 
@@ -188,6 +192,10 @@ def _page(template: str, status: int = 200, **ctx) -> HTMLResponse:
 
 
 # ------------------------------------------------------------------------------------ the boundary: form -> control
+class FormError(ValueError):
+    """A refused form whose reason the player may see (it names nothing the page does not already show)."""
+
+
 def _minute(text: str | None) -> int | None:
     """`HH:MM` (the native time input) or a bare minute count; empty is None; anything else is an error."""
     text = (text or "").strip()
@@ -201,12 +209,15 @@ def _minute(text: str | None) -> int | None:
     raise ValueError(f"not a time: {text!r}")
 
 
-def _window(form) -> tuple[int, int] | None:
+def _window(form, case) -> tuple[int, int] | None:
     start, end = _minute(form.get("start")), _minute(form.get("end"))
     if start is None and end is None:
         return None
     if start is None or end is None:
-        raise ValueError("a window needs both ends")
+        raise FormError("A time window needs both a start and an end. Nothing was recorded.")
+    if not 0 <= start < end <= case.t_investigation:            # NR-N1: refused here, with the reason, not by the store
+        raise FormError(f"A time window must run forwards and end by {game.render_time(case.t_investigation)}. "
+                        "Nothing was recorded.")
     return start, end
 
 
@@ -220,6 +231,22 @@ def _one_of(value: str | None, allowed) -> str | None:
 
 
 def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
+    """Every field validated here (§23.7). H9-N4: an exception from the engine is not a bare 500 - it is noted in the trace
+    file's aborted table by class only and the player is asked to try again; nothing was committed (I-15)."""
+    items = form.multi_items() if hasattr(form, "multi_items") else form.items()
+    if any(not isinstance(v, str) for _, v in items):                     # H8-N4: a file part where a string belongs
+        return game.Outcome("rejected", game.NOT_RECORDED)
+    try:
+        return _dispatch(save, form, chat)
+    except Exception as exc:                                              # noqa: BLE001 - fail closed, never a traceback
+        logging.getLogger("eidolon.web").warning("engine exception: %s", type(exc).__name__)
+        kind = {"hypothesize": "hypothesis"}.get(str(form.get("op")), str(form.get("op")))
+        game.note_attempt(save, kind=kind if kind in game.TRACE_KINDS else "ask", outcome="rejected",
+                          failures=("renderer_exception",))     # the trace's closed vocabulary: an engine fault, nothing committed
+        return game.Outcome("rejected", "Something went wrong on our side. Nothing was recorded - please try again.")
+
+
+def _dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
     case, st = save.state.case, save.state
     op, aid = form.get("op"), form.get("action_id") or ""
     try:
@@ -232,7 +259,7 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
             present = game.held_ref(save, raw) if raw else None
             if raw and present is None:
                 raise ValueError("not held")
-            bucket = _one_of(form.get("bucket"), {str(b) for b in clock_buckets(case)})
+            bucket = _one_of(form.get("bucket"), {str(b) for b in game.question_buckets(case)})
             q = game.question(case, form.get("addressee", ""), topic=_one_of(form.get("topic"), game.TOPICS),
                               about=_one_of(form.get("about"), case.actors), place=_one_of(form.get("place"), case.locations),
                               bucket=int(bucket) if bucket is not None else None, presenting=present is not None)
@@ -244,9 +271,21 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
             who = form.get("addressee", "")
             if who not in st.characters:
                 raise ValueError("nobody of that name is here")
+            # H8-N2: a re-sent, stale or after-the-verdict line is answered BEFORE it costs a parse (and a model call)
+            if (ref := save.turn_for(aid)) is not None:
+                return game._already(ref, "", save)
+            if seq != save.last_seq:
+                return game.Outcome("stale", game._STALE)
+            if st.decision.solved is not None:
+                return game.Outcome("rejected", "The case is closed.")
             times = chat.times.setdefault(str(save.path), [])
+            now = chat.clock()
+            times[:] = [t for t in times if now - t < RATE_WINDOW_S]           # NR-N8: the window only, never the session
             seen: dict = {}
-            out = interpret(form.get("text", ""), parse=chat.parser.parse, case=case, known=encountered(st, who),
+            # H8-N3: the page lists the whole cast and house (§19.4, public), so typed text may name them too; objects
+            # still only as the player's own material names them (`cli.encountered`, F-9)
+            known = encountered(st, who) | frozenset(case.actors) | frozenset(case.locations)
+            out = interpret(form.get("text", ""), parse=chat.parser.parse, case=case, known=known,
                             addressee=who, turns_in_window=rate_window(times, chat.clock()),
                             observe=lambda ing, action: seen.update(ing=ing, action=action))
             times.append(chat.clock())
@@ -267,7 +306,8 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
                                     f"{game.name(case, who)}: {out.text}")
             game.note_attempt(save, kind="say", outcome="blocked", character=who, observed=obs("refused", out.reason),
                               failures=("parse_failed" if out.reason.startswith("PARSE_") else "ingress_blocked",))
-            return game.Outcome("rejected", game.NOT_RECORDED)
+            busy = out.reason.startswith(("PARSE_FAILED:ProviderError", "PARSE_FAILED:ProviderTimeout"))
+            return game.Outcome("rejected", game.BUSY if busy else game.NOT_RECORDED)
         if op == "goto":
             return game.goto(save, aid, seq, form.get("location", ""))
         if op == "search":
@@ -281,7 +321,7 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
                 raise ValueError("confidence out of range")
             if kind == "At":
                 prop = At(actor=_one_of(form.get("actor"), case.actors), location=_one_of(form.get("location"), case.locations),
-                          interval=_window(form))
+                          interval=_window(form, case))
             elif kind == "Lied":
                 sid = game.held_ref(save, form.get("statement"))
                 if sid is None or sid not in st.discovery.known_statements:
@@ -304,8 +344,10 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
             if None in cited:
                 raise ValueError("not held")
             return game.accuse(save, aid, seq, form.get("suspect", ""), weapon=_one_of(form.get("weapon"), case.objects),
-                               location=_one_of(form.get("location"), case.locations), interval=_window(form),
+                               location=_one_of(form.get("location"), case.locations), interval=_window(form, case),
                                motive_kind=_one_of(form.get("motive"), game.motive_menu(save)), cited=cited)
+    except FormError as e:
+        return game.Outcome("rejected", str(e))
     except ValueError:                                  # pydantic's ValidationError is one: a malformed form is refused
         return game.Outcome("rejected", game.NOT_RECORDED)
     return game.Outcome("rejected", game.NOT_RECORDED)
@@ -333,7 +375,13 @@ class _LoopbackOnly:
     async def __call__(self, scope, receive, send):
         if scope["type"] == "http" and Headers(scope=scope).get("host", "").lower() not in self.hosts:
             return await PlainTextResponse("Invalid host header", status_code=400)(scope, receive, send)
-        await self.app(scope, receive, send)
+
+        async def framed(message):                      # H8-N5: no page of this app may be framed by another site
+            if message["type"] == "http.response.start":
+                message["headers"] = list(message.get("headers", [])) + [
+                    (b"x-frame-options", b"DENY"), (b"content-security-policy", b"frame-ancestors 'none'")]
+            await send(message)
+        await self.app(scope, receive, framed)
 
 
 def _same_origin(request: Request) -> bool:
@@ -354,56 +402,77 @@ def create_app(saves_dir, cases_dir, *, port: int = 8000, transport=None, latenc
     `transport` (an `llm.provider` transport) turns on free text and model rendering; `latency_floor_s` is I-42's
     floor (`LATENCY_FLOOR_S` with a live model; 0 for a scripted one)."""
     games = Games(saves_dir, cases_dir)
+    # NR-N3: every save touch (open, dispatch, render) runs on ONE worker thread, so each SQLite connection keeps its thread
+    # (D-5) while the event loop stays free during a model call
+    worker = ThreadPoolExecutor(max_workers=1, thread_name_prefix="eidolon-game")
+
+    async def on_worker(fn, *args):
+        return await asyncio.get_running_loop().run_in_executor(worker, fn, *args)
     chat = None
     if transport is not None:
         model = ModelLLM(transport)
         chat = Chat(ModelParser(model.transport), LLMRenderer(model, min_latency_s=latency_floor_s), clock)
 
     async def index(request: Request):
-        return _page("index", title="Games", saves=games.saves(), cases=games.cases(), error=None)
+        return await on_worker(lambda: _page("index", title="Games", saves=games.saves(), cases=games.cases(), error=None))
 
     async def new_game(request: Request):
         if not _same_origin(request):
             return _FORBIDDEN
         form = await request.form()
-        name, case = form.get("name", ""), form.get("case", "")
-        try:
-            seed = int(form.get("seed") or 0)
-            games.create(name, case, seed)
-        except (ValueError, SaveError, SealRefusal, OSError):
-            return _page("index", 400, title="Games", saves=games.saves(), cases=games.cases(),
-                         error="That game could not be created: pick an unused name of letters, digits, - or _, and a case.")
-        return RedirectResponse(f"/g/{name}", status_code=303)
+
+        def create():
+            name, case, raw_seed = form.get("name", ""), form.get("case", ""), form.get("seed") or "0"
+            try:
+                if not all(isinstance(x, str) for x in (name, case, raw_seed)):
+                    raise ValueError("not a text field")
+                seed = int(raw_seed)
+                if not 0 <= seed < SEED_MAX:
+                    raise ValueError("seed out of range")
+                games.create(name, case, seed)
+            except (ValueError, SaveError, SealRefusal, OSError, sqlite3.Error):
+                return _page("index", 400, title="Games", saves=games.saves(), cases=games.cases(),
+                             error="That game could not be created: pick an unused name of letters, digits, - or _, a case, "
+                                   "and a seed from 0 to 2147483647.")
+            return RedirectResponse(f"/g/{name}", status_code=303)
+        return await on_worker(create)
 
     async def play(request: Request):
         name = request.path_params["name"]
         if request.method == "POST" and not _same_origin(request):
             return _FORBIDDEN
-        try:
-            save = games.open(name)
-        except SaveRefusal:                             # a damaged or forged save: refused, never half-loaded (I-15)
-            return HTMLResponse(_UNREADABLE, status_code=409)
-        if save is None:
-            return HTMLResponse("Not Found", status_code=404)
-        out = dispatch(save, await request.form(), chat) if request.method == "POST" else None
-        return _page("game", title=f"Game {name}", name=name, seq=save.last_seq, v=game.notebook(save), out=out,
-                     chat=chat is not None)
+        form = await request.form() if request.method == "POST" else None
+
+        def run():
+            try:
+                save = games.open(name)
+            except SaveRefusal:                         # a damaged or forged save: refused, never half-loaded (I-15)
+                return HTMLResponse(_UNREADABLE, status_code=409)
+            if save is None:
+                return HTMLResponse("Not Found", status_code=404)
+            out = dispatch(save, form, chat) if form is not None else None
+            return _page("game", title=f"Game {name}", name=name, seq=save.last_seq, v=game.notebook(save), out=out,
+                         chat=chat is not None)
+        return await on_worker(run)
 
     async def report(request: Request):
         name = request.path_params["name"]
-        try:
-            save = games.open(name)
-        except SaveRefusal:
-            return HTMLResponse(_UNREADABLE, status_code=409)
-        r = game.report(save) if save is not None else None
-        if r is None:
-            return HTMLResponse("Not Found", status_code=404)
-        return _page("report", title=f"Report {name}", name=name, r=r)
+
+        def run():
+            try:
+                save = games.open(name)
+            except SaveRefusal:
+                return HTMLResponse(_UNREADABLE, status_code=409)
+            r = game.report(save) if save is not None else None
+            if r is None:
+                return HTMLResponse("Not Found", status_code=404)
+            return _page("report", title=f"Report {name}", name=name, r=r)
+        return await on_worker(run)
 
     @contextlib.asynccontextmanager
     async def lifespan(app):
         yield
-        games.close_all()
+        await on_worker(games.close_all)
 
     hosts = allowed_hosts(port)
     app = Starlette(routes=[Route("/", index), Route("/new", new_game, methods=["POST"]),

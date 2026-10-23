@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from eidolon.solve import fairness as fair
-from eidolon.solve.solver import build_ctx, proof_core, robust_material
+from eidolon.solve.solver import build_ctx, proof_core
 from tests.solve.helpers import GOLDEN, edit_evidence, golden, pkg, rebuild, verdict
 
 ROOT = Path(__file__).resolve().parents[2] / "eidolon"
@@ -116,7 +116,7 @@ def test_a_lie_without_any_admissible_breaker_is_a_fairness_failure():
     p = pkg("study_party", 4)
     ctx, mat, v = verdict(p)
     from eidolon.solve.lattice import admissible
-    cons = admissible(ctx.case, ctx.store, mat, ctx.comps, ctx.victim)
+    admissible(ctx.case, ctx.store, mat, ctx.comps, ctx.victim)
     no_trace = rebuild(p, evidence=[e for e in p.evidence if e.id != "E_trace"])
     ctx2, mat2, v2 = verdict(no_trace)
     cons2 = admissible(ctx2.case, ctx2.store, mat2, ctx2.comps, ctx2.victim)

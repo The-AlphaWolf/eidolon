@@ -4,7 +4,6 @@ the verifier's individual checks, the pipeline's individual stages, single latti
 bluff proxy on a case where it should fire, and time resolution."""
 import copy
 
-import pytest
 
 from eidolon.evidence.model import DiscoverySpec, Evidence, Implication
 from eidolon.gen import pipeline

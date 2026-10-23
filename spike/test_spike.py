@@ -8,12 +8,11 @@ from __future__ import annotations
 
 import random
 
-from spike.model import World, Actor, Loc, Seg, Prop, EXT, iv_minus, iv_shrink, check_physics
+from spike.model import World, Actor, Loc, Seg, Prop, iv_minus, iv_shrink, check_physics
 from spike.minds import (derive_knowledge, collusion_components, material_all, admissible, Know, Testimony,
                          Constraint)
-from spike.model import check_physics as _cp  # noqa: F401  (imported above; kept explicit for T-31)
 from spike.minds import testimony_pool as layer0_pool  # (name must not start with `test`)
-from spike.solve import _dp, feasible, contradiction, solve, feasible_actor, cue_closure, robust_material
+from spike.solve import _dp, feasible, contradiction, solve, cue_closure, robust_material
 from spike.gen import toy_skeleton, vance_skeleton, plan, empty_world
 from spike.fixtures import vance_world, cycle_claims, triple_claims
 from spike.run_spike import evaluate, run_config, digest, MODES, PRIMARY, initial_named, skeleton

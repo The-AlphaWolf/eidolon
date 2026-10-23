@@ -6,7 +6,6 @@ under test must refuse. Nothing asserts the implementation's own assumptions bac
 """
 from __future__ import annotations
 
-import copy
 import inspect
 import json
 import os
@@ -994,6 +993,7 @@ FORGERIES = {
     "R1_slip_nobody_has": (lambda s: ask(s) + [CoverStateDelta(slips_used=("nonsense",))], "slips_used"),
     "R1_contradiction_nothing_resolves": (lambda s: ask(s) + [CoverStateDelta(contradictions_caught=("bogus",))], "contradictions_caught"),
     "R1_negative_refuse_streak": (lambda s: ask(s) + [CoverStateDelta(refuse_streak=-5)], "negative counter"),
+    "F15_refuse_streak_in_a_turn_that_did_not_refuse": (lambda s: ask(s) + [CoverStateDelta(refuse_streak=2)], "run of consecutive REFUSE"),
     "R1_negative_topic_counter": (lambda s: ask(s) + [CoverStateDelta(topics_probed={"where": -100})], "negative counter"),
     "R1_incidental_pinned_by_another_character": (lambda s: ask(s) + [IncidentalPinned(speaker="Elena", entity="port", attr="x", value="y")],
                                                   "not this turn's addressee"),

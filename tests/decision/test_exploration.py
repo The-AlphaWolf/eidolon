@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from eidolon.decision.exploration import (
-    ItemTaken, LocationVisited, apply_exploration, go_to, search,
+    ItemTaken, apply_exploration, go_to, search,
 )
 from eidolon.evidence.discovery import DiscoveryState
 from tests.evidence.fixtures.vance_evidence import evidence_case_items

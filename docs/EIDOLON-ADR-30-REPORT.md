@@ -45,7 +45,9 @@ old setup relied on the non-sequitur; what it asserts (searching the decanter ea
 * `ingress.clock_interval`: a typed time → the question form's half-hour window ("half past midnight" → 00:30–01:00, "2am",
   "1:30"); anything not read exactly, or outside the investigation, is no window. `ground` resolves "you" to the addressee only.
 * `solve.session.default_voice`: each character gets a register, an idiom and a tic, chosen by hash of name and seed — never from
-  secrets or guilt; personality is excluded from the save's state digest, so saves are unaffected.
+  secrets or guilt. **Corrected 2026-10-22 (review NR-B1):** the original version derived the voice in `solve.session`, and
+  `store.initial_digest` binds the derived character state into every save's genesis — it made every older save unreadable.
+  The voice is now derived at render time (`decision/voice.py`); the session stores the legacy default.
 * `llm.render.SYSTEM_GENERATE`: speak naturally in the voice; a claimless reply still answers ("can't remember / don't know / won't
   say") without describing events.
 * `decision.llm.CLAIMLESS_LINES`: the template's claimless reply is a tone-keyed line ("I'm sorry. I honestly can't remember.")

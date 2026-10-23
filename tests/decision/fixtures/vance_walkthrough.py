@@ -116,8 +116,6 @@ def build_initial_state() -> GameState:
     k_kitchen_robert = KnowledgeEntry(id="K_kitchen_robert", character=ROBERT, proposition=not_at_prop,
                                        source=Witnessed(event_id="glow:robert", modality="sight", quality=0.6),
                                        acquired_at=54, reliability=0.6, is_true=True)
-    kitchen_claim = Claim(id="c_elena_kitchen", statement="S_elena_kitchen", proposition=not_at_prop,
-                           sincerity="truthful", source="plan", grounding=("K_kitchen_elena",))
 
     # --- Margaret: affair secret, resolved by E6 (§29.1 turn 9) -------------------------
     m_deny = Claim(id="m_c0_room", proposition=At(actor=MARGARET, location="Room", interval=(30, 90)),

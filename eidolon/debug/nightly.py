@@ -166,7 +166,7 @@ def drive(save, renderer, turns: int) -> int:
     return done
 
 
-def classify_corpus(parser: ModelParser, case, known, lines) -> dict:
+def classify_corpus(parser: ModelParser, case, known, lines, addressee: str = "David") -> dict:
     """What the parse step makes of each hostile line: a `meta`/`coercion` query, or an in-world Clarify, as the category
     expects (`injection_corpus_v2.expected_kinds`). Anything else - a content question, a search, a goto - is a miss.
 
@@ -181,7 +181,7 @@ def classify_corpus(parser: ModelParser, case, known, lines) -> dict:
         try:
             names = sorted({(case.actors.get(i) or case.locations.get(i) or case.objects[i]).name for i in known
                             if i in case.actors or i in case.locations or i in case.objects})
-            action = parser.parse(ing.text, names, "David")
+            action = parser.parse(ing.text, names, case.actors[addressee].name)
             out = ground(action, ing, case, known)
             label = out.query.kind if isinstance(out, Asked) else type(out).__name__.lower()
         except ProviderRefusal:
@@ -200,15 +200,15 @@ def classify_corpus(parser: ModelParser, case, known, lines) -> dict:
             "misses_by_category": {c: v[1] - v[0] for c, v in sorted(per.items()) if v[1] != v[0]}}
 
 
-def corpus_turns(save, renderer, parser: ModelParser, lines) -> dict:
+def corpus_turns(save, renderer, parser: ModelParser, lines, addressee: str = "David") -> dict:
     """A sample of the corpus as FULL turns (parse -> ground -> render -> validate -> commit): what the player would be shown
     must be clean."""
     from ..llm.ingress import interpret
     dirty, done = [], 0
     for category, line, _ in lines:
-        out = interpret(line, parse=parser.parse, case=save.state.case, known=encountered(save.state, "David"), addressee="David")
+        out = interpret(line, parse=parser.parse, case=save.state.case, known=encountered(save.state, addressee), addressee=addressee)
         if isinstance(out, Asked):
-            r = game.ask(save, f"c@{save.last_seq}", save.last_seq, "David", out.query, renderer=renderer, typed=True)
+            r = game.ask(save, f"c@{save.last_seq}", save.last_seq, addressee, out.query, renderer=renderer, typed=True)
             done += r.ok
             text = (r.reply or "").lower()
             if any(m in text for m in MENACES):
@@ -247,10 +247,12 @@ def run(out_dir, *, transport=None, turns: int = 300, case: str = "study_party_s
 
     from tests.llm.injection_corpus_v2 import ALL                             # the corpus lives with the tests
     sample = ALL[::max(1, len(ALL) // max(1, corpus_turns_n))][:corpus_turns_n]
-    known = encountered(save.state, "David")
-    cls = classify_corpus(parser, save.state.case, known, ALL) if not budget.exhausted else {"lines": 0, "as_expected": 0, "bp": 0}
+    addressee = sorted(save.state.case.living_actors())[0]                   # H9-N9: the case's own cast, never a fixed name
+    known = encountered(save.state, addressee)
+    cls = (classify_corpus(parser, save.state.case, known, ALL, addressee) if not budget.exhausted
+           else {"lines": 0, "as_expected": 0, "bp": 0})
     before = unanswered.count
-    cont = corpus_turns(save, renderer, parser, sample)
+    cont = corpus_turns(save, renderer, parser, sample, addressee)
     # a sample the budget or the provider cut short is not judged on what was left (H9-I1, RR-I1): a line whose parse or render
     # got no answer is not a contained line
     cont_cut = budget.exhausted or unanswered.count > before

@@ -18,7 +18,7 @@ from __future__ import annotations
 import itertools
 
 from eidolon.evidence.contradiction import contradiction, corroborates
-from eidolon.evidence.discovery import reachability, uncued_load_bearing, unreachable_load_bearing
+from eidolon.evidence.discovery import reachability, uncued_load_bearing
 from eidolon.evidence.grounding import check_creation_grounding
 from eidolon.evidence.model import DiscoverySpec, Evidence, EvidenceStore, Implication, Prereq
 from eidolon.world.propositions import At, NotAt, Saw

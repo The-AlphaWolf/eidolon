@@ -187,6 +187,9 @@ def _run_replay(args) -> int:
     except SaveRefusal as e:
         print(json.dumps({"ok": False, "error": str(e), "at_seq": e.seq}, indent=1))
         return 1
+    except SaveError as e:
+        print(json.dumps({"ok": False, "error": str(e), "at_seq": None}, indent=1))
+        return 1
     except ValueError as e:                                   # a state that cannot be hashed is a refusal, not a traceback
         print(json.dumps({"ok": False, "error": f"state cannot be hashed: {e}", "at_seq": None}, indent=1))
         return 1
@@ -216,11 +219,15 @@ def _run_serve(args) -> int:
 
 def _run_newsave(args) -> int:
     from .solve.package import SealRefusal
+    import sqlite3
     from .store import Save, SaveError
+    if not 0 <= args.seed < 2 ** 31:
+        print("refused: the seed must be from 0 to 2147483647")
+        return 1
     try:
         Save.create(args.path, args.bundle, seed=args.seed).close()
-    except (SealRefusal, SaveError, OSError) as e:
-        print(f"refused: {e}")
+    except (SealRefusal, SaveError, OSError, sqlite3.Error) as e:
+        print(f"refused: {type(e).__name__}: {e}")
         return 1
     return 0
 

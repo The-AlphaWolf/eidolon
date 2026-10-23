@@ -214,7 +214,7 @@ def test_an_http_error_carries_the_providers_explanation_but_not_the_key(monkeyp
     def urlopen(req, timeout):
         raise urllib.error.HTTPError(req.full_url, 400, "Bad Request", {},
                                      io.BytesIO(body))
-    monkeypatch.setattr(urllib.request, "urlopen", urlopen)
+    monkeypatch.setattr(provider, "_open", urlopen)
     t = OpenAICompatTransport("https://x.test/v1", model="m", api_key="SECRET-KEY-123", post=provider._http_post)
     with pytest.raises(ProviderError, match="HTTP 400: Unknown name additionalProperties"):
         t.complete(REQ)
@@ -223,32 +223,30 @@ def test_an_http_error_carries_the_providers_explanation_but_not_the_key(monkeyp
 
 
 def test_requests_carry_our_own_user_agent_because_groq_blocks_urllibs(monkeypatch):
-    import urllib.request
     from eidolon.llm import provider
     seen = {}
 
     class Resp:
         def __enter__(self): return self
         def __exit__(self, *a): return False
-        def read(self): return json.dumps(reply()).encode()
+        def read(self, n=-1): return json.dumps(reply()).encode()
 
     def urlopen(req, timeout):
         seen.update(req.headers)
         return Resp()
-    monkeypatch.setattr(urllib.request, "urlopen", urlopen)
+    monkeypatch.setattr(provider, "_open", urlopen)
     OpenAICompatTransport("https://x.test/v1", model="m", api_key="k", post=provider._http_post).complete(REQ)
     assert seen.get("User-agent") == "eidolon/0.1"
 
 
 def test_a_non_json_reply_says_so(monkeypatch):
-    import urllib.request
     from eidolon.llm import provider
 
     class Resp:
         def __enter__(self): return self
         def __exit__(self, *a): return False
-        def read(self): return b"OK"
-    monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout: Resp())
+        def read(self, n=-1): return b"OK"
+    monkeypatch.setattr(provider, "_open", lambda req, timeout: Resp())
     with pytest.raises(ProviderError, match="non-JSON reply .* b'OK'"):
         OpenAICompatTransport("https://x.test/v1", model="m", post=provider._http_post).complete(REQ)
 

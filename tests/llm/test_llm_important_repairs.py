@@ -163,7 +163,6 @@ def test_f6_outcome_timing_is_not_equalised_and_that_is_the_permitted_residual()
     assert walls["accepted"] != walls["fallback"] != walls["rejected"]
     # and the residual is documented where someone will find it
     from eidolon.llm import render
-    doc = render.__dict__["__doc__"] or ""
     src = inspect.getsource(render)
     assert "permitted residual" in src and "F-6" in src
 
@@ -314,7 +313,6 @@ def test_f9_the_parser_is_not_told_the_cast_the_locations_or_the_weapon():
     _, _, t = _play(["Did you touch the knife?"], step=5.0)
     doc = json.loads(next(r for r in t.requests if r.role == "parse").user)
     assert doc["known_names"] == ["David Kessler"]
-    case = build_demo_state().case
     for hidden in ("Harold Vance", "a kitchen knife", "the hall", "the kitchen", "the study"):
         assert hidden not in doc["known_names"]
 

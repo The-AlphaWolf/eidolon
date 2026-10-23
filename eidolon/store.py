@@ -391,6 +391,9 @@ def _fold_turn(state: GameState, events, action_id) -> GameState:
                 if model_updates > 1:
                     _refuse("two DetectiveModelUpdate rows in one turn", "fold")
             _check_character_row(state, chars, ev, who, turn, accused)
+            if kind == "CoverStateDelta" and ev.refuse_streak is not None and ev.refuse_streak != (
+                    chars[who].refuse_streak + 1 if made is not None and made.act == "REFUSE" else 0):
+                _refuse("CoverStateDelta refuse_streak is not the run of consecutive REFUSE turns (§15.4)", "fold")
             chars[who] = apply_character(chars[who], ev)
         else:
             _refuse(f"event kind {kind!r} has no fold", "fold")
@@ -843,6 +846,12 @@ class Save:
         text = Path(bundle_path).read_text(encoding="utf-8")
         case = load_sealed_text(text)                      # raises SealRefusal
         digest = initial_digest(new_session(case, seed=seed))
+        stale = path.with_name(path.stem + ".traces.db")
+        if stale.exists():                     # H9-N2: a sidecar left by an earlier game of this name is not this game's
+            n = 1
+            while stale.with_name(f"{stale.name}.stale-{n}").exists():
+                n += 1
+            stale.rename(stale.with_name(f"{stale.name}.stale-{n}"))
         tmp = path.with_name(path.name + ".tmp")
         tmp.unlink(missing_ok=True)
         with contextlib.closing(sqlite3.connect(tmp, isolation_level=None)) as c:
@@ -953,7 +962,8 @@ class Save:
     def _trace_insert(self, sql: str, turn, trace) -> bool:
         try:
             text = _canon(scrub_secrets(_plain(trace)))
-            with contextlib.closing(sqlite3.connect(self.trace_path)) as t, t:
+            # H9-N3: best effort on the request path - a locked sidecar costs at most half a second, never the default 5 s
+            with contextlib.closing(sqlite3.connect(self.trace_path, timeout=0.5)) as t, t:
                 t.execute(_TRACE_TABLE)
                 t.execute(_ABORTED_TABLE)
                 t.execute(sql, (text,) if turn is None else (turn, text))
@@ -961,6 +971,14 @@ class Save:
         except Exception as exc:                                           # noqa: BLE001 - best effort, by contract
             logging.getLogger("eidolon.trace").warning("trace not written: %s", type(exc).__name__)
             return False
+
+    def discovery_order(self) -> list[str]:
+        """Evidence ids in the order the player found them (the log's `Discovery` rows) - for stable item numbers (H8-N8)."""
+        try:
+            rows = self._conn.execute("SELECT payload FROM session_events WHERE kind = 'Discovery' ORDER BY seq").fetchall()
+        except sqlite3.Error:                  # a read-only save has closed its connection: no order to offer
+            return []
+        return list(dict.fromkeys(json.loads(r[0])["evidence_id"] for r in rows))
 
     def kinds_between(self, first_seq: int, last_seq: int) -> list[str]:
         """The registry kinds of committed rows `first_seq..last_seq` (what a turn's trace says it committed)."""

@@ -36,7 +36,8 @@ from tests.test_phase9_nightly import FakeAnthropicClient, ParserToo
 ROOT = Path(__file__).resolve().parents[1]
 CASES = ROOT / "cases" / "generated"
 REPS = 8
-ESCALATION = ["REPEAT_PRIOR"] * 3 + ["REFUSE"] * 3          # answers 3..8 to the same question (§15.4, §28.4 #2)
+# answers 3..8 to the same question (§15.4, §28.4 #2); REFUSE runs at most 2 turns in a row, then the standing answer (F-15)
+ESCALATION = ["REPEAT_PRIOR"] * 3 + ["REFUSE"] * 2 + ["REPEAT_PRIOR"]
 
 
 def ask_repeatedly(state, who, q, n=REPS, presented_ref=None):
@@ -62,7 +63,7 @@ def test_H9_B1_a_lie_and_a_truth_escalate_identically_when_the_same_question_is_
     assert lie_acts == ["LIE"] * 2 + ESCALATION, lie_acts
     for claims in (truth_claims, lie_claims):
         assert len({c for c in claims if c}) == 1, "the claims never change, whatever the act (§15.4: verbatim)"
-        assert all(claims[i] for i in range(5)) and not any(claims[5:]), "REPEAT_PRIOR re-supplies the answer; REFUSE says nothing"
+        assert all(claims[i] for i in (0, 1, 2, 3, 4, 7)) and not any(claims[5:7]),             "REPEAT_PRIOR re-supplies the answer; REFUSE says nothing, and never more than twice running (F-15)"
 
 
 def test_H9_B1_repeat_prior_never_resupplies_a_claim_a_peel_retracted():
@@ -164,10 +165,9 @@ def test_H9_B1_a_repeat_bot_with_no_evidence_learns_nothing_about_sincerity(name
                 continue
             seen[acts[0]] += 1
             assert acts[2:] == ESCALATION[:5], (who, q.raw, acts)
-            # every claim made for this question is the same claim (§28.4 #2). Not "every answer has claims": a weak memory's
-            # VAGUE ties DONT_KNOW on utility and the per-turn tie-break may pick either on the SECOND ask - a residual of the
-            # tie-break, not of the act (it never touches a LIE), recorded in the repair report.
-            assert len({c for c in claims if c}) == 1, (who, q.raw, claims)
+            # every claim made for this question is the same claim (§28.4 #2), and the second answer is the first (F-14: the
+            # tie-break is keyed on the question, so a weak memory's VAGUE/DONT_KNOW tie cannot flip on the second ask)
+            assert len({c for c in claims if c}) == 1 and claims[1] == claims[0], (who, q.raw, claims)
     assert seen["LIE"] >= 10 and sum(v for k, v in seen.items() if k != "LIE") >= 10, seen
 
 
@@ -350,3 +350,32 @@ def test_RR_I1_a_session_an_outage_cut_short_does_not_judge_its_session_metrics(
     assert rep["turns_committed"] < 60
     for mid in ("N-1", "N-6", "N-7"):
         assert by[mid]["status"] == "UNMEASURED", by[mid]
+
+
+# ====================================================================== F-14 / F-15
+@pytest.mark.parametrize("name", ["study_party_s4", "manor_wing_s4"])
+def test_F14_asking_the_same_question_twice_gets_the_same_answer_whatever_it_was(name):
+    """F-14 (R9-1): the tie-break hashed the turn, so a weak memory's VAGUE and DONT_KNOW - equal on utility - could swap on the
+    second ask, and a changed second answer certified the first as "not a lie" (3 of 281 VAGUE, 14 of 109 DONT_KNOW). Keyed on
+    (seed, speaker, question) the same question breaks the same tie the same way. Every V-7 question, claimless answers included."""
+    state = _found_everything(name)
+    names = held_names(state, public_names(state.case))
+    seen = Counter()
+    for who in sorted(state.case.living_actors()):
+        for q in expressible_queries(state.case, who, names):
+            state, acts, claims = ask_repeatedly(state, who, q, n=2)
+            if acts[0] in ("CONCESSION", "CONFESSION", "SLIP", "STONEWALL"):
+                continue
+            seen[acts[0]] += 1
+            assert (acts[1], claims[1]) == (acts[0], claims[0]), (who, q.raw, acts, claims)
+    assert seen["VAGUE"] + seen["DONT_KNOW"] >= 10, seen
+
+
+def test_F15_refuse_runs_at_most_two_turns_then_the_standing_answer_returns():
+    """F-15 (R9-2): `refuse_streak` had no producer, so a character refused for ever from the sixth identical question. §11.2/§15.4:
+    REFUSE is capped at 2 consecutive turns, after which terse acts resume - the same for a liar and a truthful witness."""
+    state = build_initial_state()
+    q = Query(kind="where", raw="Where were you between ten and half past?")
+    state, acts, claims = ask_repeatedly(state, DAVID, q, n=11)
+    assert acts[5:] == ["REFUSE", "REFUSE", "REPEAT_PRIOR", "REFUSE", "REFUSE", "REPEAT_PRIOR"], acts
+    assert state.characters[DAVID].refuse_streak == 0

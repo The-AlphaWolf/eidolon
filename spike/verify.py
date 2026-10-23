@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import json
 import random
-from pathlib import Path
 
 from .model import World, Prop, EXT, ticks
 from .minds import derive_knowledge, collusion_components, material_all, admissible, Constraint
@@ -66,7 +65,7 @@ def random_walks(w: World, actor: str, cons: list[Constraint], n: int, rng: rand
     locs = sorted(w.locs)
     for _ in range(n):
         walk = [rng.choice(start_locs or locs)]
-        cur, ok = walk[0], True
+        cur = walk[0]
         transit_to, transit_left = None, 0
         for t in range(1, T):
             nf = min((ft for ft in forced if ft >= t), default=None)

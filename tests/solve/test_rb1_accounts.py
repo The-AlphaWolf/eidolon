@@ -10,15 +10,13 @@ legitimate path never peeled anyone.
 """
 from __future__ import annotations
 
-import copy
-from dataclasses import replace
 
 import pytest
 
 from eidolon.decision.claims import Claim, Statement, StatementStore
 from eidolon.decision.exploration import AccountHeardEvent, StatementHeardEvent, apply_heard
 from eidolon.decision.query import Query
-from eidolon.decision.turn import run_ask_turn, run_search_turn
+from eidolon.decision.turn import run_ask_turn
 from eidolon.evidence.discovery import DiscoveryState
 from eidolon.evidence.grounding import check_temporal_grounding
 from eidolon.evidence.model import EvidenceStore
@@ -30,7 +28,7 @@ from eidolon.minds import accounts
 from eidolon.minds.knowledge import propagate_knowledge
 from eidolon.minds.provenance import InvestigationTold
 from eidolon.solve import bots
-from eidolon.solve.lattice import Know, _resolve
+from eidolon.solve.lattice import _resolve
 from eidolon.solve.session import new_session
 from tests.solve.helpers import GOLDEN, loaded
 
@@ -193,7 +191,6 @@ def test_the_heard_fold_refuses_rows_the_ledger_does_not_back():
 def test_replaying_a_real_sessions_events_reproduces_the_heard_state_byte_for_byte():
     p, murder, token, hk = parts("study_party", 4)
     state, _n, _f = bots._discover_all(new_session(p))
-    asked: set = set()
     log: list = []
     names = bots.held_names(state, bots.public_names(p.case))
     for q in bots.expressible_queries(p.case, hk, names)[:40]:
@@ -308,7 +305,6 @@ def test_tokens_and_statement_accounts_never_reach_the_envelope_digest_or_player
     from eidolon.llm.render import player_view
     p, murder, token, hk = parts("study_party", 4)
     state, _n, _f = bots._discover_all(new_session(p))
-    asked: set = set()
     names = bots.held_names(state, bots.public_names(p.case))
     for q in bots.expressible_queries(p.case, hk, names):
         res = run_ask_turn(state, hk, q)

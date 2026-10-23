@@ -4,7 +4,6 @@ from __future__ import annotations
 import json
 import sys
 
-import pytest
 
 from eidolon.cli import main
 from eidolon.llm.fakes import ScriptedTransport

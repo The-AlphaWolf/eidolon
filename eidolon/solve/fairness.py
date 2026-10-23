@@ -22,7 +22,7 @@ from ..world.interval import overlaps
 from ..world.perception import derive_perception
 from .queries import expressible_queries, names_from_evidence, opening_names, public_names
 from .session import new_session
-from .lattice import Know, admissible, testimony_pool
+from .lattice import Know, testimony_pool
 from .package import CasePackage, MemoryBoost
 from .solver import Ctx, evaluate
 
@@ -260,7 +260,6 @@ def contract(pkg: CasePackage, ctx: Ctx, mat: dict, cons, core, verdict, v4: dic
                 bad.append(f"{c.item}: the survivor's own word about their protected interval")
     out["1_proof_core_fair"] = (not bad, bad)
     # 2/6: every secret's layer-0 lie has a reachable breaker at the fairness level
-    idx = FactIndex(case)
     breaks, lvl_of = [], {}
     for c in hard:
         lvl_of.setdefault(c.item, c.level)

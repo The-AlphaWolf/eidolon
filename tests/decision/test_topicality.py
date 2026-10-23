@@ -11,7 +11,7 @@ import pytest
 
 from eidolon.decision.demo import DAVID, build_demo_state
 from eidolon.decision.footprint import (
-    Footprint, claim_covers, intersects, prop_footprint, query_footprint, secret_topical, unconceded_protected,
+    Footprint, claim_covers, intersects, prop_footprint, secret_topical, unconceded_protected,
 )
 from eidolon.decision.claims import Claim
 from eidolon.decision.peel import confession_gated

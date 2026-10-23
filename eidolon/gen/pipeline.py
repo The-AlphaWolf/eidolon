@@ -127,7 +127,7 @@ def validate(pkg: CasePackage, *, fairness: int | None = None, verify: bool = Tr
     rep = Report(pkg.id)
     case = pkg.case
     store = EvidenceStore(pkg.evidence)
-    secrets = SecretStore(pkg.secrets)
+    SecretStore(pkg.secrets)                      # refuses a duplicate secret id; the store itself is not needed
     state: dict = {}
 
     def v0():

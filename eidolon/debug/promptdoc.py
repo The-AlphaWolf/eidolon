@@ -38,6 +38,10 @@ MODULES = [
 ]
 
 NOTES = {
+    "TRACE_KINDS": "the player control a trace row names (§27.1); unknown controls are traced as `ask`",
+    "BUSY": "what the player sees when the model did not answer (NR-N2): a retry notice, nothing recorded",
+    "ACCUSATION_WINDOW_MAX": "widest time window (minutes) that still earns the accusation's place-and-time axis (H8-N8)",
+    "SEED_MAX": "a new game's seed is a non-negative 31-bit integer (NR-N4)",
     "MODEL": "the one model for the generate and parse routes (§24)", "VOICE_REGISTERS": "§9 public speaking style, chosen per character by hash of name and seed only (never guilt or secrets)", "VOICE_IDIOMS": "one per character, same rule", "VOICE_TICS": "one per character, same rule", "FREE_AUDIT_MODELS": "ADR-31: each free provider's stronger model for the offline audit's verifier (None = audit on the session's model)", "FREE_RPM": "ADR-31: default free-tier pacing for measurement runs (calls per minute)", "FREE_PROVIDERS": "OpenAI-compatible free endpoints for play/development (`--provider`); never counted as live by the nightly", "UNSUPPORTED_SCHEMA_KEYWORDS": "schema keywords a free endpoint rejects; dropped from what it is sent, replies still parsed strictly", "EFFORT": "constant per route (I-42): never computed from a plan, act or sincerity",
     "AUDIT_MODEL": "the stronger verifier the offline audit uses (§24)", "LATENCY_FLOOR_S": "every outcome takes at least this long (I-42); a placeholder until a live p99 is measured",
     "MAX_CHARS": "player line cap; over-long text is refused, never truncated (§22.2)", "RATE_LIMIT": "typed lines per window (§22.2)",

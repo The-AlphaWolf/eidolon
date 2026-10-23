@@ -30,7 +30,7 @@ from eidolon.evidence.grounding import (
     check_creation_grounding, check_evidence_grounding, check_known_to_soundness,
     check_reference_integrity, check_temporal_grounding,
 )
-from eidolon.evidence.model import DiscoverySpec, Evidence, EvidenceStore, Implication, Prereq
+from eidolon.evidence.model import DiscoverySpec, Evidence, EvidenceStore, Implication
 from eidolon.minds.knowledge import KnowledgeEntry, KnowledgeStore
 from eidolon.minds.provenance import Participated, Witnessed
 from eidolon.world.propositions import (
