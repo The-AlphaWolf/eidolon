@@ -103,7 +103,7 @@ class AnthropicTransport:
                           input_tokens=getattr(usage, "input_tokens", 0),
                           output_tokens=getattr(usage, "output_tokens", 0),
                           cache_read_tokens=getattr(usage, "cache_read_input_tokens", 0) or 0,
-                          model=self._model)
+                          model=_answered_by(getattr(resp, "model", None), self._model))
 
 
 FREE_PROVIDERS: dict[str, tuple[str, str | None, str | None]] = {
@@ -132,6 +132,11 @@ def _without(schema, keywords: tuple[str, ...]):
     if isinstance(schema, list):
         return [_without(v, keywords) for v in schema]
     return schema
+
+
+def _answered_by(reported, asked: str) -> str:
+    """RR-N3: the model the provider says answered (an alias may resolve to a dated id); the one we asked for if it says nothing."""
+    return reported if isinstance(reported, str) and reported else asked
 
 
 _MAX_REPLY_BYTES = 1_000_000                          # NR-N6: a reply is read with a cap (the draft itself is capped at 32 000)
@@ -223,7 +228,7 @@ class OpenAICompatTransport:
         return Completion(text=msg.get("content") or "",
                           stop_reason={"stop": "end_turn", "length": "max_tokens"}.get(finish, finish or "end_turn"),
                           input_tokens=usage.get("prompt_tokens", 0) or 0, output_tokens=usage.get("completion_tokens", 0) or 0,
-                          model=self._model)
+                          model=_answered_by(doc.get("model"), self._model))
 
 
 def free_transport(provider: str, model: str | None = None, *, environ=None) -> OpenAICompatTransport:
@@ -318,10 +323,14 @@ class GuardedTransport:
         return out
 
     def _scan(self, request: CompletionRequest) -> list[str]:
-        doc = json.loads(request.user)
-        for key in self._untrusted:
-            doc.pop(key, None)
-        text = request.system + "\n" + json.dumps(doc, ensure_ascii=False)
+        try:
+            doc = json.loads(request.user)
+        except ValueError:                  # F-16: not JSON - scan every character of it (stricter, never skipped)
+            doc = request.user
+        if isinstance(doc, dict):
+            for key in self._untrusted:
+                doc.pop(key, None)
+        text = request.system + "\n" + (doc if isinstance(doc, str) else json.dumps(doc, ensure_ascii=False))
         return leaked_tokens(text, self.deny) + [w for w in ENGINE_VOCAB if w in text.lower()]
 
     def complete(self, request: CompletionRequest) -> Completion:

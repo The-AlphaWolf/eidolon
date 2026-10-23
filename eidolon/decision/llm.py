@@ -86,6 +86,8 @@ def render_claim(claim: Claim | EnvelopeClaim, case: Case) -> str:
         noise = {"speak": f"{who} talking", "attack": "a struggle", "clean": "someone cleaning"}.get(p.sound_kind.lower(), "a noise")
         where = f" in {_name(case, p.from_location)}" if p.from_location else ""
         return f"I heard {noise}{where} around {t1}."
+    if p.kind == "Solution":              # F-15 (Phase 5): only a CONFESSION may carry it (§14.2(e)); first person, no engine words
+        return f"I did it. It was me, in {_name(case, p.location)}, around {render_time(p.interval[0])}."
     if p.kind == "Attitude":
         return f"I {p.attitude_kind} {_name(case, p.b)}."
     return f"({p.kind.lower()} noted.)"

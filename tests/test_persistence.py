@@ -1053,6 +1053,10 @@ FORGERIES = {
     "P8_provisional_accusation_outside_a_conversation": (lambda s: [TurnCommitted(turn=_n(s)), _prov(s)], "provisional accusation"),
     "P8_provisional_accusation_of_someone_not_addressed": (lambda s: ask(s) + [_prov(s, "Elena")], "provisional accusation"),
     "P8_provisional_accusation_the_model_does_not_record": (lambda s: ask(s) + [_prov(s)], "does not record"),
+    "H8N1_provisional_accusation_carrying_a_solution_form": (
+        lambda s: ask(s) + [_prov(s).model_copy(update={"weapon": "ghost", "interval": (0, 2 ** 40)}), _accused_model(s)], "no solution form"),
+    "H8N1_provisional_accusation_citing_anything": (
+        lambda s: ask(s) + [_prov(s).model_copy(update={"cited": ("E_nonexistent",)}), _accused_model(s)], "no solution form"),
     "P8_model_records_an_accusation_nobody_made": (lambda s: ask(s) + [_accused_model(s)], "rewrites more"),
     "P8_model_records_the_accusation_at_another_turn": (lambda s: ask(s) + [_prov(s), _accused_model(s, turn=999)], "rewrites more"),
     "P8_final_accusation_inside_a_conversation": (lambda s: ask(s) + _verdict(s)[1:], "a turn of its own"),

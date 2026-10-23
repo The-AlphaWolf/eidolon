@@ -340,6 +340,10 @@ def _fold_turn(state: GameState, events, action_id) -> GameState:
                 if ev.provisional:
                     if ev.target != who:                # (outside a conversation `who` is None)
                         _refuse("a provisional accusation is put to the addressee, inside a conversation turn (§16.3)", "fold")
+                    if accused:
+                        _refuse("two provisional accusations in one turn", "fold")
+                    if ev.cited or (ev.weapon, ev.location, ev.interval, ev.motive_kind) != (None, None, None, None):
+                        _refuse("a provisional accusation carries no solution form - that is a final accusation's (H8-N1)", "fold")
                     accused = True
                 else:
                     if who is not None:

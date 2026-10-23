@@ -57,6 +57,25 @@ def test_H8_N4_a_file_part_where_a_string_belongs_is_refused_not_a_500(app_clien
         assert r.status_code == 200 and "Nothing was recorded" in said and "on our side" not in said, said
 
 
+def test_H8_N6_showing_a_real_handle_of_an_item_not_yet_found_is_refused(app_client):
+    """`game.held_ref` is the only barrier to showing an unfound item (`unheld_reason` accepts any discoverable one): a crafted
+    form carrying the REAL handle of an item the player has not found records nothing."""
+    c, _ = app_client
+    save = c.app.state.games.open("g")
+    unfound = next(e.id for e in sorted(save.state.evidence.all(), key=lambda e: e.id) if e.id not in save.state.discovery.known_evidence)
+    before = save.last_seq
+    r = c.post("/g/g", data={"op": "ask", "action_id": "p@0", "expected_seq": seq(c), "addressee": "Elena",
+                             "present": game.handle(save, unfound)})
+    assert "Nothing was recorded" in last_action(r.text) and c.app.state.games.open("g").last_seq == before
+
+
+@pytest.mark.parametrize("name", ["nul", "CON", "com1", "lpt9"])
+def test_H8_N6_a_windows_device_name_is_never_a_save_name(app_client, name):
+    c, d = app_client
+    r = c.post("/new", data={"name": name, "case": "study_party_s4", "seed": "1"}, follow_redirects=False)
+    assert r.status_code != 303 and not any(p.stem.lower() == name.lower() for p in d.iterdir())
+
+
 @pytest.mark.parametrize("seed,ok", [("-5", False), (str(2 ** 31), False), (str(10 ** 30), False), ("5", True)])
 def test_NR_N4_the_seed_is_a_non_negative_31_bit_integer(app_client, seed, ok):
     c, _ = app_client
@@ -245,3 +264,49 @@ def test_NR_N11_no_unused_import_or_local_in_the_engine_or_its_tests():
     from pyflakes.reporter import Reporter
     out = io.StringIO()
     assert api.checkRecursive([str(ROOT / d) for d in ("eidolon", "tests", "spike")], Reporter(out, out)) == 0, out.getvalue()
+
+
+# ------------------------------------------------------------------ earlier phases' NON-BLOCKING items
+def test_P5_F16_the_leak_guard_scans_a_prompt_that_is_not_json_instead_of_crashing():
+    from eidolon.llm.provider import CompletionRequest, GuardedTransport, PromptLeak
+
+    class Inner:
+        called = 0
+
+        def complete(self, req):
+            Inner.called += 1
+            raise ProviderError("inner reached")
+    guard = GuardedTransport(Inner())
+    guard.deny = frozenset({"E_secret_Elena"})
+    with pytest.raises(PromptLeak):
+        guard.complete(CompletionRequest(role="generate", system="s", user="not json E_secret_Elena", schema={}))
+    with pytest.raises(ProviderError, match="inner reached"):
+        guard.complete(CompletionRequest(role="generate", system="s", user="not json, nothing secret", schema={}))
+    assert Inner.called == 1
+
+
+def test_P5_F15_a_solution_claim_renders_as_a_first_person_admission():
+    from eidolon.decision.claims import Claim
+    from eidolon.decision.llm import render_claim
+    from eidolon.solve.package import load_sealed_case
+    from eidolon.world.propositions import Solution
+    case = load_sealed_case(str(CASE)).package.case
+    text = render_claim(Claim(id="c", proposition=Solution(murderer="David", method="blunt", location="Study", interval=(59, 60),
+                                                           motive_kind="debt"), sincerity="truthful", source="plan"), case)
+    assert text.startswith("I did it.") and "noted" not in text and "solution" not in text.lower()
+
+
+def test_RR_N2_personality_weights_are_fractions():
+    from pydantic import ValidationError
+    from eidolon.minds.character import Personality
+    ok = dict(composure_base=0.5, volatility=0.3, deference=0.5, guile=0.4, talkativeness=0.4, self_preservation=0.5)
+    Personality(**ok)
+    for field, bad in (("guile", 1.5), ("talkativeness", -0.1)):
+        with pytest.raises(ValidationError):
+            Personality(**{**ok, field: bad})
+
+
+def test_RR_N3_the_completion_names_the_model_that_answered():
+    from eidolon.llm.provider import _answered_by
+    assert _answered_by("claude-fable-5-1-20261001", "claude-fable-5-1") == "claude-fable-5-1-20261001"
+    assert _answered_by(None, "m") == "m" and _answered_by(object(), "m") == "m"

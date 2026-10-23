@@ -203,6 +203,22 @@ MUTANTS = [
     M("NRI4-lie-recites-every-topic", "eidolon/decision/strategy.py",
       ("    told = tuple(c for c in layer.claims if on_topic(c.proposition, inp.query)", "    told = tuple(c for c in layer.claims if True"),
       "NR_I4", ["lies_on_topic"], tests="tests/gen/test_topic_covers.py"),
+    # ---- H8-N1 / H8-N6 ----
+    M("H8N1-provisional-accusation-may-carry-a-form", STORE, ("if ev.cited or (ev.weapon, ev.location, ev.interval, ev.motive_kind) != (None, None, None, None):", "if False:"),
+      "PI1", ["H8N1_provisional"]),
+    M("H8N6-held-ref-maps-every-item", GAME, ("by_handle = {handle(save, e): e for e in d.known_evidence}", "by_handle = {handle(save, e.id): e.id for e in save.state.evidence.all()}"),
+      "H8_N6_showing", ["H8_N6_showing"], tests="tests/test_review_fixes.py"),
+    M("H8N6-device-names-allowed", WEB, ("return bool(NAME.fullmatch(name)) and not _RESERVED.fullmatch(name)", "return bool(NAME.fullmatch(name))"),
+      "H8_N6_a_windows", ["H8_N6_a_windows"], tests="tests/test_review_fixes.py"),
+    # ---- Phase 5 F-15/F-16, Phase 9 RR-N2/RR-N3 ----
+    M("P5F16-guard-crashes-on-non-json", "eidolon/llm/provider.py", ("        except ValueError:                  # F-16", "        except KeyError:                  # F-16"),
+      "P5_F16", ["P5_F16"], tests="tests/test_review_fixes.py"),
+    M("P5F15-solution-renders-as-a-note", "eidolon/decision/llm.py", ('    if p.kind == "Solution":', '    if False:'),
+      "P5_F15", ["P5_F15"], tests="tests/test_review_fixes.py"),
+    M("RRN2-weights-unbounded", "eidolon/minds/character.py", ("Weight = Annotated[float, Field(ge=0.0, le=1.0)]", "Weight = float"),
+      "RR_N2", ["RR_N2"], tests="tests/test_review_fixes.py"),
+    M("RRN3-model-asked-for", "eidolon/llm/provider.py", ("    return reported if isinstance(reported, str) and reported else asked", "    return asked"),
+      "RR_N3", ["RR_N3"], tests="tests/test_review_fixes.py"),
     # ---- NR-B1: a save made by an earlier engine keeps loading (the derivation may not move) ----
     M("NRB1-derived-personality-moves", SESSION, ('voice=VoiceSpec(voice_register="plain"))', 'voice=VoiceSpec(voice_register="plain", tics=("hm.",)))'),
       "earlier_engine", ["a_save_made_by_an_earlier_engine"], tests="tests/test_committed_saves.py"),

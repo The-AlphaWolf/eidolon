@@ -284,4 +284,10 @@ guards an invariant, a mutant (`tests/persistence_mutation_check.py` NRB1/H9I3/F
 | H9-N1, H9-N2, H9-N3, H9-N4, H9-N8 | **fixed** |
 | H9-N9 | addressee **fixed**; the exit-code half not changed — small-sample UNMEASURED (N-5 under 200 statements) is by design not a failure, and `test_a_live_run_passes_when_the_numbers_pass` asserts it |
 | H9-U1, F-1, F-2 | open — need a live run (F-1 runnable now on a free key, ADR-31) and two playtesters |
+| H8-N1 | **partly fixed (2026-10-23)** — a provisional accusation may carry no solution form (cited/weapon/place/window/motive) and at most one per turn (fold rule, `H8N1_*` forgeries); a final accusation's motive is still not checked against the skeleton vocabulary (the fold has no package) |
+| H8-N6 | **fixed** — tests show a real handle of an unfound item is refused and Windows device names are never save names; both guards have mutants |
+| H9-N5 | **fixed** — the Phase 9 report's "no prompt is stored" corrected (model-regurgitated prompt text and non-literal canary variants are stored in a rejected draft's record) |
+| RR-N2, RR-N3 | **fixed** — personality weights are typed as fractions in [0, 1]; a completion names the model the provider says answered |
+| RR-N4 | open — an audit through a wrapped transport is not re-pointed at the stronger model (unreachable from `main()`) |
+| Phase 5 F-15, F-16 | **fixed** — a `Solution` claim renders as a first-person admission; the leak guard scans a non-JSON prompt whole instead of crashing |
 | everything else in §2–§3 | open, unchanged |

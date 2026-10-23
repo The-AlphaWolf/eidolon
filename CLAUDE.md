@@ -52,7 +52,7 @@ F-14 (tie-break keyed on the question; hypotheticals answered only by HYPOTHETIC
 turns running), the web/CLI/provider NR-N and H8-N/H9-N items, NR-N11 (pyflakes clean, guarded by a test), NR-N12 (git), NR-N13 (pins,
 `requirements-tested.txt`); **ADR-33** (2026-10-23, NR-I2/NR-I4): the murderer's cover also lies about whereabouts (a room nothing
 contradicts, so no new breaker set), a LIE tells only its topic's claims, and an audible
-scene in the alibi room gives innocents something heard — goldens re-sealed (same murderers and proof cores); seed study 2×50 100/100 sealed, all in band. Open: the rest of §2–§3.
+scene in the alibi room gives innocents something heard — goldens re-sealed (same murderers and proof cores); seed study 2×50 100/100 sealed, all in band. 2026-10-23 also: H8-N1 (provisional accusations carry no form), H8-N6, H9-N5, RR-N2/N3, Phase 5 F-15/F-16. Open: the rest of §2–§3.
 Author's record, not independently reviewed.
 
 ## Read these first
@@ -101,7 +101,7 @@ https://claude.ai/code/artifact/be7a7e09-20cb-4927-978a-ef142000042e
 ## Tests — current baseline
 
 ```
-python -m pytest -q                                                # 3837 passed, 1 skipped (the real-provider cassette replay: UNMEASURED), 1 xfailed (the strict H8-X2 witness); 3839 collected (1 h 25 min)
+python -m pytest -q                                                # 3935 passed, 1 skipped (the real-provider cassette replay: UNMEASURED), 1 xfailed (the strict H8-X2 witness) - 2026-10-23, run in parallel groups; plus spike 21
 python -m pytest tests/test_phase9_trace.py tests/test_phase9_corpus.py tests/test_phase9_suites.py tests/test_phase9_observability.py tests/test_phase9_debug.py tests/test_phase9_nightly.py tests/test_phase9_docs.py tests/test_phase9_repairs.py -q   # 990 Phase 9 (71 trace, 752 corpus, 18 suites, 34 observability, 48 debug, 20 nightly, 28 docs, 19 repairs); EIDOLON_LONG=1 runs T-25 at 2000 turns (+7 min)
 python -m tests.phase9_mutation_check -j 8                         # 124 mutants (103 + 16 for the H9-B1/I1/I2 repair and the constants doc + 5 net for RR-B1/RR-I1), 124 killed, 0 survived/malformed/errors (about an hour on a shared machine)
 python -m eidolon.debug promptdoc                                  # regenerate docs/EIDOLON-PROMPTS-AND-CONSTANTS.md (tests/test_phase9_docs.py fails when it is stale)
