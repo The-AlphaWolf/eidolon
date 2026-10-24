@@ -52,7 +52,7 @@ F-14 (tie-break keyed on the question; hypotheticals answered only by HYPOTHETIC
 turns running), the web/CLI/provider NR-N and H8-N/H9-N items, NR-N11 (pyflakes clean, guarded by a test), NR-N12 (git), NR-N13 (pins,
 `requirements-tested.txt`); **ADR-33** (2026-10-23, NR-I2/NR-I4): the murderer's cover also lies about whereabouts (a room nothing
 contradicts, so no new breaker set), a LIE tells only its topic's claims, and an audible
-scene in the alibi room gives innocents something heard — goldens re-sealed (same murderers and proof cores); seed study 2×50 100/100 sealed, all in band. 2026-10-23 also: H8-N1 (provisional accusations carry no form), H8-N6, H9-N5, RR-N2/N3, Phase 5 F-15/F-16. 2026-10-24: Phase 4 review I-1 (slips spent), I-6, I-7, I-14, N-3 (V-3 (vi)), N-5 fixed; I-9/I-13/I-15/I-16/N-1 confirmed closed; I-8, I-10 (engine), I-11, I-12, N-4 open. Open: the rest of §2–§3.
+scene in the alibi room gives innocents something heard — goldens re-sealed (same murderers and proof cores); seed study 2×50 100/100 sealed, all in band. 2026-10-23 also: H8-N1 (provisional accusations carry no form), H8-N6, H9-N5, RR-N2/N3, Phase 5 F-15/F-16. 2026-10-24: Phase 4 review I-1 (slips spent), I-6, I-7, I-14, N-3 (V-3 (vi)), N-5 fixed; I-9/I-13/I-15/I-16/N-1 confirmed closed; I-8, I-10 (engine), I-11, I-12, N-4 open. Phase 6 review: I-5 fixed (V-5 confirms the realised structure), D-1/I-8 recorded as **ADR-34**, I-1/I-2/I-4/I-6/I-7/N-4 confirmed closed by RB-1/2/3. Open: the rest of §2–§3.
 Author's record, not independently reviewed.
 
 ## Read these first

@@ -222,6 +222,11 @@ MUTANTS = [
     # ---- Phase 4 review N-5: an opened confession layer drives the turn whatever the wording ----
     M("RN5-confession-waits-for-the-right-wording", TURN, ("    secret = peeled[0][0] if peeled else (confessing or topical)", "    secret = peeled[0][0] if peeled else topical"),
       "N5", ["N5_once_the_proof"], tests="tests/test_confession_gate.py"),
+    # ---- Phase 6 review I-5: V-5 confirms the realised structure ----
+    M("I5-alibi-room-not-confirmed", "eidolon/gen/pipeline.py", ("        if len(rooms[a]) != 1 or None in rooms[a] or not shared:", "        if False:"),
+      "I5_a_declared", ["I5_a_declared"], tests="tests/gen/test_structure.py"),
+    M("I5-structure-not-consulted-by-V5", "eidolon/gen/pipeline.py", ("        p = list(v.reasons) + judge(pkg, v) + structure_problems(pkg)", "        p = list(v.reasons) + judge(pkg, v)"),
+      "I5_v5", ["I5_v5"], tests="tests/gen/test_structure.py"),
     # ---- NR-B1: a save made by an earlier engine keeps loading (the derivation may not move) ----
     M("NRB1-derived-personality-moves", SESSION, ('voice=VoiceSpec(voice_register="plain"))', 'voice=VoiceSpec(voice_register="plain", tics=("hm.",)))'),
       "earlier_engine", ["a_save_made_by_an_earlier_engine"], tests="tests/test_committed_saves.py"),
