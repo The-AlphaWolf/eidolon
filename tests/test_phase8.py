@@ -980,6 +980,20 @@ def test_a_double_post_commits_once_and_a_second_tab_commits_nothing_I14(client)
     assert games.open("g1").state.turn_counter == 1
 
 
+def test_a_theme_is_a_cosmetic_cookie_that_changes_no_game(client):
+    page = _new_game(client)
+    assert 'data-theme="auto"' in page
+    r = client.post("/theme", data={"theme": "noir"}, headers={"referer": f"{LOCAL}/g/g1"}, follow_redirects=False)
+    assert r.status_code == 303 and r.headers["location"] == "/g/g1" and "samesite=strict" in r.headers["set-cookie"].lower()
+    assert 'data-theme="noir"' in client.get("/g/g1").text and 'data-theme="noir"' in client.get("/").text
+    assert client.post("/theme", data={"theme": "x\" onload=\""}).status_code == 400          # only a known theme
+    assert client.post("/theme", data={"theme": "noir"}, headers={"referer": "http://e.example//evil.example/"},
+                       follow_redirects=False).headers["location"] == "/"                   # never an open redirect
+    assert client.post("/theme", data={"theme": "noir"}, headers={"origin": EVIL}).status_code == 403
+    client.cookies.set("theme", "nonsense")
+    assert 'data-theme="auto"' in client.get("/").text
+
+
 @pytest.mark.parametrize("path", ["/debug", "/debug/trace", "/trace", "/traces", "/state", "/truth", "/admin",
                                   "/g/g1/state", "/g/g1/debug", "/g/g1/trace", "/g/g1/events", "/g/g1/solution"])
 def test_debug_and_engine_routes_do_not_exist_on_the_player_app_I10(client, path):

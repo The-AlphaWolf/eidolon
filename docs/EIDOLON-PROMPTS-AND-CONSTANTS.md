@@ -475,6 +475,7 @@ the player app's boundary
 |---|---|---|
 | `NAME` | `[A-Za-z0-9_-]{1,40}` |  |
 | `SEED_MAX` | `2147483648` | a new game's seed is a non-negative 31-bit integer (NR-N4) |
+| `THEMES` | `{"auto": "Auto (system)", "contrast": "High contrast", "gaslight": "Gaslight", "noir": "Noir", "parchment": "Parchment", "typewriter": "Typewriter"}` |  |
 | `LOOPBACK` | `["127.0.0.1", "localhost", "[::1]"]` |  |
 
 ### `eidolon.debug.slo`
