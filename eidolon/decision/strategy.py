@@ -8,7 +8,8 @@ isolation and keeps the layering rule (`decision` reads `minds`/`evidence`, neve
 way) honest even inside one phase.
 
 Each act's precondition is one small function per §10.3's table, run in a fixed order and
-scored; `argmax` breaks ties with `hash(seed, turn_id, candidate.act)` (I-6). Some utility
+scored; `argmax` breaks ties with `hash(seed, speaker, question, candidate.act)` (I-6; F-14: keyed on the
+question, not the turn, so asking the same thing again cannot flip a tie and read as a change of story). Some utility
 terms are necessarily simplified relative to §11.5's full list (`plausibility`/`persona_fit`
 in particular use one concrete, documented signal each rather than a further sub-model) —
 the shape of the scorer (seven weighted terms, a repetition penalty, deterministic argmax) is
@@ -26,7 +27,7 @@ from .claims import Claim
 from .footprint import claim_covers, on_topic
 from .ids import SecretId
 from .peel import PeelResult, claims_voiced_on_peel, confession_gated
-from .query import Query
+from .query import Query, normalize
 from .secrets import Ref, Secret
 from .speech_acts import SpeechAct
 
@@ -158,8 +159,8 @@ def _lie(inp: StrategyInput) -> Candidate | None:
     if not any(c.sincerity == "deceptive" and claim_covers(c.proposition, inp.query, inp.character)
                and on_topic(c.proposition, inp.query) for c in layer.claims):
         return None
-    return Candidate(act="LIE", claims=layer.claims, exposes_protected=False,
-                      delivery=DeliveryDirective("composed"))
+    told = tuple(c for c in layer.claims if on_topic(c.proposition, inp.query))   # NR-I4: a lie per topic; tell the asked one
+    return Candidate(act="LIE", claims=told, exposes_protected=False, delivery=DeliveryDirective("composed"))
 
 
 def _deny_evidence_or_reinterpret(inp: StrategyInput) -> Candidate | None:
@@ -383,9 +384,9 @@ def feature_terms(c: Candidate, inp: StrategyInput) -> dict[str, float]:
             "repeat": -W_REPEAT * _repetition_penalty(c, inp)}
 
 
-def _tie_break(seed: int, turn_id: int, act: SpeechAct) -> int:
+def _tie_break(seed: int, speaker: str, question: str, act: SpeechAct) -> int:
     import hashlib
-    return int(hashlib.sha256(f"{seed}:{turn_id}:{act}".encode()).hexdigest(), 16)
+    return int(hashlib.sha256(f"{seed}:{speaker}:{question}:{act}".encode()).hexdigest(), 16)
 
 
 _META_ACTS = frozenset({"CLARIFY", "ANGER", "COUNTER_QUESTION"})
@@ -407,6 +408,11 @@ def enumerate_candidates(inp: StrategyInput) -> list[Candidate]:
     if inp.is_meta or inp.is_coercion:
         voiced = [c for c in (_confession(inp), _concession(inp)) if c is not None]
         return voiced + [c for c in (_clarify(inp), _anger(inp), _counter_question(inp)) if c is not None]
+    if inp.query.kind == "hypothetical":
+        # §10.3 / §28.4 #10: a counterfactual is answered hypothetically, never with an actual claim. Restricted, not weighted:
+        # HYPOTHETICAL and DONT_KNOW are both claimless and tie on utility, so the tie-break used to decide it (F-14 exposed it).
+        return [c for c in (_confession(inp), _concession(inp), _hypothetical(inp), _refuse(inp)) if c is not None] or \
+            [Candidate(act="DONT_KNOW", delivery=DeliveryDirective("shrugs"))]
     out = []
     for builder in CANDIDATE_BUILDERS:
         c = builder(inp)
@@ -443,7 +449,8 @@ def select_plan(inp: StrategyInput) -> tuple[ResponsePlan, list[tuple[Candidate,
                                  retracts=forced.retracts, target=forced.target)
             return plan, scored
 
-    best = max(scored, key=lambda pair: (pair[1], _tie_break(inp.seed, inp.turn_id, pair[0].act)))
+    question = normalize(inp.query)
+    best = max(scored, key=lambda pair: (pair[1], _tie_break(inp.seed, inp.character, question, pair[0].act)))
     c = best[0]
     plan = ResponsePlan(act=c.act, claims=c.claims, authorized_reveals=c.authorized_reveals,
                          delivery=c.delivery, secret_id=inp.secret.id if inp.secret else None,

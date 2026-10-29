@@ -15,7 +15,6 @@ from __future__ import annotations
 import itertools
 import json
 import os
-import re
 import shutil
 from pathlib import Path
 
@@ -28,9 +27,9 @@ from eidolon.decision.query import EntityRef, Query
 from eidolon.decision.turn import CANARY, has_knowledge_on_topic, run_ask_turn
 from eidolon.decision.validator import canonical_text, length_band
 from eidolon.llm.fakes import RepairingTransport, ScriptedTransport
-from eidolon.llm.ingress import Clarify, ModelParser, PlayerAction, ground, interpret, screen
+from eidolon.llm.ingress import Clarify, ModelParser, interpret, screen
 from eidolon.llm.provider import Completion
-from eidolon.llm.render import LATENCY_FLOOR_S, LLMRenderer, ModelLLM, build_view, player_view, serialize
+from eidolon.llm.render import LATENCY_FLOOR_S, LLMRenderer, ModelLLM, build_view, player_view
 from eidolon.solve.bots import credited_material
 from eidolon.solve.package import load_sealed_case
 from eidolon.solve.session import new_session
@@ -50,6 +49,11 @@ MENACES = ("as an ai", "system prompt", "language model", "i killed him", "layer
 
 def make_renderer(**kw) -> LLMRenderer:
     """The renderer under test: a scripted faithful model on a PR; the real one, if (and only if) the nightly job asked."""
+    if LIVE and os.environ.get("EIDOLON_LIVE_PROVIDER"):        # ADR-31: a free-tier model, paced for its rate limit
+        from eidolon.llm.provider import Paced, free_transport
+        t = free_transport(os.environ["EIDOLON_LIVE_PROVIDER"], os.environ.get("EIDOLON_LIVE_MODEL") or None)
+        rpm = float(os.environ.get("EIDOLON_LIVE_RPM", "12"))
+        return LLMRenderer(ModelLLM(Paced(t, rpm) if rpm else t), min_latency_s=LATENCY_FLOOR_S, **kw)
     if LIVE:
         pytest.importorskip("anthropic")
         from eidolon.llm.render import AnthropicLLM
@@ -110,7 +114,9 @@ def test_suite_2_the_same_question_fifty_times_repeats_then_refuses_and_never_sa
             offered.append("REPEAT_PRIOR" in {c[0] for c in r.stages.candidates})
             claim_sets.append(tuple(c.id for c in state.decision.statements.all()[-1].claims))
         assert offered[:2] == [False, False] and all(offered[2:5]), "REPEAT_PRIOR is on offer from the third identical question"
-        assert acts[:2] == [first, first] and acts[2:5] == ["REPEAT_PRIOR"] * 3 and set(acts[5:]) == {"REFUSE"}, (who, acts)
+        # from the sixth: REFUSE, capped at 2 consecutive turns (§15.4, F-15), then the standing answer again - the same cycle
+        assert acts[:2] == [first, first] and acts[2:5] == ["REPEAT_PRIOR"] * 3, (who, acts)
+        assert acts[5:] == (["REFUSE", "REFUSE", "REPEAT_PRIOR"] * 15)[:45], (who, acts)
         assert len({c for c in claim_sets if c}) == 1, "the claims never change, whatever the act"
         assert state.decision.layer_peels == ()
 

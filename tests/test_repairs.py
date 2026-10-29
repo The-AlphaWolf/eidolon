@@ -29,7 +29,7 @@ from eidolon.world.events import EffActorAt, EffInformationTransferred, Event
 from eidolon.world.facts import FactIndex
 from eidolon.world.perception import derive_perception
 from eidolon.world.physics import PhysicsViolationError, check_physics
-from eidolon.world.propositions import At, Did, Incidental, NotAt, Saw
+from eidolon.world.propositions import At, Incidental, NotAt, Saw
 from eidolon.world.state import loc_at
 from tests.world.fixtures.vance import (
     ACTORS, LOCATIONS, OBJECTS, TRAVEL, _PERCEPTION_V03, _stays,

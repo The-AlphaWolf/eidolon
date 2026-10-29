@@ -21,7 +21,6 @@ from pathlib import Path
 import pytest
 
 from eidolon import game, store
-from eidolon.decision.events import Accusation, CaseSolved, TurnCommitted
 from eidolon.decision.hypotheses import Lied, Planted
 from eidolon.decision.speech_acts import ACT_TABLE
 from eidolon.decision.turn import CANARY, run_accusation_turn, run_ask_turn, run_goto_turn, run_hypothesis_turn
@@ -602,7 +601,7 @@ def test_H8_B1_a_tension_between_two_held_items_rests_on_unlocked_implications_o
     def tensions(*accounts):
         discovery = DiscoveryState(known_evidence=frozenset({"EA", "EB"}), known_accounts=frozenset(accounts))
         ns = SimpleNamespace(state=replace(st, evidence=EvidenceStore([item("EA", l1, ("clean@x",)), item("EB", l2, ())]),
-                                           discovery=discovery), bundle=fresh.bundle)
+                                           discovery=discovery), bundle=fresh.bundle, discovery_order=lambda: [])
         return game._tensions(ns, game._labels(ns))
 
     assert tensions() == []
@@ -981,6 +980,41 @@ def test_a_double_post_commits_once_and_a_second_tab_commits_nothing_I14(client)
     assert games.open("g1").state.turn_counter == 1
 
 
+def _opening(c, name, case):
+    page = _new_game(c, name, case)
+    return re.search(r'<section class="opening">(.*?)</section>', page, re.S).group(1), page
+
+
+def test_the_case_file_is_opening_material_only_and_the_same_whoever_did_it(client):
+    """The opening, the cast and the map are fixed per skeleton: two cases with different murderers (study_party s4/s5:
+    David/Robert; manor_wing s4/s6: Delphine/Cormac) open with the same file, which names no weapon."""
+    from eidolon import story
+    from eidolon.gen.skeletons import SKELETONS
+    for skel, a, b in (("study_party", "study_party_s4", "study_party_s5"), ("manor_wing", "manor_wing_s4", "manor_wing_s6")):
+        (one, page), (two, _) = _opening(client, f"o{a}", a), _opening(client, f"o{b}", b)
+        assert one == two and "Begin the investigation" in one and "What to do next" in page
+        assert SKELETONS[skel].weapon.name.split()[-1] not in one.lower()
+        assert all(n in story._STORIES[skel]["people"] for n, _ in SKELETONS[skel].cast)
+        assert all(loc.id in story._STORIES[skel]["rooms"] for loc in SKELETONS[skel].locations)
+    page = post(client, f"o{a}", "goto", page, location="Office").text
+    assert "<h2>Where you are</h2>" in page and "This is where he was found." in page
+    assert '<section class="opening">' not in page                       # the opening plays once, at turn 0
+
+
+def test_a_theme_is_a_cosmetic_cookie_that_changes_no_game(client):
+    page = _new_game(client)
+    assert 'data-theme="auto"' in page
+    r = client.post("/theme", data={"theme": "noir"}, headers={"referer": f"{LOCAL}/g/g1"}, follow_redirects=False)
+    assert r.status_code == 303 and r.headers["location"] == "/g/g1" and "samesite=strict" in r.headers["set-cookie"].lower()
+    assert 'data-theme="noir"' in client.get("/g/g1").text and 'data-theme="noir"' in client.get("/").text
+    assert client.post("/theme", data={"theme": "x\" onload=\""}).status_code == 400          # only a known theme
+    assert client.post("/theme", data={"theme": "noir"}, headers={"referer": "http://e.example//evil.example/"},
+                       follow_redirects=False).headers["location"] == "/"                   # never an open redirect
+    assert client.post("/theme", data={"theme": "noir"}, headers={"origin": EVIL}).status_code == 403
+    client.cookies.set("theme", "nonsense")
+    assert 'data-theme="auto"' in client.get("/").text
+
+
 @pytest.mark.parametrize("path", ["/debug", "/debug/trace", "/trace", "/traces", "/state", "/truth", "/admin",
                                   "/g/g1/state", "/g/g1/debug", "/g/g1/trace", "/g/g1/events", "/g/g1/solution"])
 def test_debug_and_engine_routes_do_not_exist_on_the_player_app_I10(client, path):
@@ -1078,15 +1112,26 @@ def test_a_typed_question_is_parsed_grounded_and_answered_through_the_model(chat
 
 
 @pytest.mark.parametrize("action", [{"kind": "clarify"}, {"kind": "ask", "query_kind": "where", "location": "the cellar"},
-                                    {"kind": "ask", "query_kind": "where", "subject": "Harold"}])
+                                    {"kind": "ask", "query_kind": "where", "subject": "Bartholomew"}])
 def test_an_unclear_or_unknown_line_gets_one_in_world_answer_and_records_nothing(chat, action):
-    """§22.2: an unclear line, a place that does not exist and a person the player has not met get the SAME reply, so
-    typing names cannot enumerate the cast; nothing is recorded."""
+    """§22.2: an unclear line, a place that does not exist and a person who is not in the case get the SAME reply, so
+    typing names cannot probe for anything the page does not already show; nothing is recorded. (This used "Harold", whom
+    the page lists - review H8-N3: the page's cast and places are public, so typed text may name them too.)"""
     c, t = chat
     page = _new_game(c)
     t.queues["parse"].append(json.dumps(action))
     out = _say(c, page, "Tell me about it.")
     assert "not sure what you mean" in out and "Turn 0" in out and c.app.state.games.open("g1").last_seq == 0
+
+
+def test_H8_N3_typed_text_may_name_anyone_the_page_lists(chat):
+    """H8-N3: the structured form lists the whole cast under "Concerning"; typed "Did you see David?" to Elena was refused as
+    an unknown name while the same question from the form was answered. Typed text now names what the page shows."""
+    c, t = chat
+    page = _new_game(c)
+    t.queues["parse"].append(json.dumps({"kind": "ask", "query_kind": "did_they", "subject": "David", "predicate_hint": "presence"}))
+    out = _say(c, page, "Did you see David?")
+    assert "not sure what you mean" not in out and "Turn 1" in out and c.app.state.games.open("g1").last_seq > 0
 
 
 def test_an_over_long_line_is_refused_before_any_model_call(chat):

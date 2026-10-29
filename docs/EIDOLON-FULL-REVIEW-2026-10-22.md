@@ -254,3 +254,42 @@ voiced as CONCESSION) becomes live with H9-I3.
 6. The two independent re-reviews (Phase 8 H8 repair, Phase 9 RR repair, plus ADR-30 and today's changes).
 7. NR-N1…N11, NR-N13, NR-N14 and the NON-BLOCKING lists, in any order.
 8. Phase 9 exit: a live Claude nightly (F-1) and two playtesters (F-2); then Phase 10.
+
+---
+
+## 5. Fix status (same day, author's record — not independently reviewed)
+
+Each fix has a test named after its finding (`tests/test_review_fixes.py`, `tests/test_confession_gate.py`, `tests/test_phase9_repairs.py`
+`test_F14_*`/`test_F15_*`, the `F15_*`/`H9I3_*` forgeries in `tests/test_persistence.py`, `tests/test_committed_saves.py`) and, where it
+guards an invariant, a mutant (`tests/persistence_mutation_check.py` NRB1/H9I3/F15/ADR32, `tests/phase9_mutation_check.py` F14/F15,
+`tests/decision/mutation_check.py` F14-a).
+
+| ID | Status |
+|---|---|
+| NR-B1 | **fixed** — voice derived at render time (`decision/voice.py`); the session stores the legacy default; committed-save regression test |
+| NR-I1, NR-N9 | **fixed** — the verifier's claimless rule; one tone-keyed fallback line set |
+| NR-I3 | **fixed** — honest retrieval is topic-strict (`turn.retrieve_for_query` skips off-topic beliefs); V-7 and validate re-run |
+| H9-I3 (= F-3) + Phase 4 N-2 | **fixed** — `game.confession_gate` wired, `store._check_confession` fold rule, and **ADR-32** (a proof breaks the last denial), so the murderer confesses — as CONFESSION, never CONCESSION — exactly when shown a proof |
+| F-14 | **fixed** — tie-break keyed on (seed, speaker, question); a counterfactual is answered only by HYPOTHETICAL (the coin flip had decided it) |
+| F-15 | **fixed** — `refuse_streak` produced and fold-checked; REFUSE at most 2 turns running |
+| NR-N1…N8 | **fixed** (window bounds, BUSY notice, single worker thread, seed bound, CLI refusals, provider no-redirect + reply cap + UA, pm, rate-window prune) |
+| NR-N11 | **fixed** — pyflakes clean over `eidolon/`, `tests/`, `spike/`; guarded by `test_NR_N11_*` |
+| NR-N12 | **fixed** — git |
+| NR-N13 | **partly** — bounded ranges in `pyproject.toml`, exact versions in `requirements-tested.txt`; the move from `httpx` to Starlette's newer test client is not made (needs a new package installed) |
+| NR-N14 | **fixed** — architecture header, `CLAUDE.md`, KNOWN-DEBT header, ADR-30 report |
+| NR-N15 | **left** — `saves/` and `out/` are git-ignored; the owner's local files were not deleted |
+| NR-N10 | open — UNMEASURED until a live audit runs |
+| NR-I2, NR-I4 | **fixed (ADR-33, 2026-10-23)** — an audible scene in the alibi room gives every other innocent a `Heard` memory; the murderer's cover lies on whereabouts too, in a room nothing contradicts (no new breaker set); a LIE tells only its topic's claims; goldens re-sealed (same murderers and proof cores); V-7: all 20 bot runs ok, same action counts, bluff parity and zero tells; seed study 2×50 **100/100 sealed, all in band** (manor_wing 45, before the one non-robust rejection, now seals). A bare "what did you hear?" still usually recalls nothing (cue-driven recall, §8.4) |
+| H8-N2, H8-N3, H8-N4, H8-N5, H8-N7, H8-N8 | **fixed** (checks before parse; names = encountered ∪ cast ∪ places; non-string fields refused; anti-framing headers; notebook cached by head; stable item numbers, resent form shows its reply, time axis ≤ 60 min) |
+| H9-N1, H9-N2, H9-N3, H9-N4, H9-N8 | **fixed** |
+| H9-N9 | addressee **fixed**; the exit-code half not changed — small-sample UNMEASURED (N-5 under 200 statements) is by design not a failure, and `test_a_live_run_passes_when_the_numbers_pass` asserts it |
+| H9-U1, F-1, F-2 | open — need a live run (F-1 runnable now on a free key, ADR-31) and two playtesters |
+| H8-N1 | **partly fixed (2026-10-23)** — a provisional accusation may carry no solution form (cited/weapon/place/window/motive) and at most one per turn (fold rule, `H8N1_*` forgeries); a final accusation's motive is still not checked against the skeleton vocabulary (the fold has no package) |
+| H8-N6 | **fixed** — tests show a real handle of an unfound item is refused and Windows device names are never save names; both guards have mutants |
+| H9-N5 | **fixed** — the Phase 9 report's "no prompt is stored" corrected (model-regurgitated prompt text and non-literal canary variants are stored in a rejected draft's record) |
+| RR-N2, RR-N3 | **fixed** — personality weights are typed as fractions in [0, 1]; a completion names the model the provider says answered |
+| RR-N4 | open — an audit through a wrapped transport is not re-pointed at the stronger model (unreachable from `main()`) |
+| Phase 5 F-15, F-16 | **fixed** — a `Solution` claim renders as a first-person admission; the leak guard scans a non-JSON prompt whole instead of crashing |
+| Phase 4 IMPORTANT (2026-10-24) | **I-1 fixed** (a voiced slip is spent: `slips_used` produced and fold-checked, §11.7) · **I-2 fixed** (= F-15) · **I-6 fixed** (V-3 (i) files testimony under the person it is about, `cover_consistency.about`) · **I-7 fixed** (`confrontee_knows_false`: a coarser agreeing `Did` is not seeing through, and an agreeing belief no longer ends the scan) · **I-9 closed** earlier by `speakable` (I-54, every secret the speaker owns) · **I-13 closed** by the Phase 7 validating fold · **I-14 fixed** (the ambiguous claim-id index had no caller and is gone) · **I-15 closed** (layering and no-randomness tests exist) · **I-16 closed** by Phase 5's stage 0 · **N-1 closed** by Phase 7's canonical payloads · **N-2 fixed** (ADR-32: the landing is CONCESSION, the next turn CONFESSION) · **N-3 fixed** (V-3 (vi): a concession may not contradict what its owner may truthfully say; the goldens pass, a mis-authored concession is caught) · **N-5 fixed** (an opened confession layer drives the turn whatever the wording). **Open:** I-8 (frame claims spoken but not committed — committing them changes what a save records), I-10 at the engine (presenting a discoverable-at-hand item is accepted by I-51's design; the player boundary `game.held_ref` refuses unfound items, tested), I-11 (retraction of the whole abandoned layer is deliberate since A-1), I-12 (envelope parity: Phase 5's length bands cover part), N-4 (`corroborates()` and required statements, Phase 3/6) |
+| Phase 6 open list (2026-10-24) | I-1, I-2, I-4, I-6, I-7, N-4 confirmed closed by RB-1/2/3; **I-5 fixed** (V-5 confirms the realised structure and names the innocent); **I-3/D-1, I-8 recorded as ADR-34**; generation determinism re-run (two hash seeds, golden seal reproduced). Open: N-1, N-2, N-3, N-5, N-6, N-7, two admissibility functions, single-hop `requires` in the lattice, the hard band's robustness bound |
+| everything else in §2–§3 | open, unchanged |

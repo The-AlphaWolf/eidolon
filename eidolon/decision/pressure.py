@@ -16,7 +16,7 @@ from dataclasses import dataclass
 
 from ..minds.character import VERBAL_PRESSURE_MAX
 from ..minds.character import Personality
-from ..minds.scale import BP_MAX, bp
+from ..minds.scale import BP_MAX
 
 PROVISIONAL_ACCUSATION_BP = 1500
 HOSTILE_TONE_BP = 500

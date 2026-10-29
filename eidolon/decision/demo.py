@@ -22,7 +22,7 @@ from ..minds.knowledge import KnowledgeStore
 from ..world.case import Case
 from ..world.entities import Actor, Object
 from ..world.events import EffActorAt, EffTraceCreated, Event
-from ..world.propositions import At, Did, DidNot
+from ..world.propositions import Did, DidNot
 from ..world.space import Location
 from .claims import Claim, StatementStore
 from .events import DecisionState

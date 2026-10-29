@@ -1,11 +1,8 @@
 """The Phase 6 self-check questions as tests, plus the lattice rules they rest on, distortion-subset
 robustness, and malformed input. (See docs/EIDOLON-PHASE-6-REPORT.md, "Final self-check".)"""
-import random
 
 import pytest
 
-from eidolon.decision.secrets import SecretStore
-from eidolon.evidence.model import EvidenceStore
 from eidolon.gen.compile import compile_draft
 from eidolon.gen.planner import plan
 from eidolon.gen.skeletons import SKELETONS

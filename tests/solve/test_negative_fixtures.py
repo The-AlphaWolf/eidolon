@@ -9,14 +9,13 @@ from eidolon.gen.pipeline import validate
 from eidolon.minds.knowledge import KnowledgeEntry, KnowledgeStore
 from eidolon.minds.provenance import Witnessed
 from eidolon.minds.soundness import check_knowledge_soundness
-from eidolon.solve.lattice import admissible
 from eidolon.solve.oracle import oracle_feasible
 from eidolon.solve.package import (
     CanonicalSolution, CasePackage, EliminationStructure, MethodSpec, TimeShift,
 )
-from eidolon.solve.solver import build_ctx, compile_actor, evaluate, feasible_actor, judge, robust_material
-from eidolon.world.feasibility import Claim, feasible
-from eidolon.world.propositions import At, Did
+from eidolon.solve.solver import build_ctx, evaluate, judge, robust_material
+from eidolon.world.feasibility import feasible
+from eidolon.world.propositions import At
 from tests.solve.helpers import blind_everyone, drop_evidence, edit_evidence, pkg, rebuild, unalibied, verdict
 from tests.world.fixtures.vance import vance_v01_negative, vance_v02_negative, vance_v03
 
@@ -179,7 +178,6 @@ def test_N10_an_alternative_the_generator_says_it_excluded_is_still_open_when_th
 def test_no_valid_murderer_is_rejected():
     """Every candidate excluded: contradictory alibis leave no survivor at all."""
     p = pkg("study_party", 4)
-    other = next(a for a in p.case.living_actors() if a != p.solution.murderer)
     ctx, mat, v = verdict(p)
     pin = Evidence(id="E_pin_wrong", kind="Digital", created_at=(0, 120), implications=(Implication(
         proposition=At(actor=p.solution.murderer, location="Hall", interval=(60, 100))),),

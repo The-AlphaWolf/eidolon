@@ -33,7 +33,7 @@ from ..decision.secrets import SecretStore
 from ..evidence.model import EvidenceStore
 from ..world.case import Case
 from ..world.feasibility import _search
-from ..world.interval import Interval, intersect, ticks
+from ..world.interval import Interval, ticks
 from ..world.space import EXT
 from ..world.state import presence
 from .lattice import (

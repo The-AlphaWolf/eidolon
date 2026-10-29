@@ -16,13 +16,13 @@ from eidolon.decision.strategy import DeliveryDirective, ResponsePlan
 from eidolon.decision.turn import CANARY, RenderRequest
 from eidolon.llm.provider import CompletionRequest, GuardedTransport, PromptLeak
 from eidolon.llm.render import (
-    DRAFT_SCHEMA, LLMRenderer, ModelLLM, RenderView, SYSTEM_GENERATE, SYSTEM_VERIFY, ViewClaim, ViewError, ViewVoice,
+    DRAFT_SCHEMA, RenderView, SYSTEM_GENERATE, SYSTEM_VERIFY, ViewClaim, ViewError, ViewVoice,
     build_view, serialize,
 )
 from eidolon.llm.fakes import ScriptedTransport
 from eidolon.world.propositions import At, DidNot
 from tests.llm.llm_helpers import (
-    DAVID, DEMO_ASK, DEMO_DAVID, ELENA, MARGARET, WHERE, approve, ask, build_demo_state, build_initial_state,
+    DAVID, DEMO_ASK, DEMO_DAVID, ELENA, MARGARET, WHERE, ask, build_demo_state, build_initial_state,
     faithful, renderer, scripted,
 )
 from eidolon.decision.query import Query

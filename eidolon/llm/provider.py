@@ -103,7 +103,7 @@ class AnthropicTransport:
                           input_tokens=getattr(usage, "input_tokens", 0),
                           output_tokens=getattr(usage, "output_tokens", 0),
                           cache_read_tokens=getattr(usage, "cache_read_input_tokens", 0) or 0,
-                          model=self._model)
+                          model=_answered_by(getattr(resp, "model", None), self._model))
 
 
 FREE_PROVIDERS: dict[str, tuple[str, str | None, str | None]] = {
@@ -115,6 +115,11 @@ FREE_PROVIDERS: dict[str, tuple[str, str | None, str | None]] = {
     "ollama": ("http://localhost:11434/v1", None, None),
 }
 
+
+# ADR-31: the stronger model each free provider offers for the offline audit's verifier (§24's role, free tier); None = the
+# provider has no clearly stronger free model, so the audit runs on the session's own and the report says so.
+FREE_AUDIT_MODELS: dict[str, str | None] = {"gemini": "gemini-flash-latest", "groq": "openai/gpt-oss-120b", "github": "openai/gpt-4.1",
+                                            "openrouter": None, "ollama": None}
 
 # Gemini's OpenAI-compatible endpoint rejects some JSON-Schema keywords. Dropping them only loosens what the MODEL is told:
 # every reply is still parsed strictly here (extra fields refused), so nothing becomes acceptable that was not before.
@@ -129,6 +134,24 @@ def _without(schema, keywords: tuple[str, ...]):
     return schema
 
 
+def _answered_by(reported, asked: str) -> str:
+    """RR-N3: the model the provider says answered (an alias may resolve to a dated id); the one we asked for if it says nothing."""
+    return reported if isinstance(reported, str) and reported else asked
+
+
+_MAX_REPLY_BYTES = 1_000_000                          # NR-N6: a reply is read with a cap (the draft itself is capped at 32 000)
+
+
+def _open(req, timeout):
+    """`urlopen` that never follows a redirect: urllib would re-send the Authorization header to the new host (NR-N6)."""
+    import urllib.request
+
+    class _NoRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, *a, **k):
+            return None
+    return urllib.request.build_opener(_NoRedirect).open(req, timeout=timeout)
+
+
 def _http_post(url: str, body: dict, headers: dict, timeout_s: float) -> dict:
     import urllib.error
     import urllib.request
@@ -136,8 +159,10 @@ def _http_post(url: str, body: dict, headers: dict, timeout_s: float) -> dict:
                                  # Groq's firewall refuses urllib's default agent with a bare 403 (Cloudflare 1010)
                                  headers={"Content-Type": "application/json", "User-Agent": "eidolon/0.1", **headers})
     try:
-        with urllib.request.urlopen(req, timeout=timeout_s) as r:
-            raw = r.read()
+        with _open(req, timeout=timeout_s) as r:
+            raw = r.read(_MAX_REPLY_BYTES + 1)
+        if len(raw) > _MAX_REPLY_BYTES:
+            raise ProviderError("reply too large")
         try:
             return json.loads(raw)
         except ValueError as exc:           # e.g. a proxy or gateway answering in the provider's place
@@ -157,13 +182,25 @@ class OpenAICompatTransport:
     """`Transport` over any OpenAI-compatible chat endpoint - the free ones in `FREE_PROVIDERS` (Gemini's free tier through
     AI Studio, OpenRouter's free models, a local Ollama). Same contract as `AnthropicTransport`: `complete(system, user,
     schema)` and nothing else (structured output via `response_format`, no tools), a refusal surfaced as `ProviderRefusal`,
-    every other failure as `ProviderError`/`ProviderTimeout`. Stdlib HTTP only. For play and development: the nightly never
-    counts it as live (`is_live`), because the Phase 9 criteria are defined for the configured Claude models."""
+    every other failure as `ProviderError`/`ProviderTimeout`. Stdlib HTTP only. On the real network path (no injected `post`)
+    the nightly counts it as live (`debug.nightly.is_live`, ADR-31)."""
 
     def __init__(self, base_url: str, *, model: str, api_key: str | None = None, timeout_s: float = 60.0, post=None,
-                 drop_keywords: tuple[str, ...] = ()):
-        self._url, self._model, self._key, self._timeout = base_url.rstrip("/") + "/chat/completions", model, api_key, timeout_s
-        self._post, self._drop = post or _http_post, drop_keywords
+                 drop_keywords: tuple[str, ...] = (), provider: str = ""):
+        self._base, self._url = base_url, base_url.rstrip("/") + "/chat/completions"
+        self._model, self._key, self._timeout = model, api_key, timeout_s
+        self._post, self._drop, self.provider = post, drop_keywords, provider
+
+    def with_model(self, model: str) -> "OpenAICompatTransport":
+        """The same endpoint, key and network path with another model (the audit's verifier, ADR-31)."""
+        return OpenAICompatTransport(self._base, model=model, api_key=self._key, timeout_s=self._timeout, post=self._post,
+                                     drop_keywords=self._drop, provider=self.provider)
+
+    @property
+    def networked(self) -> bool:
+        """True when calls go over the real network (`_http_post`), not to an injected stand-in. Read at call time, so a test
+        that patches `provider._http_post` exercises the live path without a network."""
+        return self._post is None
 
     def complete(self, request: CompletionRequest) -> Completion:
         body = {"model": self._model, "max_tokens": request.max_tokens,
@@ -172,7 +209,7 @@ class OpenAICompatTransport:
                                                                            "schema": _without(request.schema, self._drop)}}}
         headers = {"Authorization": f"Bearer {self._key}"} if self._key else {}
         try:
-            doc = self._post(self._url, body, headers, self._timeout)
+            doc = (self._post or _http_post)(self._url, body, headers, self._timeout)
         except Exception as exc:  # classified by name, like the SDK path, so a fake `post` needs no network
             name = type(exc).__name__
             import sys
@@ -191,7 +228,7 @@ class OpenAICompatTransport:
         return Completion(text=msg.get("content") or "",
                           stop_reason={"stop": "end_turn", "length": "max_tokens"}.get(finish, finish or "end_turn"),
                           input_tokens=usage.get("prompt_tokens", 0) or 0, output_tokens=usage.get("completion_tokens", 0) or 0,
-                          model=self._model)
+                          model=_answered_by(doc.get("model"), self._model))
 
 
 def free_transport(provider: str, model: str | None = None, *, environ=None) -> OpenAICompatTransport:
@@ -207,7 +244,45 @@ def free_transport(provider: str, model: str | None = None, *, environ=None) -> 
     key = env.get(key_var) if key_var else None
     if key_var and not key:
         raise ValueError(f"set {key_var} in your environment first")
-    return OpenAICompatTransport(url, model=model, api_key=key, drop_keywords=UNSUPPORTED_SCHEMA_KEYWORDS.get(provider, ()))
+    return OpenAICompatTransport(url, model=model, api_key=key, drop_keywords=UNSUPPORTED_SCHEMA_KEYWORDS.get(provider, ()),
+                                 provider=provider)
+
+
+class Paced:
+    """Free-tier pacing for MEASUREMENT runs only (the nightly, the live suites) - never for play, where a retry would make the
+    clock act-dependent (I-42). At most `rpm` calls per minute reach `inner`; a call refused for load (HTTP 429/503 - the free
+    tier's "rate limited" / "high demand") is retried up to `retries` times after `backoff_s`, doubling. Every wait and retry is
+    counted, so the report can say how the numbers were obtained."""
+
+    def __init__(self, inner, rpm: float, *, retries: int = 4, backoff_s: float = 20.0, clock=time.monotonic, sleep=time.sleep):
+        self.inner, self.rpm, self.retries, self.backoff_s = inner, rpm, retries, backoff_s
+        self.clock, self.sleep = clock, sleep
+        self.last: float | None = None
+        self.waited_s = 0.0
+        self.retried = 0
+
+    def _wait(self, seconds: float) -> None:
+        if seconds > 0:
+            self.waited_s += seconds
+            self.sleep(seconds)
+
+    def complete(self, request: CompletionRequest) -> Completion:
+        delay = self.backoff_s
+        for attempt in range(self.retries + 1):
+            if self.rpm > 0 and self.last is not None:
+                self._wait(60.0 / self.rpm - (self.clock() - self.last))
+            self.last = self.clock()
+            try:
+                return self.inner.complete(request)
+            except ProviderRefusal:
+                raise
+            except ProviderError as exc:
+                if attempt == self.retries or not any(code in str(exc) for code in ("HTTP 429", "HTTP 503")):
+                    raise
+                self.retried += 1
+                self._wait(delay)
+                delay *= 2
+        raise ProviderError("UNREACHABLE")
 
 
 @dataclass(frozen=True)
@@ -248,10 +323,14 @@ class GuardedTransport:
         return out
 
     def _scan(self, request: CompletionRequest) -> list[str]:
-        doc = json.loads(request.user)
-        for key in self._untrusted:
-            doc.pop(key, None)
-        text = request.system + "\n" + json.dumps(doc, ensure_ascii=False)
+        try:
+            doc = json.loads(request.user)
+        except ValueError:                  # F-16: not JSON - scan every character of it (stricter, never skipped)
+            doc = request.user
+        if isinstance(doc, dict):
+            for key in self._untrusted:
+                doc.pop(key, None)
+        text = request.system + "\n" + (doc if isinstance(doc, str) else json.dumps(doc, ensure_ascii=False))
         return leaked_tokens(text, self.deny) + [w for w in ENGINE_VOCAB if w in text.lower()]
 
     def complete(self, request: CompletionRequest) -> Completion:

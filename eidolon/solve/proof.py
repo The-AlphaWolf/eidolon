@@ -32,7 +32,6 @@ from typing import Literal, Union
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, ValidationError
 
-from ..world.interval import ticks
 from . import proof_material as pm
 from .package import MAX_WINDOW, CasePackage
 

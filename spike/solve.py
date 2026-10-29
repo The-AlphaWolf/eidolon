@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from .model import World, Prop, Evidence, EXT, Interval, iv_inter, ticks
-from .minds import Constraint, Testimony, admissible, material_all
+from .minds import Constraint, admissible, material_all
 
 BIN = 10  # time-bin width for "exactly one (murderer, method, time_bin)"
 

@@ -11,7 +11,7 @@ import pytest
 
 from eidolon.decision.demo import DAVID, build_demo_state
 from eidolon.decision.footprint import (
-    Footprint, claim_covers, intersects, prop_footprint, query_footprint, secret_topical, unconceded_protected,
+    Footprint, claim_covers, intersects, prop_footprint, secret_topical, unconceded_protected,
 )
 from eidolon.decision.claims import Claim
 from eidolon.decision.peel import confession_gated
@@ -316,8 +316,9 @@ def test_adr30_a_lie_answers_only_a_question_on_its_own_topic(claim, hint, lies)
 
 
 def test_adr30_off_topic_the_murderer_does_not_lie_and_says_nothing_he_protects():
-    """Through the real turn on a sealed case: the murderer asked what he HEARD, with his only layer-0 lie a deed denial,
-    neither lies nor voices anything protected or observed in his protected window (speakable)."""
+    """Through the real turn on a sealed case: the murderer's layer 0 lies on two topics (a deed denial and, since NR-I4,
+    where he was). Asked what he HEARD he neither lies nor voices anything protected or observed in his protected window
+    (speakable); asked where he was or what he did, he tells only that topic's lie."""
     from pathlib import Path
     from eidolon.solve.package import load_sealed_case
     from eidolon.solve.session import new_session
@@ -325,11 +326,13 @@ def test_adr30_off_topic_the_murderer_does_not_lie_and_says_nothing_he_protects(
     st = new_session(load_sealed_case(str(root / "cases" / "generated" / "study_party_s4.json")), seed=7)
     murder = next(s for s in st.secrets.all() if s.kind == "murder")
     who = murder.owner
-    assert {c.proposition.kind for c in murder.cover.layers[0].claims} == {"DidNot"}, "fixture: the cover lie is a deed denial"
-    for hint in ("heard", "presence"):
+    lies = {c.proposition.kind: c.id for c in murder.cover.layers[0].claims}
+    assert set(lies) == {"DidNot", "At"}, "fixture: a deed denial and a whereabouts lie"
+    r = run_ask_turn(st, who, Query(kind="what", subject=EntityRef(id=who, kind="actor"), predicate_hint="heard", raw="?"))
+    assert not r.rejected and r.plan_act != "LIE", r.plan_act
+    said = {c.proposition for c in r.state.decision.statements.all()[-1].claims}
+    assert not said & set(murder.protected)
+    for hint, kind in (("presence", "At"), ("did", "DidNot")):
         r = run_ask_turn(st, who, Query(kind="what", subject=EntityRef(id=who, kind="actor"), predicate_hint=hint, raw="?"))
-        assert not r.rejected and r.plan_act != "LIE", (hint, r.plan_act)
-        said = {c.proposition for c in r.state.decision.statements.all()[-1].claims}
-        assert not said & set(murder.protected), hint
-    r = run_ask_turn(st, who, Query(kind="what", subject=EntityRef(id=who, kind="actor"), predicate_hint="did", raw="?"))
-    assert r.plan_act == "LIE", "on its own topic the cover lie is still told"
+        assert r.plan_act == "LIE", (hint, r.plan_act)
+        assert [c.id for c in r.state.decision.statements.all()[-1].claims] == [lies[kind]], hint

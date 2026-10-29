@@ -24,8 +24,7 @@ from ..minds import accounts
 from ..world.case import Case
 from ..world.interval import contains, intersect, overlaps, shrink, ticks, widen
 from ..world.interval import Interval
-from ..world.perception import PerceptionFact, derive_perception
-from ..world.propositions import At, Did, Heard, NotAt, Saw
+from ..world.perception import derive_perception
 
 L0, L1, L2, L3 = 0, 1, 2, 3
 

@@ -18,12 +18,17 @@ connection stays on the thread that opened it. A multi-user host needs a worker 
 """
 from __future__ import annotations
 
+import asyncio
 import contextlib
+import logging
 import re
+import sqlite3
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
+from urllib.parse import urlsplit
 
 import jinja2
 from starlette.applications import Starlette
@@ -33,18 +38,18 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse, PlainTextResponse, RedirectResponse
 from starlette.routing import Route
 
-from . import game
+from . import game, story
 from .cli import encountered
-from .llm.ingress import Asked, Clarify, Explore, ModelParser, interpret, rate_window
+from .llm.ingress import RATE_WINDOW_S, Asked, Clarify, Explore, ModelParser, interpret, rate_window
 from .llm.render import LLMRenderer, ModelLLM
 from .solve.package import SealRefusal
-from .solve.queries import clock_buckets
 from .store import Save, SaveError, SaveRefusal
 from .trace import Observed
 from .decision.hypotheses import Lied, Planted
 from .world.propositions import At
 
 NAME = re.compile(r"[A-Za-z0-9_-]{1,40}")
+SEED_MAX = 2 ** 31                                                    # NR-N4: a seed is a non-negative 31-bit integer
 _RESERVED = re.compile(r"(con|prn|aux|nul|com\d|lpt\d)", re.I)       # Windows device names are not file names
 
 
@@ -101,33 +106,93 @@ class Games:
 
 
 # ------------------------------------------------------------------------------------ pages
-_CSS = """body{font:1rem/1.5 system-ui,sans-serif;color:#111;background:#fff;margin:0}
-main{max-width:72rem;margin:0 auto;padding:1rem}section{border:1px solid #888;border-radius:.4rem;padding:.5rem 1rem;margin:1rem 0}
-label{display:inline-block;margin:.3rem .3rem .3rem 0;font-weight:600}select,input,button{font:inherit;margin-right:.8rem}
-button{padding:.2rem .8rem}.chip{color:#333;font-style:italic}a{color:#0645ad}:focus-visible{outline:3px solid #0645ad}
-table{border-collapse:collapse}td,th{border:1px solid #888;padding:.2rem .5rem;text-align:left}"""
+# Themes are CSS custom properties keyed on <html data-theme>; the choice is a cosmetic cookie (it identifies nobody).
+# "auto" follows the browser's light/dark setting. Every palette keeps body and muted text >= 4.5:1 on its surface.
+THEMES = {"auto": "Auto (system)", "parchment": "Parchment", "noir": "Noir", "gaslight": "Gaslight",
+          "typewriter": "Typewriter", "contrast": "High contrast"}
+_SERIF = 'Iowan Old Style,"Palatino Linotype",Palatino,Georgia,serif'
+_MONO = '"Courier Prime","Courier New",Courier,monospace'
+_PARCHMENT = (f"--bg:#efe6d2;--surface:#fbf7ee;--ink:#2a2118;--muted:#66584a;--line:#d3c4a6;--accent:#8b1e1e;--on-accent:#fff;"
+              f"--head:{_SERIF};--body:{_SERIF};color-scheme:light")
+_NOIR = (f"--bg:#111113;--surface:#1b1b1e;--ink:#ebe6da;--muted:#a8a296;--line:#36343a;--accent:#e3a63c;--on-accent:#1a1206;"
+         f"--head:{_SERIF};--body:system-ui,sans-serif;color-scheme:dark")
+_CSS = (f":root,[data-theme=parchment]{{{_PARCHMENT}}}[data-theme=noir]{{{_NOIR}}}"
+        f"@media (prefers-color-scheme:dark){{[data-theme=auto]{{{_NOIR}}}}}"
+        f"[data-theme=gaslight]{{--bg:#0e1b15;--surface:#15281f;--ink:#e5eee3;--muted:#a3bba9;--line:#2d4b3a;--accent:#d0a94f;"
+        f"--on-accent:#1b1405;--head:{_SERIF};--body:{_SERIF};color-scheme:dark}}"
+        f"[data-theme=typewriter]{{--bg:#e6e4dd;--surface:#f7f6f2;--ink:#1d1d1d;--muted:#545454;--line:#b9b6ac;--accent:#b3261e;"
+        f"--on-accent:#fff;--head:{_MONO};--body:{_MONO};color-scheme:light}}"
+        "[data-theme=contrast]{--bg:#000;--surface:#000;--ink:#fff;--muted:#fff;--line:#fff;--accent:#ffd400;--on-accent:#000;"
+        "--head:system-ui,sans-serif;--body:system-ui,sans-serif;color-scheme:dark}" + """
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:1.0625rem/1.6 var(--body)}
+h1,h2,h3{font-family:var(--head);line-height:1.2}h1{font-size:clamp(1.8rem,4vw,2.6rem);margin:.3em 0 .1em}
+h2{font-size:1rem;margin:0 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.1em}
+h3{font-size:1rem;margin:1rem 0 .3rem;color:var(--muted)}a{color:var(--accent);text-underline-offset:.15em}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.bar{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;justify-content:space-between;padding:.5rem 1rem;
+background:var(--surface);border-bottom:1px solid var(--line)}
+.brand{font:700 1.2rem var(--head);letter-spacing:.25em;text-transform:uppercase;text-decoration:none;color:var(--ink)}
+main{max-width:76rem;margin:0 auto;padding:1rem}
+section{background:var(--surface);border:1px solid var(--line);border-radius:.5rem;padding:1rem 1.25rem;margin:0 0 1rem;
+box-shadow:0 1px 3px rgb(0 0 0/.08)}section[aria-live]{border-left:4px solid var(--accent)}
+.desk{display:grid;gap:0 1rem}@media (min-width:62rem){.desk{grid-template-columns:minmax(0,1fr) 24rem;align-items:start}
+.desk aside{position:sticky;top:1rem;max-height:calc(100vh - 2rem);overflow:auto}}
+form,fieldset{display:grid;grid-template-columns:minmax(0,max-content) minmax(0,1fr);gap:.5rem 1rem;align-items:center}
+form+form{margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--line)}label{font-weight:600}
+select,input:not([type=checkbox]),button{font:inherit;color:inherit;min-height:2.75rem;padding:.35rem .6rem;width:100%;max-width:28rem;
+border:1px solid var(--line);border-radius:.35rem;background:var(--bg)}
+input[type=checkbox]{width:1.25rem;height:1.25rem;margin:0;justify-self:end;accent-color:var(--accent)}
+button{grid-column:2;justify-self:start;width:auto;padding:.35rem 1.25rem;font-weight:700;cursor:pointer;
+background:var(--accent);color:var(--on-accent);border-color:var(--accent);transition:filter .15s}button:hover{filter:brightness(1.12)}
+fieldset{grid-column:1/-1;margin:0;padding:.75rem 1rem;border:1px solid var(--line);border-radius:.35rem}legend{font-weight:700;padding:0 .3rem}
+li form{display:inline-block;margin-left:.5rem}li button{min-height:2rem;padding:.1rem .6rem;font-size:.875rem;background:none;color:var(--accent)}
+.bar form{display:flex;gap:.5rem;align-items:center}.bar select{width:auto}.bar button{min-height:2.75rem}
+ul,ol{padding-left:1.25rem;margin:.25rem 0}li{margin:.3rem 0}li::marker{color:var(--muted)}.chip{color:var(--muted);font-style:italic}
+[data-ok=false]{color:var(--muted)}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%}
+td,th{border-bottom:1px solid var(--line);padding:.4rem .6rem;text-align:left}th{font-family:var(--head)}
+caption{text-align:left;color:var(--muted);padding-bottom:.4rem}
+.lede{font-size:1.15rem;max-width:42rem}.help{color:var(--muted);font-size:.9rem;margin:.2rem 0}form .help{grid-column:2;margin:0}
+.opening{padding:1.5rem 2rem;border-top:4px solid var(--accent)}.opening h2{font-size:1.3rem}.beat{font-size:1.15rem;max-width:44rem;animation:rise .9s calc(var(--i)*1.1s) both}
+@keyframes rise{from{opacity:0;transform:translateY(.6rem)}}.cast{list-style:none;padding:0;display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+.cast li{border:1px solid var(--line);border-radius:.4rem;padding:.6rem .8rem;margin:0}.tag{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.cta{display:inline-block;padding:.6rem 1.4rem;border-radius:.35rem;background:var(--accent);color:var(--on-accent);font-weight:700;text-decoration:none}
+.here{border-left:4px solid var(--line)}summary{cursor:pointer;font-weight:600}details p{margin:.3rem 0 .3rem 1rem}.map{list-style:none;padding:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}""")
 
 _TEMPLATES = {
     "base": """<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en" data-theme="{{ theme }}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>{{ title }} — Eidolon</title><style>""" + _CSS + """</style></head>
-<body><main>{% block body %}{% endblock %}</main></body></html>""",
+<body><header class="bar"><a class="brand" href="/">Eidolon</a><form method="post" action="/theme"><label for="theme-pick">Theme</label><select id="theme-pick" name="theme">{% for k, label in themes.items() %}<option value="{{ k }}"{% if k == theme %} selected{% endif %}>{{ label }}</option>{% endfor %}</select><button type="submit">Apply</button></form></header>
+<main>{% block body %}{% endblock %}</main></body></html>""",
 
     "index": """{% extends "base" %}{% block body %}<h1>Eidolon</h1>
+<p class="lede">A murder mystery you solve by talking. Someone in the house is dead and one of the people still in it did
+it. Question them, search the rooms, catch the lies, and name the killer with the evidence that proves it.</p>
 <section><h2>Saved games</h2><ul>{% for s in saves %}<li><a href="/g/{{ s }}">{{ s }}</a></li>{% else %}<li>None yet.</li>{% endfor %}</ul></section>
 <section><h2>New game</h2>{% if error %}<p role="alert">{{ error }}</p>{% endif %}
 <form method="post" action="/new">
 <label for="new-name">Name</label><input id="new-name" name="name" required pattern="[A-Za-z0-9_-]{1,40}">
-<label for="new-case">Case</label><select id="new-case" name="case">{% for c in cases %}<option value="{{ c }}">{{ c }}</option>{% endfor %}</select>
-<label for="new-seed">Seed</label><input id="new-seed" name="seed" type="number" min="0" value="0">
+<label for="new-case">Case</label><select id="new-case" name="case">{% for c in cases %}<option value="{{ c }}">{{ case_label(c) }}</option>{% endfor %}</select>
+<label for="new-seed">Seed</label><input id="new-seed" name="seed" type="number" min="0" value="0" aria-describedby="seed-help">
+<p id="seed-help" class="help">Any number. The case and its killer stay the same; it changes how people word their answers.</p>
 <button type="submit">Start</button></form></section>{% endblock %}""",
 
     "game": """{% extends "base" %}{% macro hidden(op, suffix="") %}<input type="hidden" name="op" value="{{ op }}"><input type="hidden" name="action_id" value="{{ op }}{{ suffix }}@{{ seq }}"><input type="hidden" name="expected_seq" value="{{ seq }}">{% endmacro %}
 {% macro options(items, blank=None) %}{% if blank %}<option value="">{{ blank }}</option>{% endif %}{% for i in items %}<option value="{{ i.id }}">{{ i.name }}</option>{% endfor %}{% endmacro %}
 {% macro held(v, blank) %}<option value="">{{ blank }}</option>{% for e in v.evidence %}<option value="{{ e.ref }}">{{ e.label }}</option>{% endfor %}{% for s in v.statements %}<option value="{{ s.ref }}">statement {{ s.turn }} ({{ s.speaker }})</option>{% endfor %}{% endmacro %}
-{% block body %}<h1>Game {{ name }}</h1>
-<p>Turn {{ v.turn }} · {% if v.status == "open" %}The investigation is open.{% else %}The case is closed.{% endif %} · <a href="/">All games</a></p>
+{% macro casefile(b) %}{% for p in b.intro %}<p class="beat" style="--i:{{ loop.index0 }}">{{ p }}</p>{% endfor %}
+<h3>The victim</h3><p><strong>{{ b.victim }}</strong>, found dead in {{ b.scene }}. {{ b.victim_about }}</p>
+<h3>The people in the house</h3><ul class="cast">{% for c in b.cast %}<li><strong>{{ c.name }}</strong> <span class="tag">{{ c.role }}</span><br>{{ c.about }}</li>{% endfor %}</ul>
+<h3>How to investigate</h3><ol>{% for t, d in b.steps %}<li><strong>{{ t }}.</strong> {{ d }}</li>{% endfor %}</ol>{% endmacro %}
+{% block body %}<h1>{{ b.title }}</h1>
+<p>Game {{ name }} · Turn {{ v.turn }} · {% if v.status == "open" %}The investigation is open.{% else %}The case is closed.{% endif %} · <a href="/">All games</a></p>
+{% if v.turn == 0 and v.status == "open" %}<section class="opening"><h2>The case</h2>{{ casefile(b) }}
+<p><a class="cta" href="#act">Begin the investigation</a></p></section>{% endif %}
+<div class="desk"><div id="act">
 <section aria-live="polite"><h2>Last action</h2>{% if out %}{% if out.chip %}<p class="chip">{{ out.chip }}</p>{% endif %}{% if out.reply %}<p>{{ out.reply }}</p>{% endif %}{% if out.message %}<p>{{ out.message }}</p>{% endif %}{% else %}<p>Nothing yet.</p>{% endif %}</section>
+{% if here %}<section class="here"><h2>Where you are</h2><p><strong>{{ here.name|capitalize }}.</strong> {{ here.about }}</p>{% for t in here.senses %}<p>{{ t }}</p>{% endfor %}<p>Doors to: {{ here.exits|join(", ") }}.</p></section>{% endif %}
 {% if v.status != "open" %}<section><h2>Verdict</h2><p>The case is closed. <a href="/g/{{ name }}/report">Read the case report</a>.</p></section>{% else %}
 {% if chat %}<section><h2>Say something</h2><form method="post">{{ hidden("say") }}
 <label for="say-addressee">To</label><select id="say-addressee" name="addressee">{{ options(v.people) }}</select>
@@ -167,27 +232,38 @@ _TEMPLATES = {
 <label for="acc-motive">Why</label><select id="acc-motive" name="motive"><option value="">not sure</option>{% for m in v.motives %}<option value="{{ m }}">{{ m }}</option>{% endfor %}</select>
 <fieldset><legend>Cite as proof</legend>{% for e in v.evidence %}<input type="checkbox" id="cite-{{ e.ref }}" name="cited" value="{{ e.ref }}"><label for="cite-{{ e.ref }}">{{ e.label }}</label>{% endfor %}{% for s in v.statements %}<input type="checkbox" id="cite-{{ s.ref }}" name="cited" value="{{ s.ref }}"><label for="cite-{{ s.ref }}">statement {{ s.turn }} ({{ s.speaker }})</label>{% endfor %}</fieldset>
 <input type="checkbox" id="acc-confirm" name="confirm"><label for="acc-confirm">This is my final answer: it closes the case</label>
-<button type="submit">Accuse</button></form></section>{% endif %}
+<button type="submit">Accuse</button></form></section>{% endif %}</div>
+<aside>{% if v.status == "open" %}<section><h2>What to do next</h2><ul>{% for t in tips %}<li>{{ t }}</li>{% endfor %}</ul></section>{% endif %}
+<section><h2>Case file</h2><details><summary>The story, the cast and how to play</summary>{{ casefile(b) }}</details></section>
 <section><h2>Notebook</h2><h3>Statements</h3><ol>{% for s in v.statements %}<li value="{{ s.turn }}">{{ s.speaker }}: {{ s.text }}</li>{% else %}<li>Nobody has told you anything yet.</li>{% endfor %}</ol>
 <h3>Evidence</h3><ul>{% for e in v.evidence %}<li>{{ e.label }} — {{ e.text }}</li>{% else %}<li>Nothing found yet.</li>{% endfor %}</ul>
 <h3>Tensions</h3><ul>{% for t in v.tensions %}<li>{{ t.a_label }} and {{ t.b_label }} do not sit together.</li>{% else %}<li>None noticed yet.</li>{% endfor %}</ul></section>
-<section><h2>Map</h2><ul>{% for p in v.places %}<li>{{ p.name }}{% if p.visited %} (visited){% endif %}</li>{% endfor %}</ul></section>{% endblock %}""",
+<section><h2>Map</h2><p class="help">The only way in from outside is through {{ b.way_in }}.</p><ul class="map">{% for r in b.rooms %}<li><details><summary>{{ r.name }}{% if r.id in visited %} (visited){% endif %}</summary>{% if r.about %}<p>{{ r.about }}</p>{% endif %}{% for t in r.senses %}<p>{{ t }}</p>{% endfor %}<p>Doors to: {{ r.exits|join(", ") }}.</p></details></li>{% endfor %}</ul></section></aside></div>{% endblock %}""",
 
     "report": """{% extends "base" %}{% block body %}<h1>Case report: game {{ name }}</h1>
 <p>You accused {{ r.accused }}. {% if r.verdict == "solved" %}That was right.{% else %}That was wrong.{% endif %} <a href="/g/{{ name }}">Back to the notebook</a></p>
 <section><h2>Your accusation, axis by axis</h2><ul>{% for axis, ok in r.axes.items() %}<li data-axis="{{ axis }}" data-ok="{{ 'true' if ok else 'false' }}">{{ axis|replace("_", " ") }}: {{ "right" if ok else "not established" }}</li>{% endfor %}</ul></section>
 <section><h2>What happened</h2><p>{{ r.truth.who }} did it, in {{ r.truth.where }}, {{ r.truth.when }}, with {{ r.truth.weapon }}; the motive was {{ r.truth.motive }}.</p>
-<table><caption>The evening, with what you found marked</caption><thead><tr><th scope="col">When</th><th scope="col">What</th><th scope="col">Who</th><th scope="col">Where</th><th scope="col">With</th><th scope="col">You found its trace</th></tr></thead><tbody>
-{% for e in r.timeline %}<tr><td>{{ e.when }}</td><td>{{ e.kind }}</td><td>{{ e.who }}</td><td>{{ e.where }}</td><td>{{ e.with }}</td><td>{{ "yes" if e.found else "" }}</td></tr>{% endfor %}</tbody></table></section>{% endblock %}""",
+<div class="scroll"><table><caption>The evening, with what you found marked</caption><thead><tr><th scope="col">When</th><th scope="col">What</th><th scope="col">Who</th><th scope="col">Where</th><th scope="col">With</th><th scope="col">You found its trace</th></tr></thead><tbody>
+{% for e in r.timeline %}<tr><td>{{ e.when }}</td><td>{{ e.kind }}</td><td>{{ e.who }}</td><td>{{ e.where }}</td><td>{{ e.with }}</td><td>{{ "yes" if e.found else "" }}</td></tr>{% endfor %}</tbody></table></div></section>{% endblock %}""",
 }
 _ENV = jinja2.Environment(loader=jinja2.DictLoader(_TEMPLATES), autoescape=True, undefined=jinja2.StrictUndefined)
+_ENV.globals["themes"] = THEMES
+_ENV.globals["case_label"] = story.case_label
+_BACK = re.compile(r"/(g/[A-Za-z0-9_-]{1,40}(/report)?)?")      # where a theme change may return to: this app's pages only
 
 
-def _page(template: str, status: int = 200, **ctx) -> HTMLResponse:
+def _page(template: str, status: int = 200, *, request: Request, **ctx) -> HTMLResponse:
+    theme = request.cookies.get("theme")
+    ctx["theme"] = theme if theme in THEMES else "auto"
     return HTMLResponse(_ENV.get_template(template).render(**ctx), status_code=status)
 
 
 # ------------------------------------------------------------------------------------ the boundary: form -> control
+class FormError(ValueError):
+    """A refused form whose reason the player may see (it names nothing the page does not already show)."""
+
+
 def _minute(text: str | None) -> int | None:
     """`HH:MM` (the native time input) or a bare minute count; empty is None; anything else is an error."""
     text = (text or "").strip()
@@ -201,12 +277,15 @@ def _minute(text: str | None) -> int | None:
     raise ValueError(f"not a time: {text!r}")
 
 
-def _window(form) -> tuple[int, int] | None:
+def _window(form, case) -> tuple[int, int] | None:
     start, end = _minute(form.get("start")), _minute(form.get("end"))
     if start is None and end is None:
         return None
     if start is None or end is None:
-        raise ValueError("a window needs both ends")
+        raise FormError("A time window needs both a start and an end. Nothing was recorded.")
+    if not 0 <= start < end <= case.t_investigation:            # NR-N1: refused here, with the reason, not by the store
+        raise FormError(f"A time window must run forwards and end by {game.render_time(case.t_investigation)}. "
+                        "Nothing was recorded.")
     return start, end
 
 
@@ -220,6 +299,22 @@ def _one_of(value: str | None, allowed) -> str | None:
 
 
 def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
+    """Every field validated here (§23.7). H9-N4: an exception from the engine is not a bare 500 - it is noted in the trace
+    file's aborted table by class only and the player is asked to try again; nothing was committed (I-15)."""
+    items = form.multi_items() if hasattr(form, "multi_items") else form.items()
+    if any(not isinstance(v, str) for _, v in items):                     # H8-N4: a file part where a string belongs
+        return game.Outcome("rejected", game.NOT_RECORDED)
+    try:
+        return _dispatch(save, form, chat)
+    except Exception as exc:                                              # noqa: BLE001 - fail closed, never a traceback
+        logging.getLogger("eidolon.web").warning("engine exception: %s", type(exc).__name__)
+        kind = {"hypothesize": "hypothesis"}.get(str(form.get("op")), str(form.get("op")))
+        game.note_attempt(save, kind=kind if kind in game.TRACE_KINDS else "ask", outcome="rejected",
+                          failures=("renderer_exception",))     # the trace's closed vocabulary: an engine fault, nothing committed
+        return game.Outcome("rejected", "Something went wrong on our side. Nothing was recorded - please try again.")
+
+
+def _dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
     case, st = save.state.case, save.state
     op, aid = form.get("op"), form.get("action_id") or ""
     try:
@@ -232,7 +327,7 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
             present = game.held_ref(save, raw) if raw else None
             if raw and present is None:
                 raise ValueError("not held")
-            bucket = _one_of(form.get("bucket"), {str(b) for b in clock_buckets(case)})
+            bucket = _one_of(form.get("bucket"), {str(b) for b in game.question_buckets(case)})
             q = game.question(case, form.get("addressee", ""), topic=_one_of(form.get("topic"), game.TOPICS),
                               about=_one_of(form.get("about"), case.actors), place=_one_of(form.get("place"), case.locations),
                               bucket=int(bucket) if bucket is not None else None, presenting=present is not None)
@@ -244,9 +339,21 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
             who = form.get("addressee", "")
             if who not in st.characters:
                 raise ValueError("nobody of that name is here")
+            # H8-N2: a re-sent, stale or after-the-verdict line is answered BEFORE it costs a parse (and a model call)
+            if (ref := save.turn_for(aid)) is not None:
+                return game._already(ref, "", save)
+            if seq != save.last_seq:
+                return game.Outcome("stale", game._STALE)
+            if st.decision.solved is not None:
+                return game.Outcome("rejected", "The case is closed.")
             times = chat.times.setdefault(str(save.path), [])
+            now = chat.clock()
+            times[:] = [t for t in times if now - t < RATE_WINDOW_S]           # NR-N8: the window only, never the session
             seen: dict = {}
-            out = interpret(form.get("text", ""), parse=chat.parser.parse, case=case, known=encountered(st, who),
+            # H8-N3: the page lists the whole cast and house (§19.4, public), so typed text may name them too; objects
+            # still only as the player's own material names them (`cli.encountered`, F-9)
+            known = encountered(st, who) | frozenset(case.actors) | frozenset(case.locations)
+            out = interpret(form.get("text", ""), parse=chat.parser.parse, case=case, known=known,
                             addressee=who, turns_in_window=rate_window(times, chat.clock()),
                             observe=lambda ing, action: seen.update(ing=ing, action=action))
             times.append(chat.clock())
@@ -267,7 +374,8 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
                                     f"{game.name(case, who)}: {out.text}")
             game.note_attempt(save, kind="say", outcome="blocked", character=who, observed=obs("refused", out.reason),
                               failures=("parse_failed" if out.reason.startswith("PARSE_") else "ingress_blocked",))
-            return game.Outcome("rejected", game.NOT_RECORDED)
+            busy = out.reason.startswith(("PARSE_FAILED:ProviderError", "PARSE_FAILED:ProviderTimeout"))
+            return game.Outcome("rejected", game.BUSY if busy else game.NOT_RECORDED)
         if op == "goto":
             return game.goto(save, aid, seq, form.get("location", ""))
         if op == "search":
@@ -281,7 +389,7 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
                 raise ValueError("confidence out of range")
             if kind == "At":
                 prop = At(actor=_one_of(form.get("actor"), case.actors), location=_one_of(form.get("location"), case.locations),
-                          interval=_window(form))
+                          interval=_window(form, case))
             elif kind == "Lied":
                 sid = game.held_ref(save, form.get("statement"))
                 if sid is None or sid not in st.discovery.known_statements:
@@ -304,8 +412,10 @@ def dispatch(save: Save, form, chat: Chat | None = None) -> game.Outcome:
             if None in cited:
                 raise ValueError("not held")
             return game.accuse(save, aid, seq, form.get("suspect", ""), weapon=_one_of(form.get("weapon"), case.objects),
-                               location=_one_of(form.get("location"), case.locations), interval=_window(form),
+                               location=_one_of(form.get("location"), case.locations), interval=_window(form, case),
                                motive_kind=_one_of(form.get("motive"), game.motive_menu(save)), cited=cited)
+    except FormError as e:
+        return game.Outcome("rejected", str(e))
     except ValueError:                                  # pydantic's ValidationError is one: a malformed form is refused
         return game.Outcome("rejected", game.NOT_RECORDED)
     return game.Outcome("rejected", game.NOT_RECORDED)
@@ -333,7 +443,13 @@ class _LoopbackOnly:
     async def __call__(self, scope, receive, send):
         if scope["type"] == "http" and Headers(scope=scope).get("host", "").lower() not in self.hosts:
             return await PlainTextResponse("Invalid host header", status_code=400)(scope, receive, send)
-        await self.app(scope, receive, send)
+
+        async def framed(message):                      # H8-N5: no page of this app may be framed by another site
+            if message["type"] == "http.response.start":
+                message["headers"] = list(message.get("headers", [])) + [
+                    (b"x-frame-options", b"DENY"), (b"content-security-policy", b"frame-ancestors 'none'")]
+            await send(message)
+        await self.app(scope, receive, framed)
 
 
 def _same_origin(request: Request) -> bool:
@@ -354,60 +470,98 @@ def create_app(saves_dir, cases_dir, *, port: int = 8000, transport=None, latenc
     `transport` (an `llm.provider` transport) turns on free text and model rendering; `latency_floor_s` is I-42's
     floor (`LATENCY_FLOOR_S` with a live model; 0 for a scripted one)."""
     games = Games(saves_dir, cases_dir)
+    # NR-N3: every save touch (open, dispatch, render) runs on ONE worker thread, so each SQLite connection keeps its thread
+    # (D-5) while the event loop stays free during a model call
+    worker = ThreadPoolExecutor(max_workers=1, thread_name_prefix="eidolon-game")
+
+    async def on_worker(fn, *args):
+        return await asyncio.get_running_loop().run_in_executor(worker, fn, *args)
     chat = None
     if transport is not None:
         model = ModelLLM(transport)
         chat = Chat(ModelParser(model.transport), LLMRenderer(model, min_latency_s=latency_floor_s), clock)
 
     async def index(request: Request):
-        return _page("index", title="Games", saves=games.saves(), cases=games.cases(), error=None)
+        return await on_worker(lambda: _page("index", request=request, title="Games", saves=games.saves(), cases=games.cases(), error=None))
 
     async def new_game(request: Request):
         if not _same_origin(request):
             return _FORBIDDEN
         form = await request.form()
-        name, case = form.get("name", ""), form.get("case", "")
-        try:
-            seed = int(form.get("seed") or 0)
-            games.create(name, case, seed)
-        except (ValueError, SaveError, SealRefusal, OSError):
-            return _page("index", 400, title="Games", saves=games.saves(), cases=games.cases(),
-                         error="That game could not be created: pick an unused name of letters, digits, - or _, and a case.")
-        return RedirectResponse(f"/g/{name}", status_code=303)
+
+        def create():
+            name, case, raw_seed = form.get("name", ""), form.get("case", ""), form.get("seed") or "0"
+            try:
+                if not all(isinstance(x, str) for x in (name, case, raw_seed)):
+                    raise ValueError("not a text field")
+                seed = int(raw_seed)
+                if not 0 <= seed < SEED_MAX:
+                    raise ValueError("seed out of range")
+                games.create(name, case, seed)
+            except (ValueError, SaveError, SealRefusal, OSError, sqlite3.Error):
+                return _page("index", 400, request=request, title="Games", saves=games.saves(), cases=games.cases(),
+                             error="That game could not be created: pick an unused name of letters, digits, - or _, a case, "
+                                   "and a seed from 0 to 2147483647.")
+            return RedirectResponse(f"/g/{name}", status_code=303)
+        return await on_worker(create)
 
     async def play(request: Request):
         name = request.path_params["name"]
         if request.method == "POST" and not _same_origin(request):
             return _FORBIDDEN
-        try:
-            save = games.open(name)
-        except SaveRefusal:                             # a damaged or forged save: refused, never half-loaded (I-15)
-            return HTMLResponse(_UNREADABLE, status_code=409)
-        if save is None:
-            return HTMLResponse("Not Found", status_code=404)
-        out = dispatch(save, await request.form(), chat) if request.method == "POST" else None
-        return _page("game", title=f"Game {name}", name=name, seq=save.last_seq, v=game.notebook(save), out=out,
-                     chat=chat is not None)
+        form = await request.form() if request.method == "POST" else None
+
+        def run():
+            try:
+                save = games.open(name)
+            except SaveRefusal:                         # a damaged or forged save: refused, never half-loaded (I-15)
+                return HTMLResponse(_UNREADABLE, status_code=409)
+            if save is None:
+                return HTMLResponse("Not Found", status_code=404)
+            out = dispatch(save, form, chat) if form is not None else None
+            v = game.notebook(save)
+            b = story.briefing(save.state.case, save.bundle.package.skeleton_id, v["clock_end"])
+            entered = form.get("location") if form is not None and form.get("op") == "goto" and out.status == "ok" else None
+            return _page("game", request=request, title=f"Game {name}", name=name, seq=save.last_seq, v=v, out=out,
+                         chat=chat is not None, b=b, tips=story.next_steps(v, b),
+                         here=next((r for r in b["rooms"] if r["id"] == entered), None),
+                         visited={p["id"] for p in v["places"] if p["visited"]})
+        return await on_worker(run)
 
     async def report(request: Request):
         name = request.path_params["name"]
-        try:
-            save = games.open(name)
-        except SaveRefusal:
-            return HTMLResponse(_UNREADABLE, status_code=409)
-        r = game.report(save) if save is not None else None
-        if r is None:
-            return HTMLResponse("Not Found", status_code=404)
-        return _page("report", title=f"Report {name}", name=name, r=r)
+
+        def run():
+            try:
+                save = games.open(name)
+            except SaveRefusal:
+                return HTMLResponse(_UNREADABLE, status_code=409)
+            r = game.report(save) if save is not None else None
+            if r is None:
+                return HTMLResponse("Not Found", status_code=404)
+            return _page("report", request=request, title=f"Report {name}", name=name, r=r)
+        return await on_worker(run)
+
+    async def set_theme(request: Request):
+        if not _same_origin(request):
+            return _FORBIDDEN
+        theme = (await request.form()).get("theme")
+        if theme not in THEMES:
+            return HTMLResponse("Bad Request", status_code=400)
+        back = urlsplit(request.headers.get("referer", "")).path
+        response = RedirectResponse(back if _BACK.fullmatch(back) else "/", status_code=303)
+        response.set_cookie("theme", theme, max_age=365 * 86400, httponly=True, samesite="strict")
+        return response
 
     @contextlib.asynccontextmanager
     async def lifespan(app):
         yield
-        games.close_all()
+        await on_worker(games.close_all)
 
     hosts = allowed_hosts(port)
     app = Starlette(routes=[Route("/", index), Route("/new", new_game, methods=["POST"]),
-                            Route("/g/{name}", play, methods=["GET", "POST"]), Route("/g/{name}/report", report)],
+                            Route("/g/{name}", play, methods=["GET", "POST"]), Route("/g/{name}/report", report),
+                            Route("/theme", set_theme, methods=["POST"])],
                     middleware=[Middleware(_LoopbackOnly, hosts=hosts)], lifespan=lifespan)
     app.state.games = games
     app.state.origins = frozenset(f"http://{h}" for h in hosts)

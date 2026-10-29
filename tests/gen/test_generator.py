@@ -21,7 +21,7 @@ from eidolon.solve.package import CasePackage, SealRefusal, load_sealed_case
 from eidolon.solve.proof import verify_proof
 from eidolon.world.facts import FactIndex
 from eidolon.world.physics import check_physics
-from tests.solve.helpers import GOLDEN, REDUCED, golden, loaded, pkg
+from tests.solve.helpers import GOLDEN, REDUCED, golden, pkg
 
 ROOT = Path(__file__).resolve().parents[2]
 SNIPPET = ("from eidolon.gen.planner import plan; from eidolon.gen.compile import compile_draft; "

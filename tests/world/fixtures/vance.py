@@ -15,7 +15,7 @@ from eidolon.world.case import Case
 from eidolon.world.entities import Actor, Object
 from eidolon.world.events import EffActorAt, EffActorState, EffTraceCreated, Event, Perceptibility
 from eidolon.world.physics import Implication
-from eidolon.world.propositions import Did, ObjectState, Rel, State
+from eidolon.world.propositions import Did, ObjectState, Rel
 from eidolon.world.space import EXT, Location, PerceptionEdge, TravelEdge
 
 T_INVESTIGATION = 120

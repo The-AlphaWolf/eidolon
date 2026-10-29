@@ -6,7 +6,6 @@ under test must refuse. Nothing asserts the implementation's own assumptions bac
 """
 from __future__ import annotations
 
-import copy
 import inspect
 import json
 import os
@@ -737,7 +736,7 @@ from eidolon.decision.hypotheses import Lied, Planted                           
 from eidolon.decision.peel import claims_voiced_on_peel                                        # noqa: E402
 from eidolon.minds.epistemic import RecallRecord, Revision                                     # noqa: E402
 from eidolon.minds.events import BeliefRevised, CoverStateDelta, MemoryRecall                  # noqa: E402
-from eidolon.world.propositions import At, Has, Moved, ObjectAt, Said                          # noqa: E402
+from eidolon.world.propositions import At, DidNot, Has, Moved, ObjectAt, Said                          # noqa: E402
 
 
 def inject(path, events, action_id):
@@ -994,6 +993,7 @@ FORGERIES = {
     "R1_slip_nobody_has": (lambda s: ask(s) + [CoverStateDelta(slips_used=("nonsense",))], "slips_used"),
     "R1_contradiction_nothing_resolves": (lambda s: ask(s) + [CoverStateDelta(contradictions_caught=("bogus",))], "contradictions_caught"),
     "R1_negative_refuse_streak": (lambda s: ask(s) + [CoverStateDelta(refuse_streak=-5)], "negative counter"),
+    "F15_refuse_streak_in_a_turn_that_did_not_refuse": (lambda s: ask(s) + [CoverStateDelta(refuse_streak=2)], "run of consecutive REFUSE"),
     "R1_negative_topic_counter": (lambda s: ask(s) + [CoverStateDelta(topics_probed={"where": -100})], "negative counter"),
     "R1_incidental_pinned_by_another_character": (lambda s: ask(s) + [IncidentalPinned(speaker="Elena", entity="port", attr="x", value="y")],
                                                   "not this turn's addressee"),
@@ -1053,6 +1053,10 @@ FORGERIES = {
     "P8_provisional_accusation_outside_a_conversation": (lambda s: [TurnCommitted(turn=_n(s)), _prov(s)], "provisional accusation"),
     "P8_provisional_accusation_of_someone_not_addressed": (lambda s: ask(s) + [_prov(s, "Elena")], "provisional accusation"),
     "P8_provisional_accusation_the_model_does_not_record": (lambda s: ask(s) + [_prov(s)], "does not record"),
+    "H8N1_provisional_accusation_carrying_a_solution_form": (
+        lambda s: ask(s) + [_prov(s).model_copy(update={"weapon": "ghost", "interval": (0, 2 ** 40)}), _accused_model(s)], "no solution form"),
+    "H8N1_provisional_accusation_citing_anything": (
+        lambda s: ask(s) + [_prov(s).model_copy(update={"cited": ("E_nonexistent",)}), _accused_model(s)], "no solution form"),
     "P8_model_records_an_accusation_nobody_made": (lambda s: ask(s) + [_accused_model(s)], "rewrites more"),
     "P8_model_records_the_accusation_at_another_turn": (lambda s: ask(s) + [_prov(s), _accused_model(s, turn=999)], "rewrites more"),
     "P8_final_accusation_inside_a_conversation": (lambda s: ask(s) + _verdict(s)[1:], "a turn of its own"),
@@ -1062,6 +1066,10 @@ FORGERIES = {
     "P8_final_accusation_naming_a_place_the_case_lacks": (lambda s: _verdict(s, location="Atlantis"), "does not contain"),
     "P8_final_accusation_window_off_the_clock": (lambda s: _verdict(s, interval=(0, 2 ** 40)), "outside the case's clock"),
     "P8_final_accusation_that_does_not_close_the_case": (lambda s: _verdict(s)[:2], "must close the case"),
+    # H9-I3 / C-1 (c): a confession is the proven murderer at a gated confession layer, saying exactly that layer
+    "H9I3_confession_where_the_cover_has_no_confession_layer": (lambda s: restate(ask(s), act="CONFESSION"), "CONFESSION"),
+    "H9I3_confession_by_someone_who_is_not_the_murderer": (lambda s: restate(ask(s, "Elena"), act="CONFESSION"),
+                                                             "not the proven murderer"),
     "P8_two_final_accusations_in_one_turn": (lambda s: [TurnCommitted(turn=_n(s)), _acc(s, "Elena"), *_verdict(s)[1:]],
                                              "two final accusations"),
     "P8_case_solved_without_an_accusation_PN10": (lambda s: [TurnCommitted(turn=_n(s)), CaseSolved(turn=_n(s), correct=False)],
@@ -1716,7 +1724,11 @@ def test_F1_the_clock_is_inclusive_at_both_ends_and_the_character_stays_playable
     s = Save.create(p, BUNDLE, seed=7)
     drive(s, 6)
     H = s.state.case.t_investigation
-    widest = restate(ask(s), claims=(_own_claim(s, proposition=At(actor="David", location="Study", interval=(0, H))),), accounts=())
+    weapon = sorted(s.state.case.objects)[0]
+    # the widest legal claim, consistent with what David has already said (his own deed denial over the whole clock) - an
+    # At(Study, [0, H]) here would contradict the whereabouts lie his cover now tells (NR-I4) and poison the ledger itself
+    widest = restate(ask(s), claims=(_own_claim(s, proposition=DidNot(actor="David", action="touch", object=weapon,
+                                                                     interval=(0, H))),), accounts=())
     assert s.append(widest, s.last_seq, "widest").appended
     hyp = [TurnCommitted(turn=_n(s)), HypothesisChanged(hypothesis=Hypothesis(id="H1", propositions=(
         Moved(actor="David", from_loc="Study", to_loc="Study", t=0), Moved(actor="David", from_loc="Study", to_loc="Study", t=H),

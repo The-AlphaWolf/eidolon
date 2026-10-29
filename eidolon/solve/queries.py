@@ -16,7 +16,7 @@ would only double every sweep against the architecture's action budgets, N_MAX =
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from ..decision.query import EntityRef, Query, TimePhrase
 from ..world.propositions import entities

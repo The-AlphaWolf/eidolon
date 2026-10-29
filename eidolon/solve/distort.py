@@ -15,7 +15,7 @@ any level, base or shifted); more than MAX_ACTIVE of them is reported `bounded` 
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, replace
+from dataclasses import replace
 from itertools import combinations
 
 from ..minds import accounts

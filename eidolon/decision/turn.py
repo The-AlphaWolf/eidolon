@@ -19,7 +19,7 @@ from ..evidence.discovery import Discovery, DiscoveryState, apply_discovery, can
 from ..evidence.model import EvidenceStore
 from ..minds import accounts as acct
 from ..minds.belief import BeliefStore
-from ..minds.character import CharacterState, DetectiveModel
+from ..minds.character import CharacterState
 from ..minds.epistemic import EpistemicState
 from ..minds.events import ComposureChange, CoverStateDelta, DetectiveModelUpdate, MindsEvent, PressureChange
 from ..minds.fold import apply_character
@@ -35,7 +35,7 @@ from .context import DecisionContext
 from .digest import build_digest, evidence_labels
 from .envelope import Envelope, PersonaSlot, build_envelope
 from .voice import persona_voice
-from .footprint import TOPIC_OF_HINT, secret_topical
+from .footprint import TOPIC_OF_HINT, on_topic, secret_topical
 from .hypotheses import Hypothesis, evaluate_hypothesis
 from .events import ClaimMade, ClaimRetracted, DecisionState, LayerPeel as LayerPeelEvent
 from .events import Accusation, CaseSolved, HypothesisChanged, MetaAttemptLogged, TurnCommitted, apply_decision
@@ -44,7 +44,7 @@ from .exploration import known_items, known_locations
 from .exploration import search as exploration_search
 from .llm import TemplateLLM
 from .peel import (
-    ConfessionCheck, claims_voiced_on_peel, evaluate_peel, layer_index, statements_to_retract,
+    ConfessionCheck, claims_voiced_on_peel, confession_gated, evaluate_peel, layer_index, statements_to_retract,
     superseded_propositions,
 )
 from .pressure import PressureFeatures, update_composure, update_verbal_pressure
@@ -234,7 +234,9 @@ def retrieve_for_query(character: ActorId, memories: tuple[Memory, ...], beliefs
     """§8.4 retrieval as ARGMAX (ADR-27, RB-2/C8): within the strong band (else the weak one) the highest-scoring memory
     wins, ties broken by a hash of the memory id (I-6) — never list order — and within it the belief whose own cues
     overlap the query's most (ties by id), never `content[0]`. A claim the speaker may not voice (I-54) is skipped,
-    so the next-best SPEAKABLE one is delivered; if none is, nothing is retrieved."""
+    so the next-best SPEAKABLE one is delivered; if none is, nothing is retrieved. A question that names a topic is
+    answered only by a belief on that topic (`footprint.on_topic`, review NR-I3): "what did you hear?" is never answered with
+    where the speaker was."""
     cues = query_cues(query)
     result = retrieve(list(memories), epistemic, cues)
     by_id = {m.id: m for m in memories}
@@ -248,12 +250,19 @@ def retrieve_for_query(character: ActorId, memories: tuple[Memory, ...], beliefs
             cands = [b for b in (beliefs.get(i) for i in mem.content) if b is not None]
             cands.sort(key=lambda b: (-cue_overlap(_cues_for_prop(b.proposition), cues), b.id))
             for belief in cands:
+                if not on_topic(belief.proposition, query):     # review NR-I3: an honest answer stays on the asked topic
+                    continue
                 claim = Claim(id=f"ret:{belief.id}", proposition=belief.proposition,
                               sincerity="truthful" if belief.is_true else "sincere_false",
                               source="plan", grounding=belief.grounds or (mem.content[0],))
                 if speakable_claim(claim):
                     return Retrieval(band=band, claim=claim, memories=seen)
     return Retrieval(band="none", claim=None, memories=seen)
+
+
+def slips_voiced(act: str, claims) -> frozenset[str]:
+    """The slip ids a turn's claims voice (`_slip` names its claim `slip:<id>`); only a SLIP turn spends one (§11.7)."""
+    return frozenset(c.id.removeprefix("slip:") for c in claims if c.id.startswith("slip:")) if act == "SLIP" else frozenset()
 
 
 def compute_threat(query: Query, presented_ref: Ref | None, secret: Secret | None) -> float:
@@ -320,7 +329,11 @@ def run_ask_turn(state: GameState, addressee: ActorId, query: Query, *,
                                addressee, ctx, confession_check))
              for s in state.secrets.for_owner(addressee)]
     peeled = tuple((s, p) for s, p in peels if p.peeled)
-    secret = peeled[0][0] if peeled else topical
+    # review N-5: standing on a confession layer the proof has opened, the character confesses whatever the wording - the
+    # endgame beat must not wait for a question shaped to pick that secret
+    confessing = next((s for s, p in peels if not p.peeled and not p.stonewalled and s.cover.layers[p.to_index].terminal == "confession"
+                       and confession_gated(s, s.cover.layers[p.to_index])), None)
+    secret = peeled[0][0] if peeled else (confessing or topical)
     peel_result = next((p for s, p in peels if secret is not None and s.id == secret.id), None)
     layer_reached = peel_result.from_index if peel_result is not None else 0
 
@@ -482,7 +495,14 @@ def run_ask_turn(state: GameState, addressee: ActorId, query: Query, *,
     new_topics = dict(char_state.topics_probed)
     if query.predicate_hint:
         new_topics[query.predicate_hint] = new_topics.get(query.predicate_hint, 0) + 1
-        minds_events.append(CoverStateDelta(topics_probed=new_topics))
+    # §15.4 / F-15: REFUSE runs at most 2 turns in a row; any other act ends the run. Written only when it changes.
+    streak = char_state.refuse_streak + 1 if plan.act == "REFUSE" else 0
+    # §11.7 / review I-1: a slip is spent once it is voiced
+    spent = sorted(char_state.slips_used | slips_voiced(plan.act, committed_claims))
+    if query.predicate_hint or streak != char_state.refuse_streak or len(spent) != len(char_state.slips_used):
+        minds_events.append(CoverStateDelta(topics_probed=new_topics if query.predicate_hint else None,
+                                            refuse_streak=streak if streak != char_state.refuse_streak else None,
+                                            slips_used=tuple(spent) if len(spent) != len(char_state.slips_used) else None))
 
     new_char_states = dict(state.characters)
     cs = char_state

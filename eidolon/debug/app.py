@@ -167,7 +167,10 @@ def create_debug_app(saves_dir, *, port: int = DEFAULT_PORT, env=None) -> Starle
 
     async def world(request, name, save):
         case = save.state.case
-        t = int(request.query_params.get("t", case.t_investigation))
+        try:
+            t = int(request.query_params.get("t", case.t_investigation))
+        except ValueError:
+            return HTMLResponse("t must be a whole number of minutes", status_code=400)
         w = world_at(case.events, max(0, min(t, case.t_investigation)))
         ev = sorted(case.events, key=lambda e: (e.interval[0], e.id))
         return page("World inspector", [

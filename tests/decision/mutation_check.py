@@ -9,7 +9,7 @@ Each mutation = list of (relpath, old, new) exact replacements. `old` must occur
 so a mutation can never silently no-op. Applied to a fresh copy of the repo; the named test
 selection is run; the mutation is KILLED iff pytest fails. The repo itself is never touched.
 """
-import json, os, re, shutil, subprocess, sys, tempfile
+import os, re, shutil, subprocess, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -89,6 +89,21 @@ M = {
   ],
   "ADR30-c the heard topic is answered by deed denials": [
     (D+"footprint.py", '"heard": frozenset({"Heard"})', '"heard": frozenset({"Heard", "Did", "DidNot"})'),
+  ],
+  "F14-a a counterfactual is answered by whichever claimless act wins the tie": [
+    (D+"strategy.py", '    if inp.query.kind == "hypothetical":\n        # §10.3', '    if False:\n        # §10.3'),
+  ],
+  "RI-1 a voiced slip is never spent (review I-1, §11.7)": [
+    (D+"turn.py", "    spent = sorted(char_state.slips_used | slips_voiced(plan.act, committed_claims))", "    spent = sorted(char_state.slips_used)"),
+  ],
+  "RI-7 a coarser agreeing Did reads as seeing through, and stops the scan (review I-7)": [
+    (D+"admissibility.py", "        # review I-7: two `Did`s of the same act", "        if p.kind == \"Did\" == q.kind and p.actor == q.actor and p.action == q.action and p.object == q.object and overlaps(p.interval, q.interval):\n            return False if p == q else True\n        # review I-7: two `Did`s of the same act"),
+  ],
+  "RI-6 testimony filed under its speaker, never its subject (review I-6)": [
+    (D+"cover_consistency.py", '    return getattr(proposition, "actor", None) or speaker', "    return speaker"),
+  ],
+  "RN-3 V-3 never checks a concession against the owner's own word (review N-3)": [
+    (D+"cover_consistency.py", "            if hit := next((e for e in own if contradiction(c.proposition, e.proposition, case=ctx.case) is not None), None):", "            if hit := None:"),
   ],
   "M1 every item its own causal group (I-32)": [
     (D+"weight.py", "    groups = group_by_causal_support(frozenset(presented), items_by_ref)", "    groups = [[r] for r in sorted(presented)]"),

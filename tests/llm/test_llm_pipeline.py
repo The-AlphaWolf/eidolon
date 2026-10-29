@@ -23,7 +23,7 @@ from eidolon.llm.provider import Completion, ProviderError, ProviderRefusal, Pro
 from eidolon.llm.render import LLMRenderer, ModelLLM, PlayerTurn, player_view
 from eidolon.world.propositions import At
 from tests.llm.llm_helpers import (
-    DAVID, DEMO_ASK, DEMO_DAVID, ELENA, MARGARET, WHERE, approve, ask, build_demo_state, build_initial_state,
+    DAVID, DEMO_ASK, DEMO_DAVID, WHERE, approve, ask, build_demo_state, build_initial_state,
     draft_json, faithful, fingerprint, reject_all, renderer, scripted,
 )
 
@@ -318,7 +318,7 @@ def test_every_outcome_takes_the_same_floor_so_speed_does_not_tell_the_act(name)
     gens = {"accepted": [clock.slow(0.3, faithful())], "fallback": [clock.slow(0.3, INVENTED)] * 3,
             "rejected": [clock.slow(0.3, ProviderError("x"))], "timeout": [clock.slow(0.3, ProviderTimeout("x"))]}
     t = ScriptedTransport(generate=gens[name], verify=[approve])
-    r = ask(STATE, DAVID, WHERE, renderer=LLMRenderer(ModelLLM(t), min_latency_s=2.0, clock=clock, sleep=clock.sleep))
+    ask(STATE, DAVID, WHERE, renderer=LLMRenderer(ModelLLM(t), min_latency_s=2.0, clock=clock, sleep=clock.sleep))
     assert clock.t == pytest.approx(2.0)
 
 
@@ -421,7 +421,7 @@ def test_a_reply_shorter_than_the_canonical_band_is_also_rejected():
                                                        ("00:31", "00:39"), ("00:41", "00:49"), ("00:51", "00:59")])))
     ok = renderer(scripted([curt]))(_req(many))
     assert ok.result.ok                                     # the same words at the canonical length are accepted
-    short = draft_json(*((f"I was in the library then.", [f"c{i}"], "assert") for i in range(6)))
+    short = draft_json(*(("I was in the library then.", [f"c{i}"], "assert") for i in range(6)))
     out = renderer(scripted([short], repeat_last=True))(_req(many))
     assert out.audit[0].attempts[0].violations[0].startswith("LENGTH_BAND[0!=1]")
     assert out.result.fallback

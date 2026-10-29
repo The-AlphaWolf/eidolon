@@ -34,6 +34,7 @@ from ..solve.session import decision_context
 from ..solve.solver import build_ctx, evaluate, judge, proof_core, robust_material, robust_trace
 from ..world.facts import FactIndex
 from ..world.physics import check_physics
+from ..world.state import loc_at
 from .compile import compile_draft
 from .planner import plan
 from .skeletons import SKELETONS, Skeleton
@@ -119,6 +120,31 @@ def _stage(rep: Report, name: str, fn) -> bool:
     return ok
 
 
+def structure_problems(pkg: CasePackage) -> list[str]:
+    """I-43's third step, review I-5: the elimination structure the package DECLARES is the one the CaseLog REALISES - every
+    innocent in one alibi room throughout [t_m - alibi_window, t_m + alibi_window], every innocent's protected interval at
+    least `secret_clearance` minutes clear of t_m. A failure names the innocent and the window (§19.5's diagnostic)."""
+    st, case, sol = pkg.structure, pkg.case, pkg.solution
+    t_m = sol.interval[0]
+    window = range(max(0, t_m - st.alibi_window), min(case.t_investigation, t_m + st.alibi_window))
+    innocents = sorted(a for a in case.living_actors() if a != sol.murderer)
+    out: list[str] = []
+    rooms = {a: {loc_at(case.events, a, t) for t in window} for a in innocents}
+    shared = set.intersection(*rooms.values()) if rooms else set()
+    for a in innocents:
+        if len(rooms[a]) != 1 or None in rooms[a] or not shared:
+            out.append(f"structure: {a} is not in one alibi room shared by every innocent over [{window.start}, {window.stop}) "
+                       f"(was in {sorted(r for r in rooms[a] if r)})")
+    for s in pkg.secrets:
+        if s.owner not in innocents:
+            continue
+        for prop in s.protected:
+            iv = getattr(prop, "interval", None)
+            if iv is not None and iv[1] > t_m - st.secret_clearance and iv[0] < t_m + st.secret_clearance:
+                out.append(f"structure: {s.owner}'s protected interval {tuple(iv)} is within {st.secret_clearance} minutes of t_m={t_m}")
+    return out
+
+
 def validate(pkg: CasePackage, *, fairness: int | None = None, verify: bool = True,
              bluffs: int = bots.N_BLUFF, odd: int = bots.N_ADVERSARIAL) -> Report:
     """V-0…V-8. Stops at the first failing stage; `report.failed_at` names it. The fairness level is the one
@@ -127,7 +153,7 @@ def validate(pkg: CasePackage, *, fairness: int | None = None, verify: bool = Tr
     rep = Report(pkg.id)
     case = pkg.case
     store = EvidenceStore(pkg.evidence)
-    secrets = SecretStore(pkg.secrets)
+    SecretStore(pkg.secrets)                      # refuses a duplicate secret id; the store itself is not needed
     state: dict = {}
 
     def v0():
@@ -217,7 +243,7 @@ def validate(pkg: CasePackage, *, fairness: int | None = None, verify: bool = Tr
         mat, cracked, rounds, trace = robust_trace(ctx, fairness)
         cons = admissible(case, ctx.store, mat, ctx.comps, ctx.victim)
         v = evaluate(ctx, mat, fairness)
-        p = list(v.reasons) + judge(pkg, v)
+        p = list(v.reasons) + judge(pkg, v) + structure_problems(pkg)
         state.update(ctx=ctx, mat=mat, cons=cons, verdict=v, cracked=cracked, rounds=rounds)
         if p:
             return False, p, {"survivors": v.survivors, "unique": v.unique}

@@ -7,7 +7,9 @@ place, which is what makes replay determinism (I-5) possible.
 """
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict
+from typing import Annotated
+
+from pydantic import BaseModel, ConfigDict, Field
 
 from ..world.ids import ActorId
 from .scale import BP_MAX, Bp, bp
@@ -25,18 +27,21 @@ class VoiceSpec(BaseModel):
     tics: tuple[str, ...] = ()
 
 
+Weight = Annotated[float, Field(ge=0.0, le=1.0)]   # RR-N2: §15.4's margins over every other act assume weights in [0, 1]
+
+
 class Personality(BaseModel):
     """Static weights from generation (§9) — plain `float`, not bp: I-17's bp requirement
     is for *runtime-mutable* state, and personality never changes after generation."""
     model_config = ConfigDict(frozen=True)
 
-    composure_base: float
-    volatility: float
-    deference: float
-    loyalty: dict[ActorId, float] = {}
-    guile: float
-    talkativeness: float
-    self_preservation: float
+    composure_base: Weight
+    volatility: Weight
+    deference: Weight
+    loyalty: dict[ActorId, Weight] = {}
+    guile: Weight
+    talkativeness: Weight
+    self_preservation: Weight
     voice: VoiceSpec = VoiceSpec()
 
 

@@ -14,16 +14,14 @@ from pathlib import Path
 
 import pytest
 
-from eidolon.decision.query import EntityRef, Query
+from eidolon.decision.query import Query
 from eidolon.decision.turn import ExplorationTurnResult, TurnResult, run_ask_turn
-from eidolon.gen import pipeline
 from eidolon.gen.pipeline import validate
 from eidolon.minds import accounts
 from eidolon.solve import bots
 from eidolon.solve import fairness as fair
 from eidolon.solve.lattice import Know
 from eidolon.solve.session import new_session
-from eidolon.solve.solver import build_ctx
 from tests.solve.helpers import GOLDEN, golden, loaded
 
 GOLD = pytest.mark.parametrize("skel,seed", GOLDEN)
@@ -286,7 +284,6 @@ def test_v7_is_gated_on_every_bot_and_on_the_canonical_murderer(which, report, m
 
 def test_a_retracted_statement_is_not_credited_to_the_bot():
     """RB2-n: material the speaker has taken back (a concession retracted it) is not something the bot holds."""
-    from eidolon.decision.claims import StatementStore
     from tests.solve.test_rb1_accounts import hear_token
     p = pk("study_party", 4)
     token = p.accounts[0]

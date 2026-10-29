@@ -1,5 +1,5 @@
 {
- "bundle_seal": "eeadf8699615d36040bfe71e6742ab2fe94ae0e65d052f7711b8990c64da9a09",
+ "bundle_seal": "3fcb5f2bd3696ebb11688f80069d6eb3e954292f3fdfbc373377245db677b5a9",
  "package": {
   "accounts": [
    "clean@Elena"
@@ -1849,6 +1849,28 @@
      }
     },
     {
+     "actor": "Elena",
+     "causes": [],
+     "effects": [],
+     "id": "chat",
+     "intent": null,
+     "interval": [
+      64,
+      66
+     ],
+     "kind": "Speak",
+     "load_bearing": false,
+     "location": "Room",
+     "objects": [],
+     "participants": [],
+     "perceptibility": {
+      "identifies_actor": true,
+      "identifies_voice": true,
+      "sight": 1.0,
+      "sound": 0.8
+     }
+    },
+    {
      "actor": null,
      "causes": [],
      "effects": [
@@ -2096,7 +2118,7 @@
     "actor": "Elena",
     "delta": -16,
     "know_ids": [
-     "S:P0362"
+     "S:P0366"
     ],
     "memory": "MElena0112"
    },
@@ -2104,17 +2126,17 @@
     "actor": "Margaret",
     "delta": 13,
     "know_ids": [
-     "S:P0224"
+     "S:P0223"
     ],
     "memory": "MMargaret0038"
    },
    {
     "actor": "Robert",
-    "delta": 6,
+    "delta": 18,
     "know_ids": [
-     "S:P0306"
+     "S:P0299"
     ],
-    "memory": "MRobert0044"
+    "memory": "MRobert0038"
    }
   ],
   "evidence": [
@@ -2584,7 +2606,7 @@
    },
    {
     "actor": "Elena",
-    "memory": "MElena0024",
+    "memory": "MElena0025",
     "strength_bp": 10000
    },
    {
@@ -2603,7 +2625,7 @@
    "kind": "blunt_force",
    "weapon": "Decanter"
   },
-  "seal": "00b709d689b3cea0cba1bdd36306e340465b763f009a194bb9f0e20dc0743df3",
+  "seal": "d7a998c79f8c7ed8d15bdb42740c888e5591c3bf6bfb4dc462e0a8666c5075a6",
   "secrets": [
    {
     "beneficiaries": [],
@@ -2628,6 +2650,24 @@
           "location": null,
           "object": "Decanter",
           "target_actor": null
+         },
+         "sincerity": "deceptive",
+         "source": "plan",
+         "statement": null
+        },
+        {
+         "confidence": "certain",
+         "grounding": [],
+         "id": "C_David_L0b",
+         "modality": "actual",
+         "proposition": {
+          "actor": "David",
+          "interval": [
+           56,
+           61
+          ],
+          "kind": "At",
+          "location": "Hall"
          },
          "sincerity": "deceptive",
          "source": "plan",
@@ -5662,6 +5702,90 @@
      "Elena",
      "E_pin_clean"
     ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0356#L2",
+    "item": "S:P0356",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0127",
+     "S:P0289",
+     "S:P0358"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0357#L2",
+    "item": "S:P0357",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Margaret",
+     "E_alibi_room",
+     "E_secret_Margaret",
+     "S:P0127",
+     "S:P0289",
+     "S:P0359"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0358#L2",
+    "item": "S:P0358",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0128",
+     "S:P0236",
+     "S:P0356"
+    ]
+   },
+   {
+    "actor": "Elena",
+    "id": "S:P0359#L2",
+    "item": "S:P0359",
+    "iv": [
+     59,
+     71
+    ],
+    "kind": "Exist",
+    "level": 2,
+    "loc": "Room",
+    "observer": null,
+    "sources": [
+     "Robert",
+     "E_alibi_room",
+     "E_secret_Robert",
+     "S:P0128",
+     "S:P0236",
+     "S:P0357"
+    ]
    }
   ],
   "cracked": [
@@ -5695,7 +5819,7 @@
    ],
    "excluded": true
   },
-  "package_seal": "00b709d689b3cea0cba1bdd36306e340465b763f009a194bb9f0e20dc0743df3",
+  "package_seal": "d7a998c79f8c7ed8d15bdb42740c888e5591c3bf6bfb4dc462e0a8666c5075a6",
   "proof_core": [
    "E_alibi_room",
    "E_gate_Gazebo",
@@ -5703,7 +5827,7 @@
   ],
   "robustness": {
    "failures": [],
-   "subsets_run": 2
+   "subsets_run": 8
   },
   "schema": "eidolon.proof/2",
   "survivors": [
@@ -5766,21 +5890,21 @@
   "stages": {
    "V-0": {
     "ok": true,
-    "seconds": 0.003
+    "seconds": 0.004
    },
    "V-1": {
     "ok": true,
-    "seconds": 0.024
+    "seconds": 0.035
    },
    "V-2": {
-    "knowledge_entries": 369,
+    "knowledge_entries": 374,
     "ok": true,
-    "seconds": 0.327
+    "seconds": 0.426
    },
    "V-3": {
     "breaker_sets": 4,
     "ok": true,
-    "seconds": 1.122,
+    "seconds": 1.927,
     "secrets": 4
    },
    "V-4": {
@@ -5788,15 +5912,15 @@
     "cued_depth": 0,
     "ok": true,
     "retrieval_checked": 1,
-    "seconds": 0.264
+    "seconds": 0.405
    },
    "V-5": {
-    "active_distortions": 1,
-    "distortion_subsets": 2,
+    "active_distortions": 3,
+    "distortion_subsets": 8,
     "ok": true,
     "proof_core": 3,
     "rounds": 1,
-    "seconds": 3.284,
+    "seconds": 6.468,
     "survivors": [
      "David"
     ],
@@ -5819,7 +5943,7 @@
     },
     "in_band": true,
     "ok": true,
-    "seconds": 0.047
+    "seconds": 0.067
    },
    "V-7": {
     "9_not_solvable_without_evidence": true,
@@ -5859,11 +5983,11 @@
     },
     "ok": true,
     "scale": "full",
-    "seconds": 54.711
+    "seconds": 284.356
    },
    "V-8": {
     "ok": true,
-    "seal": "00b709d689b3cea0cba1bdd36306e340465b763f009a194bb9f0e20dc0743df3"
+    "seal": "d7a998c79f8c7ed8d15bdb42740c888e5591c3bf6bfb4dc462e0a8666c5075a6"
    }
   }
  }

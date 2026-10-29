@@ -18,7 +18,7 @@ from eidolon.world.actions import (
 )
 from eidolon.world.events import EventKind, Event, Perceptibility
 from eidolon.world.facts import FactIndex
-from eidolon.world.physics import Implication, check_physics
+from eidolon.world.physics import check_physics
 from eidolon.world.propositions import Did, DidNot
 from tests.world.fixtures.vance import (
     ACTORS, LOCATIONS, OBJECTS, TRAVEL, _PERCEPTION_V03, _stays, vance_v03,

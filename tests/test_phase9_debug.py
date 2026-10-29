@@ -14,7 +14,7 @@ from pathlib import Path
 import pytest
 from starlette.testclient import TestClient
 
-from eidolon import game, store, trace, web
+from eidolon import game, trace, web
 from eidolon.debug import app as dbg
 from eidolon.llm.fakes import ScriptedTransport
 from eidolon.llm.render import LLMRenderer, ModelLLM

@@ -284,3 +284,11 @@ are Phase 5's own deliverables — the stages Phase 5 builds — not prerequisit
 
 **Verdict: Phase 5 ready — YES.** Nothing at blocking severity survives in the repaired areas or
 their interfaces; every guard added is held by a named test and a killed mutant.
+
+## Follow-up (2026-10-24)
+
+Status of the 17 open IMPORTANT findings, re-checked against the code: see `docs/EIDOLON-FULL-REVIEW-2026-10-22.md` §5 ("Phase 4
+IMPORTANT"). 12 fixed or confirmed closed (I-1, I-2, I-6, I-7, I-9, I-13, I-14, I-15, I-16, N-1, N-3, N-5; N-2 by ADR-32), each fix with a
+named test and a mutant in `tests/decision/mutation_check.py` (RI-1, RI-6, RI-7, RN-3) or `tests/persistence_mutation_check.py` (RN5).
+Open: I-8, I-10 (engine side), I-11, I-12, N-4. Author's record, not independently reviewed.
+

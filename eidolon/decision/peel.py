@@ -84,7 +84,12 @@ def evaluate_peel(secret: Secret, presented: frozenset[Ref], reached: int, confr
         w = refutation_weight(presented, layers[i], confrontee, ctx)
         last_weight = w
         if w < layers[i].resolve:
-            break
+            nxt = layers[i + 1]
+            # ADR-32: the last denial before a gated confession has no evidence breaker by design (§19.3 (i)); a presented
+            # set that PROVES the confrontee the unique culprit is its breaker, so the confession costs exactly a proof (I-21)
+            if not (nxt.terminal == "confession" and confession_gated(secret, nxt)
+                    and confession_permitted(confession_check, secret, confrontee, presented, ctx)):
+                break
         i += 1
 
     stonewalled = False

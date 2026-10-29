@@ -92,7 +92,6 @@ def test_the_scan_flags_and_never_blocks(category, prompt, flagged):
 def test_screening_never_rewrites_what_the_player_typed(category, prompt, flagged):
     """Only control/zero-width characters are removed, and removal is reported, never silent."""
     result = screen(prompt)
-    stripped = "".join(c for c in prompt if c not in "\t\r\n" and ord(c) not in range(0x2060, 0x2070))
     assert result.raw == prompt
     for marker in result.stripped:
         assert marker.startswith("U+") or marker == "whitespace"

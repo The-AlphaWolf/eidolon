@@ -28,8 +28,7 @@ from ..world.propositions import Proposition, entities
 from .claims import Claim, ClaimId, StatementStore
 from .context import DecisionContext
 from .digest import ConversationDigest, evidence_labels
-from .llm import Draft, Segment, render_claim
-from .secrets import Ref
+from .llm import Draft, claimless_line, render_claim
 from .speech_acts import ACT_TABLE, RETRACTION_EXEMPT_ACTS
 from .strategy import DeliveryDirective, ResponsePlan
 from .envelope import Envelope, EnvelopeClaim, PersonaSlot, render_digest
@@ -438,7 +437,7 @@ def _fallback_text(plan: ResponsePlan, case: Case) -> str:
     """§14.3's deterministic voice-variant render: the same dull template family
     `TemplateLLM` already uses, built directly from the plan (bypassing the draft
     entirely) — "producing dull but valid speech"."""
-    return " ".join(render_claim(c, case) for c in plan.claims) or "..."
+    return " ".join(render_claim(c, case) for c in plan.claims) or claimless_line(plan.delivery.tone)
 
 
 def length_band(n_chars: int) -> int:

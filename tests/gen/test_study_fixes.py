@@ -23,7 +23,7 @@ def test_the_housekeepers_secret_never_shares_a_time_bucket_with_the_cleaning(sk
     checked = 0
     for seed in range(1, 40):
         dr = plan(SKELETONS[sk], seed)
-        hk, sec = dr.meta.get("hk"), dr.secrets.get(dr.meta.get("hk"))
+        sec = dr.secrets.get(dr.meta.get("hk"))
         if dr.error or sec is None:
             continue
         b0 = (dr.meta["t_c"] + 2) // BUCKET * BUCKET

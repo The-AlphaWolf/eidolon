@@ -16,9 +16,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
-from ..world.ids import ActorId, LocationId
+from ..world.ids import LocationId
 from ..world.propositions import Proposition
-from .ids import TopicId
 
 QueryKind = Literal[
     "where", "when", "who", "what", "why", "did_you", "did_they", "relationship",

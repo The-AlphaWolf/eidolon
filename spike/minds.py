@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from collections import defaultdict
 
 from .model import (World, Prop, Evidence, Interval, iv_inter, iv_minus, iv_shrink, iv_widen,
-                    iv_union, ticks)
+                    ticks)
 
 # case constants (§4.8, §8.3) — spike values
 ATT_PRESENT = 0.3

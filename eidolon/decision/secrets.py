@@ -21,9 +21,8 @@ from typing import Iterable, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from ..evidence.ids import StatementId
 from ..minds.ids import KnowledgeEntryId
-from ..world.ids import ActorId, EvidenceId
+from ..world.ids import ActorId
 from ..world.propositions import Proposition
 from .claims import Claim
 from .ids import SecretId, SlipId, TopicId

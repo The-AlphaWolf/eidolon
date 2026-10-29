@@ -372,7 +372,6 @@ def test_f3_a_name_book_cannot_be_built_over_the_whole_case():
 def test_f3_permitted_ids_equals_the_validators_own_allow_list():
     """The two sets must be defined together or they will drift apart: `validate_draft` allows
     `allowed_entity_ids | envelope entities | {speaker}` and the view must offer no more."""
-    from eidolon.decision.turn import CANARY, RenderRequest
     from eidolon.world.propositions import entities
     seen = {}
 

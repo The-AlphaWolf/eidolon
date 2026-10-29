@@ -16,7 +16,7 @@ from .case import Case
 from .interval import contains_tick, overlaps, ticks
 from .perception import PerceptionFact, derive_perception
 from .propositions import Proposition
-from .state import loc_at, presence, unlocated, world_at
+from .state import loc_at, presence, world_at
 
 # Sentinel placement: the actor is in no room at all (in transit, or offstage). Not a
 # LocationId, so it compares unequal to every real location and satisfies every `NotAt`.

@@ -19,7 +19,7 @@ from eidolon.solve.bots import held_names
 from eidolon.solve.queries import expressible_queries, public_names
 from eidolon.store import Save
 from eidolon.trace import TurnTrace
-from eidolon.world.propositions import At, Did, DidNot, Solution
+from eidolon.world.propositions import At, Solution
 from tests.llm.llm_helpers import approve, faithful
 
 ROOT = Path(__file__).resolve().parents[1]
