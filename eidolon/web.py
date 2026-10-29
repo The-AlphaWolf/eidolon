@@ -38,7 +38,7 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse, PlainTextResponse, RedirectResponse
 from starlette.routing import Route
 
-from . import game
+from . import game, story
 from .cli import encountered
 from .llm.ingress import RATE_WINDOW_S, Asked, Clarify, Explore, ModelParser, interpret, rate_window
 from .llm.render import LLMRenderer, ModelLLM
@@ -151,7 +151,13 @@ ul,ol{padding-left:1.25rem;margin:.25rem 0}li{margin:.3rem 0}li::marker{color:va
 [data-ok=false]{color:var(--muted)}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%}
 td,th{border-bottom:1px solid var(--line);padding:.4rem .6rem;text-align:left}th{font-family:var(--head)}
 caption{text-align:left;color:var(--muted);padding-bottom:.4rem}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}""")
+.lede{font-size:1.15rem;max-width:42rem}.help{color:var(--muted);font-size:.9rem;margin:.2rem 0}form .help{grid-column:2;margin:0}
+.opening{padding:1.5rem 2rem;border-top:4px solid var(--accent)}.opening h2{font-size:1.3rem}.beat{font-size:1.15rem;max-width:44rem;animation:rise .9s calc(var(--i)*1.1s) both}
+@keyframes rise{from{opacity:0;transform:translateY(.6rem)}}.cast{list-style:none;padding:0;display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+.cast li{border:1px solid var(--line);border-radius:.4rem;padding:.6rem .8rem;margin:0}.tag{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.cta{display:inline-block;padding:.6rem 1.4rem;border-radius:.35rem;background:var(--accent);color:var(--on-accent);font-weight:700;text-decoration:none}
+.here{border-left:4px solid var(--line)}summary{cursor:pointer;font-weight:600}details p{margin:.3rem 0 .3rem 1rem}.map{list-style:none;padding:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}""")
 
 _TEMPLATES = {
     "base": """<!doctype html>
@@ -162,21 +168,31 @@ _TEMPLATES = {
 <main>{% block body %}{% endblock %}</main></body></html>""",
 
     "index": """{% extends "base" %}{% block body %}<h1>Eidolon</h1>
+<p class="lede">A murder mystery you solve by talking. Someone in the house is dead and one of the people still in it did
+it. Question them, search the rooms, catch the lies, and name the killer with the evidence that proves it.</p>
 <section><h2>Saved games</h2><ul>{% for s in saves %}<li><a href="/g/{{ s }}">{{ s }}</a></li>{% else %}<li>None yet.</li>{% endfor %}</ul></section>
 <section><h2>New game</h2>{% if error %}<p role="alert">{{ error }}</p>{% endif %}
 <form method="post" action="/new">
 <label for="new-name">Name</label><input id="new-name" name="name" required pattern="[A-Za-z0-9_-]{1,40}">
-<label for="new-case">Case</label><select id="new-case" name="case">{% for c in cases %}<option value="{{ c }}">{{ c }}</option>{% endfor %}</select>
-<label for="new-seed">Seed</label><input id="new-seed" name="seed" type="number" min="0" value="0">
+<label for="new-case">Case</label><select id="new-case" name="case">{% for c in cases %}<option value="{{ c }}">{{ case_label(c) }}</option>{% endfor %}</select>
+<label for="new-seed">Seed</label><input id="new-seed" name="seed" type="number" min="0" value="0" aria-describedby="seed-help">
+<p id="seed-help" class="help">Any number. The case and its killer stay the same; it changes how people word their answers.</p>
 <button type="submit">Start</button></form></section>{% endblock %}""",
 
     "game": """{% extends "base" %}{% macro hidden(op, suffix="") %}<input type="hidden" name="op" value="{{ op }}"><input type="hidden" name="action_id" value="{{ op }}{{ suffix }}@{{ seq }}"><input type="hidden" name="expected_seq" value="{{ seq }}">{% endmacro %}
 {% macro options(items, blank=None) %}{% if blank %}<option value="">{{ blank }}</option>{% endif %}{% for i in items %}<option value="{{ i.id }}">{{ i.name }}</option>{% endfor %}{% endmacro %}
 {% macro held(v, blank) %}<option value="">{{ blank }}</option>{% for e in v.evidence %}<option value="{{ e.ref }}">{{ e.label }}</option>{% endfor %}{% for s in v.statements %}<option value="{{ s.ref }}">statement {{ s.turn }} ({{ s.speaker }})</option>{% endfor %}{% endmacro %}
-{% block body %}<h1>Game {{ name }}</h1>
-<p>Turn {{ v.turn }} · {% if v.status == "open" %}The investigation is open.{% else %}The case is closed.{% endif %} · <a href="/">All games</a></p>
-<div class="desk"><div>
+{% macro casefile(b) %}{% for p in b.intro %}<p class="beat" style="--i:{{ loop.index0 }}">{{ p }}</p>{% endfor %}
+<h3>The victim</h3><p><strong>{{ b.victim }}</strong>, found dead in {{ b.scene }}. {{ b.victim_about }}</p>
+<h3>The people in the house</h3><ul class="cast">{% for c in b.cast %}<li><strong>{{ c.name }}</strong> <span class="tag">{{ c.role }}</span><br>{{ c.about }}</li>{% endfor %}</ul>
+<h3>How to investigate</h3><ol>{% for t, d in b.steps %}<li><strong>{{ t }}.</strong> {{ d }}</li>{% endfor %}</ol>{% endmacro %}
+{% block body %}<h1>{{ b.title }}</h1>
+<p>Game {{ name }} · Turn {{ v.turn }} · {% if v.status == "open" %}The investigation is open.{% else %}The case is closed.{% endif %} · <a href="/">All games</a></p>
+{% if v.turn == 0 and v.status == "open" %}<section class="opening"><h2>The case</h2>{{ casefile(b) }}
+<p><a class="cta" href="#act">Begin the investigation</a></p></section>{% endif %}
+<div class="desk"><div id="act">
 <section aria-live="polite"><h2>Last action</h2>{% if out %}{% if out.chip %}<p class="chip">{{ out.chip }}</p>{% endif %}{% if out.reply %}<p>{{ out.reply }}</p>{% endif %}{% if out.message %}<p>{{ out.message }}</p>{% endif %}{% else %}<p>Nothing yet.</p>{% endif %}</section>
+{% if here %}<section class="here"><h2>Where you are</h2><p><strong>{{ here.name|capitalize }}.</strong> {{ here.about }}</p>{% for t in here.senses %}<p>{{ t }}</p>{% endfor %}<p>Doors to: {{ here.exits|join(", ") }}.</p></section>{% endif %}
 {% if v.status != "open" %}<section><h2>Verdict</h2><p>The case is closed. <a href="/g/{{ name }}/report">Read the case report</a>.</p></section>{% else %}
 {% if chat %}<section><h2>Say something</h2><form method="post">{{ hidden("say") }}
 <label for="say-addressee">To</label><select id="say-addressee" name="addressee">{{ options(v.people) }}</select>
@@ -217,10 +233,12 @@ _TEMPLATES = {
 <fieldset><legend>Cite as proof</legend>{% for e in v.evidence %}<input type="checkbox" id="cite-{{ e.ref }}" name="cited" value="{{ e.ref }}"><label for="cite-{{ e.ref }}">{{ e.label }}</label>{% endfor %}{% for s in v.statements %}<input type="checkbox" id="cite-{{ s.ref }}" name="cited" value="{{ s.ref }}"><label for="cite-{{ s.ref }}">statement {{ s.turn }} ({{ s.speaker }})</label>{% endfor %}</fieldset>
 <input type="checkbox" id="acc-confirm" name="confirm"><label for="acc-confirm">This is my final answer: it closes the case</label>
 <button type="submit">Accuse</button></form></section>{% endif %}</div>
-<aside><section><h2>Notebook</h2><h3>Statements</h3><ol>{% for s in v.statements %}<li value="{{ s.turn }}">{{ s.speaker }}: {{ s.text }}</li>{% else %}<li>Nobody has told you anything yet.</li>{% endfor %}</ol>
+<aside>{% if v.status == "open" %}<section><h2>What to do next</h2><ul>{% for t in tips %}<li>{{ t }}</li>{% endfor %}</ul></section>{% endif %}
+<section><h2>Case file</h2><details><summary>The story, the cast and how to play</summary>{{ casefile(b) }}</details></section>
+<section><h2>Notebook</h2><h3>Statements</h3><ol>{% for s in v.statements %}<li value="{{ s.turn }}">{{ s.speaker }}: {{ s.text }}</li>{% else %}<li>Nobody has told you anything yet.</li>{% endfor %}</ol>
 <h3>Evidence</h3><ul>{% for e in v.evidence %}<li>{{ e.label }} — {{ e.text }}</li>{% else %}<li>Nothing found yet.</li>{% endfor %}</ul>
 <h3>Tensions</h3><ul>{% for t in v.tensions %}<li>{{ t.a_label }} and {{ t.b_label }} do not sit together.</li>{% else %}<li>None noticed yet.</li>{% endfor %}</ul></section>
-<section><h2>Map</h2><ul>{% for p in v.places %}<li>{{ p.name }}{% if p.visited %} (visited){% endif %}</li>{% endfor %}</ul></section></aside></div>{% endblock %}""",
+<section><h2>Map</h2><p class="help">The only way in from outside is through {{ b.way_in }}.</p><ul class="map">{% for r in b.rooms %}<li><details><summary>{{ r.name }}{% if r.id in visited %} (visited){% endif %}</summary>{% if r.about %}<p>{{ r.about }}</p>{% endif %}{% for t in r.senses %}<p>{{ t }}</p>{% endfor %}<p>Doors to: {{ r.exits|join(", ") }}.</p></details></li>{% endfor %}</ul></section></aside></div>{% endblock %}""",
 
     "report": """{% extends "base" %}{% block body %}<h1>Case report: game {{ name }}</h1>
 <p>You accused {{ r.accused }}. {% if r.verdict == "solved" %}That was right.{% else %}That was wrong.{% endif %} <a href="/g/{{ name }}">Back to the notebook</a></p>
@@ -231,6 +249,7 @@ _TEMPLATES = {
 }
 _ENV = jinja2.Environment(loader=jinja2.DictLoader(_TEMPLATES), autoescape=True, undefined=jinja2.StrictUndefined)
 _ENV.globals["themes"] = THEMES
+_ENV.globals["case_label"] = story.case_label
 _BACK = re.compile(r"/(g/[A-Za-z0-9_-]{1,40}(/report)?)?")      # where a theme change may return to: this app's pages only
 
 
@@ -500,8 +519,13 @@ def create_app(saves_dir, cases_dir, *, port: int = 8000, transport=None, latenc
             if save is None:
                 return HTMLResponse("Not Found", status_code=404)
             out = dispatch(save, form, chat) if form is not None else None
-            return _page("game", request=request, title=f"Game {name}", name=name, seq=save.last_seq, v=game.notebook(save), out=out,
-                         chat=chat is not None)
+            v = game.notebook(save)
+            b = story.briefing(save.state.case, save.bundle.package.skeleton_id, v["clock_end"])
+            entered = form.get("location") if form is not None and form.get("op") == "goto" and out.status == "ok" else None
+            return _page("game", request=request, title=f"Game {name}", name=name, seq=save.last_seq, v=v, out=out,
+                         chat=chat is not None, b=b, tips=story.next_steps(v, b),
+                         here=next((r for r in b["rooms"] if r["id"] == entered), None),
+                         visited={p["id"] for p in v["places"] if p["visited"]})
         return await on_worker(run)
 
     async def report(request: Request):

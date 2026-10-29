@@ -980,6 +980,27 @@ def test_a_double_post_commits_once_and_a_second_tab_commits_nothing_I14(client)
     assert games.open("g1").state.turn_counter == 1
 
 
+def _opening(c, name, case):
+    page = _new_game(c, name, case)
+    return re.search(r'<section class="opening">(.*?)</section>', page, re.S).group(1), page
+
+
+def test_the_case_file_is_opening_material_only_and_the_same_whoever_did_it(client):
+    """The opening, the cast and the map are fixed per skeleton: two cases with different murderers (study_party s4/s5:
+    David/Robert; manor_wing s4/s6: Delphine/Cormac) open with the same file, which names no weapon."""
+    from eidolon import story
+    from eidolon.gen.skeletons import SKELETONS
+    for skel, a, b in (("study_party", "study_party_s4", "study_party_s5"), ("manor_wing", "manor_wing_s4", "manor_wing_s6")):
+        (one, page), (two, _) = _opening(client, f"o{a}", a), _opening(client, f"o{b}", b)
+        assert one == two and "Begin the investigation" in one and "What to do next" in page
+        assert SKELETONS[skel].weapon.name.split()[-1] not in one.lower()
+        assert all(n in story._STORIES[skel]["people"] for n, _ in SKELETONS[skel].cast)
+        assert all(loc.id in story._STORIES[skel]["rooms"] for loc in SKELETONS[skel].locations)
+    page = post(client, f"o{a}", "goto", page, location="Office").text
+    assert "<h2>Where you are</h2>" in page and "This is where he was found." in page
+    assert '<section class="opening">' not in page                       # the opening plays once, at turn 0
+
+
 def test_a_theme_is_a_cosmetic_cookie_that_changes_no_game(client):
     page = _new_game(client)
     assert 'data-theme="auto"' in page
